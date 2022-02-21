@@ -65,7 +65,7 @@
 #include "MicroBeaut.h"
 
 #define pbPin       2               // Define Push Button Pin
-#define ledPin      3               // Degine LED Pin
+#define ledPin      3               // Define LED Pin
 
 MicroBeaut_Blink  blinkOutput;      // Blink Variable
 bool inputState;                    // Input State
