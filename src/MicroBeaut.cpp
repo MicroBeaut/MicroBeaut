@@ -2,6 +2,17 @@
 #include "Arduino.h"
 
 
+/*
+  -- ========================================================
+	-- Library: MicorBeaut
+	-- Version: V1.2.0
+	-- Date:		24-Feb-2022
+  -- Author:  Montree Hamarn
+  -- GitHub:  https://github.com/MicroBeaut
+  -- YouTube: What Did You Learn Today
+  --          https://www.youtube.com/playlist?list=PLFf3xtcn9d47akU0G3bf2BXiMebCzrvMm
+  -- ========================================================
+*/
 
 
 
@@ -406,8 +417,11 @@ bool MicroBeaut_Blink::_Blink(void) {
     if (_output) {
       if (_elapsedTime >= _timeDelayOn ) {
         if (0UL < _timeDelayOff ) {
-          _elapsedTime = 0UL;
           _output = false;
+          _elapsedTime = _elapsedTime - _timeDelayOn;
+          if (_elapsedTime >= _timeDelayOn ) {
+            _elapsedTime = 0UL;
+          }
         }
         else {
           _elapsedTime = _timeDelayOn;
@@ -417,8 +431,11 @@ bool MicroBeaut_Blink::_Blink(void) {
     else {
       if (_elapsedTime >= _timeDelayOff) {
         if (0UL < _timeDelayOn ) {
-          _elapsedTime = 0UL;
           _output = true;
+          _elapsedTime = _elapsedTime - _timeDelayOff;
+          if (_elapsedTime >= _timeDelayOff ) {
+            _elapsedTime = 0UL;
+          }
         }
         else {
           _elapsedTime = _timeDelayOff;
@@ -548,14 +565,18 @@ bool MicroBeaut_Trigger::_Trigger(void) {
   }
   else {
     if (_input) {
-      _currTime = micros();
+
       if (!_prevInput) {
-        _prveTime = _currTime;
+        _prveTime = micros();
       }
+      _currTime = micros();
       _elapsedTime += _currTime - _prveTime;
       if ( _elapsedTime >= _timeDelay) {
-        _elapsedTime = 0UL;
         _output  = true ;
+        _elapsedTime = _elapsedTime - _timeDelay;
+        if (_elapsedTime >= _timeDelay ) {
+          _elapsedTime = 0UL;
+        }
       }
       else {
         _output  = false ;
@@ -565,4 +586,137 @@ bool MicroBeaut_Trigger::_Trigger(void) {
   }
   _prevInput = _input & !_reset;
   return _output;
+}
+
+
+
+/*
+  ===========================================================================
+   Function:  TimeSchedule
+   Purpose:   Schedule execution at specified time intervals.
+
+   Function TimeScedule schedules the execution of certain routines at
+   desired time intervals. Output is TRUE when the specified "period."
+   of time has passed, holding TRUE for one scan; otherwise, output Output is FALSE.
+   By testing the output Output, you can cause sections of the control program
+   to be executed periodically.
+
+  ===========================================================================
+*/
+
+MicroBeaut_TimeSchedule::MicroBeaut_TimeSchedule(void) {
+  _input = false;
+  _output = false;
+  _timeSchedule = 10000UL;
+}
+
+
+bool MicroBeaut_TimeSchedule::Run(bool enableInput, float TimeSchedule, MicroBeaut_CallBackFunction FunctionName) {
+  this->Setup(TimeSchedule, FunctionName);
+  return this->Run(enableInput);
+}
+
+void MicroBeaut_TimeSchedule::Setup(float TimeSchedule, MicroBeaut_CallBackFunction FunctionName) {
+  _timeSchedule = TimeSchedule * 1000000UL;
+  _callBackFunction = FunctionName;
+}
+
+bool MicroBeaut_TimeSchedule::Run(bool enableInput) {
+  _input = enableInput;
+  return this->_Run();
+}
+
+bool MicroBeaut_TimeSchedule::_Run() {
+  if (_input) {
+    if (!_prevInput) {
+      _prveTime = micros();
+    }
+    _currTime = micros();
+    _elapsedTime += (_currTime - _prveTime);
+    if ( _elapsedTime >= _timeSchedule) {
+      _actual = _elapsedTime;
+      _elapsedTime = _elapsedTime - _timeSchedule;
+      _output  = true ;
+      if ( _elapsedTime >= _timeSchedule) {
+        _elapsedTime = 0UL;
+      }
+      _callBackFunction ();
+    }
+    else {
+      _output  = false ;
+    }
+    _prveTime = _currTime;
+  }
+  _prevInput = _input;
+  return _output;
+}
+
+float MicroBeaut_TimeSchedule::Actual(void) {
+  return (float)_actual * 0.000001;
+}
+
+
+
+/*
+  ===========================================================================
+   Function:  ScanSchedule
+   Purpose:   Schedules execution after a certain number of scans.
+
+   This function can schedule the execution of certain routines when
+   a specified number of evaluations has occurred. Output
+   is TRUE after the specified number of evaluations, holding TRUE for one
+   evaluation. By testing the output, you can cause sections of the
+   control program to be executed periodically.
+  ===========================================================================
+*/
+
+
+MicroBeaut_ScanSchedule::MicroBeaut_ScanSchedule(void) {
+  _input = false;
+  _output = false;
+  _currNumberOfScan = 0UL;
+}
+
+
+bool MicroBeaut_ScanSchedule::Run(bool enableInput, unsigned long NumberOfScan, MicroBeaut_CallBackFunction FunctionName) {
+  this->Setup(NumberOfScan, FunctionName);
+  return this->Run(enableInput);
+}
+
+void MicroBeaut_ScanSchedule::Setup(unsigned long NumberOfScan, MicroBeaut_CallBackFunction FunctionName) {
+  _numberOfScan = NumberOfScan;
+  _callBackFunction = FunctionName;
+}
+
+bool MicroBeaut_ScanSchedule::Run(bool enableInput) {
+  _input = enableInput;
+  return this->_Run();
+}
+
+bool MicroBeaut_ScanSchedule::_Run() {
+  if (_input) {
+    if (!_prevInput) {
+      _prveTime = micros();
+    }
+    _currTime = micros();
+    _elapsedTime += (_currTime - _prveTime);
+    _currNumberOfScan++;
+    if ( _currNumberOfScan >= _numberOfScan) {
+      _currNumberOfScan = 0UL;
+      _actual = _elapsedTime;
+      _elapsedTime = 0UL;
+      _output  = true ;
+      _callBackFunction ();
+    }
+    else {
+      _output  = false ;
+    }
+    _prveTime = _currTime;
+  }
+  _prevInput = _input;
+  return _output;
+}
+
+float MicroBeaut_ScanSchedule::Actual(void) {
+  return (float)_actual * 0.000001;
 }

@@ -52,14 +52,14 @@
 #include "MicroBeaut.h"
 
 #define swPin   2               // Define Push Button Pin
-#define ledPin  3               // Degine LED Pin
+#define ledPin  3               // Define LED Pin
 
 MicroBeaut_TimePulse tpOutput;  // Time Pulse Variable
 bool inputState;                // Input State
 bool outputState;               // Output State
 
 
-// Printing Purpose
+// Serial Plotter Purpose
 MicroBeaut_Trigger triggerDisplay;  // Trigger Variable
 unsigned long lineNumber;           // Line Number : Max = 9999
 const float printPresetTime = 0.01;  // 10 milliseconds
@@ -73,8 +73,8 @@ const float printPresetTime = 0.01;  // 10 milliseconds
 const float timeDelay = 1.0;          // Time Delay 1 second
 
 void setup() {
-  Serial.begin(115200);                           // Set Buad Rate
-  triggerDisplay.SetTimeDelay(printPresetTime);   // Initial Time Delay for Printing
+  Serial.begin(115200);                           // Set Baud Rate
+  triggerDisplay.SetTimeDelay(printPresetTime);   // Initial Time Delay for Serial Plotter
 
   pinMode(swPin, INPUT);              // Input Pin Mode
   pinMode(ledPin, OUTPUT);            // Output Pin Mode
@@ -98,7 +98,7 @@ void loop() {
   digitalWrite(ledPin, outputState);                       // ON/OFF LED
 #endif
 
-  // Trigger for Printing
+  // Trigger for Serial Plotter
   if (triggerDisplay.Trigger(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)

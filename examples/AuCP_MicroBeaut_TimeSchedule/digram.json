@@ -14,29 +14,15 @@
     {
       "type": "wokwi-pushbutton",
       "id": "btn1",
-      "top": 128.98,
-      "left": -165.84,
+      "top": 98.55,
+      "left": -210.18,
       "attrs": { "color": "darkgreen", "label": "ENABLE", "bounce": "0" }
-    },
-    {
-      "type": "wokwi-pushbutton",
-      "id": "btn2",
-      "top": 191.3,
-      "left": -166.4,
-      "attrs": { "color": "darkred", "label": "RESET", "bounce": "0" }
     },
     {
       "type": "wokwi-resistor",
       "id": "r1",
-      "top": 155.3,
-      "left": -259.11,
-      "attrs": { "value": "1000" }
-    },
-    {
-      "type": "wokwi-resistor",
-      "id": "r2",
-      "top": 217.62,
-      "left": -260.12,
+      "top": 125.75,
+      "left": -115.67,
       "attrs": { "value": "1000" }
     },
     {
@@ -56,16 +42,12 @@
     }
   ],
   "connections": [
-    [ "uno:A0", "btn1:2.r", "green", [ "h-70.29", "v7.93" ] ],
-    [ "uno:A1", "btn2:2.r", "green", [ "h-62.25", "v2.45" ] ],
-    [ "btn2:2.l", "r2:2", "green", [ "h0" ] ],
-    [ "btn1:2.l", "r1:2", "green", [ "h0" ] ],
-    [ "r2:1", "r1:1", "black", [ "v-0.03", "h-15.18", "v-124.26" ] ],
-    [ "btn1:1.l", "btn2:1.l", "red", [ "h-20.31", "v-30.94" ] ],
     [ "r9:1", "led1:A", "green", [ "h0" ] ],
     [ "uno:GND.1", "led1:C", "black", [ "h0" ] ],
-    [ "uno:5V", "btn2:1.l", "red", [ "h-175.29", "v169.54" ] ],
     [ "uno:7", "r9:2", "green", [ "h0" ] ],
-    [ "uno:GND.2", "r1:1", "black", [ "h-50.32", "v133.23", "h-215.6", "v-119.1" ] ]
+    [ "uno:GND.3", "r1:2", "black", [ "h0" ] ],
+    [ "r1:1", "btn1:2.r", "green", [ "v0" ] ],
+    [ "uno:5V", "btn1:1.r", "red", [ "h-106.83", "v-10.27" ] ],
+    [ "uno:A0", "btn1:2.l", "green", [ "h-219.84", "v-30.45" ] ]
   ]
 }

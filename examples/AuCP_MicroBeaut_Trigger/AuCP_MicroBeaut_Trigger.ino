@@ -60,7 +60,7 @@
 
 #define btEnablePin   A0               // Define Push Button Pin
 #define btResetPin    A1               // Define Push Button Pin
-#define ledOutputPin  7               // Degine LED Pin
+#define ledOutputPin  7               // Define LED Pin
 
 MicroBeaut_Trigger tgOutput;    // Trigger Variable
 bool enableState;                // Input State
@@ -68,7 +68,7 @@ bool resetState;                // Input State
 bool outputState;               // Output State
 
 
-// Printing Purpose
+// Serial Plotter Purpose
 MicroBeaut_Trigger triggerDisplay;  // Trigger Variable
 unsigned long lineNumber;           // Line Number : Max = 9999
 const float printPresetTime = 0.01;  // 10 milliseconds
@@ -82,8 +82,8 @@ const float printPresetTime = 0.01;  // 10 milliseconds
 const float timeDelay = 1.0;          // Time Delay 1 second
 
 void setup() {
-  Serial.begin(115200);                           // Set Buad Rate
-  triggerDisplay.SetTimeDelay(printPresetTime);   // Initial Time Delay for Printing
+  Serial.begin(115200);                           // Set Baud Rate
+  triggerDisplay.SetTimeDelay(printPresetTime);   // Initial Time Delay for Serial Plotter
 
   pinMode(btEnablePin, INPUT);             // Input Pin Mode
   pinMode(btResetPin, INPUT);              // Input Pin Mode
@@ -113,11 +113,11 @@ void loop() {
 
   // Trigger OPTION 3: Trigger Function with Input
 #elif defined (OPTION3)
-  outputState = tgOutput.Trigger(enableState, resetState, timeDelay);  // Trigger Function with Input and Reset Parameter
+  outputState = tgOutput.Trigger(!enableState, resetState, timeDelay);  // Trigger Function with Input and Reset Parameter
   digitalWrite(ledOutputPin, outputState);                              // ON/OFF LED
 #endif
 
-  // Trigger for Printing
+  // Trigger for Serial Plotter
   if (triggerDisplay.Trigger(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)

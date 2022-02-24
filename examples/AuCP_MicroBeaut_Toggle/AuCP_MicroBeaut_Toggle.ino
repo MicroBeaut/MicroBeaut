@@ -45,7 +45,7 @@
 
 #define btInputPin    A0        // Define Push Button Pin
 #define btResetPin    A1        // Define Push Button Pin
-#define ledOutputPin  7         // Degine LED Pin
+#define ledOutputPin  7         // Define LED Pin
 
 MicroBeaut_Toggle tgOutput;     // Toggle Variable
 bool inputState;                // Input State
@@ -67,7 +67,7 @@ const float printPresetTime = 0.01;  // 10 milliseconds
 const float timeDelay = 1.0;          // Time Delay 1 second
 
 void setup() {
-  Serial.begin(115200);                           // Set Buad Rate
+  Serial.begin(115200);                           // Set Baud Rate
   trigDisplay.SetTimeDelay(printPresetTime);   // Initial Time Delay for Printing
 
   pinMode(btInputPin, INPUT);             // Input Pin Mode

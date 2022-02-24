@@ -15,6 +15,9 @@ Applied PLC's Technique, Concept, and Function to Microcontroller is named "Appl
 ### Edge: 
 -	Rising (Rising Edge) 
 -	Falling (Falling Edge) 
+### Schedule: 
+-	TimeSchedule (Schedule execution at specified time intervals) 
+-	ScanSchedule (Schedules execution after a certain number of scans) 
 
 All of them are generic functions that can help you do Microcontroller Programming efficiently. 
 

@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 1.2,
   "author": "Montree Hamarn",
   "editor": "wokwi",
   "parts": [
@@ -16,7 +16,7 @@
       "id": "btn1",
       "top": 128.98,
       "left": -165.84,
-      "attrs": { "color": "darkgreen", "label": "ENABLE", "bounce": "0" }
+      "attrs": { "color": "darkgreen", "label": "TOGGLE", "bounce": "0" }
     },
     {
       "type": "wokwi-pushbutton",

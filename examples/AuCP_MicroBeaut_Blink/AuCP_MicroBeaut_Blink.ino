@@ -72,7 +72,7 @@ bool inputState;                    // Input State
 bool outputState;                   // Output State
 
 
-// Printing Purpose
+// Serial Plotter Purpose
 MicroBeaut_Trigger triggerDisplay;    // Trigger Variable
 unsigned long lineNumber;             // Line Number : Max = 999
 const float printPresetTime = 0.010;  // Trigger Time = 10 milliseconds
@@ -85,12 +85,12 @@ const float timeDelayOn = 2.0;    // 2 seconds
 
 // TYPE YOUR OPTION (OPTION1-4)
 //************************************************************
-#define OPTION2                   // Select Option to Compile
+#define OPTION1                   // Select Option to Compile
 //************************************************************
 
 void setup() {
-  Serial.begin(115200);                           // Set Buad Rate
-  triggerDisplay.SetTimeDelay(printPresetTime);   // Initial Time Delay for Printing
+  Serial.begin(115200);                           // Set Baud Rate
+  triggerDisplay.SetTimeDelay(printPresetTime);   // Initial Time Delay for Serial Plotter
 
   pinMode(pbPin, INPUT_PULLUP);                   // Input Pin Mode
   pinMode(ledPin, OUTPUT);                        // Output Pin Mode
@@ -98,11 +98,11 @@ void setup() {
 
 void loop() {
 
-  inputState = digitalRead(pbPin);                // Read Input State (0 = Press, 1 = Relese)
+  inputState = digitalRead(pbPin);                // Read Input State (0 = Press, 1 = Release)
 
   // Blink OPTION 1
   // 1. Setup Time Dalay for both ON/OFF
-  // 2. Blink Function wiht Input
+  // 2. Blink Function with Input
 #if defined (OPTION1)
   blinkOutput.SetTimeDelay(timeDelay);            // Set Time Delay OFF/ON same delay time
   outputState = blinkOutput.Blink(inputState);     // Blink Function with Input Parameter
@@ -110,24 +110,24 @@ void loop() {
 
   // Blink OPTION 2:
   // 1. Setup Time Dalay On and Time Delay Off
-  // 2. Blink Function wiht Input
+  // 2. Blink Function with Input
 #elif defined (OPTION2)
   blinkOutput.SetTimeDelay(timeDelayOff, timeDelayOn);  // Set Time Delay OFF/ON individual
   outputState = blinkOutput.Blink(inputState);           // Blink Function with Input Parameter
   digitalWrite(ledPin, outputState);                     // ON/OFF LED
 
-  // Blink OPTION 3: Blink Function wiht Input and Time Dealy for both OFF/ON
+  // Blink OPTION 3: Blink Function with Input and Time Delay for both OFF/ON
 #elif defined (OPTION3)
-  outputState = blinkOutput.Blink(inputState, timeDelay);   // Blink Function with Inpu and Time Delay OFF/ON Parameter
+  outputState = blinkOutput.Blink(inputState, timeDelay);   // Blink Function with Input and Time Delay OFF/ON Parameter
   digitalWrite(ledPin, outputState);                     // ON/OFF LED
 
-  // Blink OPTION 4: Blink Function wiht Input, Time Delay Off, and Time Delay On
+  // Blink OPTION 4: Blink Function with Input, Time Delay Off, and Time Delay On
 #elif defined (OPTION4)
-  outputState = blinkOutput.Blink(inputState, timeDelayOff, timeDelayOn);   // Blink Function with Inpu and Time Delay OFF/ON Parameter
+  outputState = blinkOutput.Blink(inputState, timeDelayOff, timeDelayOn);   // Blink Function with Input and Time Delay OFF/ON Parameter
   digitalWrite(ledPin, outputState);                                     // ON/OFF LED
 #endif
 
-  // Trigger for Printing
+  // Trigger for Serial Plotter
   if (triggerDisplay.Trigger(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber) + ": Time Delay ON: " + String(blinkOutput.GetTimeDelayOn(), 6)     // Get Time Delay ON

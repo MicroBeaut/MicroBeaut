@@ -3,6 +3,17 @@
 
 #include "Arduino.h"
 
+/*
+  -- ========================================================
+	-- Library: MicorBeaut
+	-- Version: V1.2.0
+	-- Date:		24-Feb-2022
+  -- Author:  Montree Hamarn
+  -- GitHub:  https://github.com/MicroBeaut
+  -- YouTube: What Did You Learn Today
+  --          https://www.youtube.com/playlist?list=PLFf3xtcn9d47akU0G3bf2BXiMebCzrvMm
+  -- ========================================================
+*/
 
 
 class MicroBeaut_SR {
@@ -213,4 +224,55 @@ class MicroBeaut_Trigger
 
     bool _Trigger(void);
 };
+
+
+class MicroBeaut_TimeSchedule {
+
+typedef void (*MicroBeaut_CallBackFunction)(void);
+  public:
+    MicroBeaut_TimeSchedule(void);
+    void Setup(float TimeSchedule, MicroBeaut_CallBackFunction FunctionName);
+    bool Run(bool enableInput);
+    bool Run(bool enableInput, float msTimeSchedule, MicroBeaut_CallBackFunction FunctionName);
+    float Actual(void);
+
+  private:
+    MicroBeaut_CallBackFunction _callBackFunction;
+    bool _input;
+    bool _prevInput;
+    bool _output;
+    unsigned long _actual;
+    unsigned long _timeSchedule;
+    unsigned long _prveTime;
+    unsigned long _currTime;
+    unsigned long _elapsedTime;
+
+    bool _Run();
+};
+
+
+class MicroBeaut_ScanSchedule {
+typedef void (*MicroBeaut_CallBackFunction)(void);
+  public:
+    MicroBeaut_ScanSchedule(void);
+    void Setup(unsigned long NumberOfScan, MicroBeaut_CallBackFunction FunctionName);
+    bool Run(bool enableInput);
+    bool Run(bool enableInput, unsigned long NumberOfScan, MicroBeaut_CallBackFunction FunctionName);
+    float Actual(void);
+
+  private:
+    MicroBeaut_CallBackFunction _callBackFunction;
+    bool _input;
+    bool _prevInput;
+    bool _output;
+	unsigned long _numberOfScan;
+	unsigned long _currNumberOfScan;
+    unsigned long _actual;
+    unsigned long _prveTime;
+    unsigned long _currTime;
+    unsigned long _elapsedTime;
+
+    bool _Run();
+};
+
 #endif

@@ -38,7 +38,7 @@
 #include "MicroBeaut.h"
 
 #define swPin   2               // Define Push Button Pin
-#define ledPin  3               // Degine LED Pin
+#define ledPin  3               // Define LED Pin
 
 MicroBeaut_Rising reInput;     // Rising Edge Variable
 bool inputState;                // Input State
@@ -46,7 +46,7 @@ bool outputState;               // Output State
 int counterValue;
 
 
-// Printing Purpose
+// Serial Plotter Purpose
 MicroBeaut_Trigger triggerDisplay;  // Trigger Variable
 unsigned long lineNumber;           // Line Number : Max = 9999
 const float printPresetTime = 0.100;  // 100 milliseconds
@@ -54,8 +54,8 @@ const float printPresetTime = 0.100;  // 100 milliseconds
 const float timeDelay = 1.0;          // Time Delay 1 second
 
 void setup() {
-  Serial.begin(115200);                           // Set Buad Rate
-  triggerDisplay.SetTimeDelay(printPresetTime);   // Initial Time Delay for Printing
+  Serial.begin(115200);                           // Set Baud Rate
+  triggerDisplay.SetTimeDelay(printPresetTime);   // Initial Time Delay for Serial Plotter
 
   pinMode(swPin, INPUT);              // Input Pin Mode
   pinMode(ledPin, OUTPUT);            // Output Pin Mode
@@ -63,7 +63,7 @@ void setup() {
 
 void loop() {
   inputState = digitalRead(swPin);              // Read Input State (0 = Release, 1 = Press)
-  outputState = reInput.Rising(inputState);     // Rising Edge Function wiht Input Parameter
+  outputState = reInput.Rising(inputState);     // Rising Edge Function with Input Parameter
 
   // Counter by Rising Edge Input
   if (outputState) {
@@ -71,7 +71,7 @@ void loop() {
   }
   digitalWrite(ledPin, outputState);            // ON/OFF LED
 
-  // Trigger for Printing
+  // Trigger for Serial Plotter
   if (triggerDisplay.Trigger(true) | outputState) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)

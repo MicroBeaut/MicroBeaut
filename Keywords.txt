@@ -16,7 +16,8 @@ MicroBeaut_TimerOff	KEYWORD1
 MicroBeaut_Blink	KEYWORD1
 MicroBeaut_TimePulse	KEYWORD1
 MicroBeaut_Trigger	KEYWORD1
-
+MicroBeaut_TimeSchedule	KEYWORD1
+MicroBeaut_ScanSchedule	KEYWORD1
 
 
 #######################################
@@ -38,6 +39,8 @@ GetTimeDelayOn		KEYWORD2
 GetTimeDelayOff		KEYWORD2
 GetTimeDelay		KEYWORD2
 GetElapsedTime		KEYWORD2
+Run			KEYWORD2
+Setup			KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

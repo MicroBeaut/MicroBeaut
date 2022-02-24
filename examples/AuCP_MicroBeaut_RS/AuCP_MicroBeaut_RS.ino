@@ -10,7 +10,7 @@
 */
 /*
   -- ===========================================================================
-  Function: RS (Reset Dominante)
+  Function: RS (Reset Dominant)
 
   Function RS is a Reset Dominant latch. The reset input resets the
   latch. The set input sets the latch if the reset input is FALSE.
@@ -41,9 +41,9 @@
 
 #define swSetPin      A0         // Define Push Button Pin
 #define swResetPin    A1         // Define Push Button Pin
-#define ledSetPin     7          // Degine LED Pin
-#define ledResetPin   6          // Degine LED Pin
-#define ledOutputPin  5          // Degine LED Pin
+#define ledSetPin     7          // Define LED Pin
+#define ledResetPin   6          // Define LED Pin
+#define ledOutputPin  5          // Define LED Pin
 
 MicroBeaut_RS rsOutput;         // RS Variable
 bool swSetState;                // Input State
@@ -51,21 +51,21 @@ bool swResetState;              // Input State
 bool ledOutputState;            // Output State
 
 // Latching Purposes
-MicroBeaut_Toggle togSet;       // Toggle Vareiable
-MicroBeaut_Toggle togReset;     // Toggle Vareiable
+MicroBeaut_Toggle togSet;       // Toggle Variable
+MicroBeaut_Toggle togReset;     // Toggle Variable
 bool setState;                  // Toggle State
 bool resetState;                // Toggle State
 
 
-// Printing Purpose
+// Serial Plotter Purpose
 MicroBeaut_Trigger triggerDisplay;    // Toggle Variable
 unsigned long lineNumber;             // Line Number : Max = 9999
 const float printPresetTime = 0.25;   // 250 milliseconds
 
 
 void setup() {
-  Serial.begin(115200);                           // Set Buad Rate
-  triggerDisplay.SetTimeDelay(printPresetTime);   // Initial Time Delay for Printing
+  Serial.begin(115200);                           // Set Baud Rate
+  triggerDisplay.SetTimeDelay(printPresetTime);   // Initial Time Delay for Serial Plotter
 
   pinMode(swSetPin, INPUT);               // Input Pin Mode
   pinMode(swResetPin, INPUT);             // Input Pin Mode
@@ -85,10 +85,10 @@ void loop() {
   digitalWrite(ledResetPin, resetState);      // ON/OFF LED
 
   // To Test RS Function
-  ledOutputState = rsOutput.RS(setState, resetState); // RS Function with Ser/Reset Parameter
+  ledOutputState = rsOutput.RS(setState, resetState); // RS Function with Set/Reset Parameter
   digitalWrite(ledOutputPin, ledOutputState);         // ON/OFF LED
 
-  // Toggle for Printing
+  // Toggle for Serial Plotter
   if (triggerDisplay.Trigger(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;       // Compare / Increase / Reset Line Number
     Serial.println("L" + String(lineNumber)

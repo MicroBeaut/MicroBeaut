@@ -55,14 +55,14 @@
 #include "MicroBeaut.h"
 
 #define swPin   2               // Define Push Button Pin
-#define ledPin  3               // Degine LED Pin
+#define ledPin  3               // Define LED Pin
 
 MicroBeaut_TimerOn tonOutput;   // Timer On Variable
 bool inputState;                // Input State
 bool outputState;               // Output State
 
 
-// Printing Purpose
+// Serial Plotter Purpose
 MicroBeaut_Trigger triggerDisplay;  // Trigger Variable
 unsigned long lineNumber;           // Line Number : Max = 9999
 const float printPresetTime = 0.01;  // 10 milliseconds
@@ -76,8 +76,8 @@ const float printPresetTime = 0.01;  // 10 milliseconds
 const float timeDelay = 1.0;          // Time Delay 1 second
 
 void setup() {
-  Serial.begin(115200);                           // Set Buad Rate
-  triggerDisplay.SetTimeDelay(printPresetTime);   // Initial Time Delay for Printing
+  Serial.begin(115200);                           // Set Baud Rate
+  triggerDisplay.SetTimeDelay(printPresetTime);   // Initial Time Delay for Serial Plotter
 
   pinMode(swPin, INPUT);              // Input Pin Mode
   pinMode(ledPin, OUTPUT);            // Output Pin Mode
@@ -89,19 +89,19 @@ void loop() {
 
   // Timer On OPTION 1
   // 1. Setup Time Delay for Timer On
-  // 2. Timer On Function wiht Input
+  // 2. Timer On Function with Input
 #if defined (OPTION1)
   tonOutput.SetTimeDelay(timeDelay);                  // Set Time Delay
   outputState = tonOutput.TimerOn(inputState);           // Timer On Function with Input Parameter
   digitalWrite(ledPin, outputState);                     // ON/OFF LED
 
-  // Timer On OPTION 2: Timer On Function wiht Input
+  // Timer On OPTION 2: Timer On Function with Input
 #elif defined (OPTION2)
   outputState = tonOutput.TimerOn(inputState, timeDelay);  // Timer On Function with Input Parameter
   digitalWrite(ledPin, outputState);                       // ON/OFF LED
 #endif
 
-  // Trigger for Printing
+  // Trigger for Serial Plotter
   if (triggerDisplay.Trigger(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)

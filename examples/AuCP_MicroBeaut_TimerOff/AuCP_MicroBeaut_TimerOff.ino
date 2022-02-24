@@ -63,7 +63,7 @@ bool inputState;                // Input State
 bool outputState;               // Output State
 
 
-// Printing Purpose
+// Serial Plotter Purpose
 MicroBeaut_Trigger triggerDisplay;  // Trigger Variable
 unsigned long lineNumber;           // Line Number : Max = 9999
 const float printPresetTime = 0.01; // 10 milliseconds
@@ -77,8 +77,8 @@ const float printPresetTime = 0.01; // 10 milliseconds
 const float timeDelay = 1.0;          // Time Delay 1 second
 
 void setup() {
-  Serial.begin(115200);                           // Set Buad Rate
-  triggerDisplay.SetTimeDelay(printPresetTime);   // Initial Time Delay for Printing
+  Serial.begin(115200);                           // Set Baud Rate
+  triggerDisplay.SetTimeDelay(printPresetTime);   // Initial Time Delay for Serial Plotter
 
   pinMode(swPin, INPUT_PULLUP);       // Input Pin Mode
   pinMode(ledPin, OUTPUT);            // Output Pin Mode
@@ -90,19 +90,19 @@ void loop() {
 
   // Timer Off OPTION 1
   // 1. Setup Time Delay for Timer Off
-  // 2. Timer Off Function wiht Input
+  // 2. Timer Off Function with Input
 #if defined (OPTION1)
   tofOutput.SetTimeDelay(timeDelay);                  // Set Time Delay
   outputState = tofOutput.TimerOff(inputState);           // Timer Off Function with Input Parameter
   digitalWrite(ledPin, outputState);                     // ON/OFF LED
 
-  // Timer Off OPTION 2: Timer Off Function wiht Input
+  // Timer Off OPTION 2: Timer Off Function with Input
 #elif defined (OPTION2)
   outputState = tofOutput.TimerOff(inputState, timeDelay);  // Timer Off Function with Input Parameter
   digitalWrite(ledPin, outputState);                       // ON/OFF LED
 #endif
 
-  // Trigger for Printing
+  // Trigger for Serial Plotter
   if (triggerDisplay.Trigger(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)
