@@ -111,7 +111,7 @@ void loop() {
   if (trigDisplay.Trigger(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)
-                   + ", Disable: " + String(disableState)         // Input State
+                   + ", Enable: " + String(disableState)         // Input State
                    + ", Output: " + String(outputState)       // Output State
                    + ", Actual Time: " + String(scanSchedule.Actual(), 6));
   }
