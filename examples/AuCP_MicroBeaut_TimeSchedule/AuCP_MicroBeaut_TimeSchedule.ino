@@ -57,22 +57,22 @@
 #define ledOutputPin  7         // Define LED Pin
 
 MicroBeaut_TimeSchedule timeSchedule;     // Time Schedule Function
-bool inputState;                          // Input State
+bool disableState;                          // Input State
 bool outputState;                         // Output State
 
 
 // Serial Plotter Purpose
-MicroBeaut_Trigger trigDisplay;  // Time Schedule Variable
+MicroBeaut_Trigger trigDisplay;  // Trigger Variable
 unsigned long lineNumber;           // Line Number : Max = 9999
 const float printPresetTime = 0.01;  // 10 milliseconds
 
 
 // TYPE YOUR OPTION (OPTION1-2)
 //************************************************************
-#define OPTION2                    // Select Option to Compile
+#define OPTION1                    // Select Option to Compile
 //************************************************************
 
-const float timeInterval = 0.5;          // Time Delay 1 second
+const float timeInterval = 0.5;          // Time Delay 0.5 second
 
 void setup() {
   Serial.begin(115200);                           // Set Baud Rate
@@ -90,16 +90,16 @@ void setup() {
 
 void loop() {
 
-  inputState = digitalRead(btInputPin);  // Read Input State (0 = Release, 1 = Press)
+  disableState = !digitalRead(btInputPin);  // Read Input State (0 = Release, 1 = Press)
 
   // Time Schedule OPTION 1: Time Schedule Function with Enable Input
 #if defined (OPTION1)
-  timeSchedule.Run(!inputState);           // Time Schedule Function with Enable Parameter
+  timeSchedule.Run(disableState);           // Time Schedule Function with Enable Parameter
 
 
   // Time Schedule OPTION 2: Time Schedule Function with All Parameters
 #elif defined (OPTION2)
-  timeSchedule.Run(!inputState, timeInterval, ToggleStateLED);  // Time Schedule Function with All Parameters
+  timeSchedule.Run(disableState, timeInterval, ToggleStateLED);  // Time Schedule Function with All Parameters
 #endif
 
   digitalWrite(ledOutputPin, outputState); // ON/OFF LED
@@ -108,7 +108,7 @@ void loop() {
   if (trigDisplay.Trigger(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)
-                   + ", Input: " + String(!inputState)         // Input State
+                   + ", Disable: " + String(disableState)         // Input State
                    + ", Output: " + String(outputState)       // Output State
                    + ", Actual Time: " + String(timeSchedule.Actual(), 6));
   }

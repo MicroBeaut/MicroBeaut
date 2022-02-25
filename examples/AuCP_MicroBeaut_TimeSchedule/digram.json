@@ -16,7 +16,7 @@
       "id": "btn1",
       "top": 98.55,
       "left": -210.18,
-      "attrs": { "color": "darkgreen", "label": "ENABLE", "bounce": "0" }
+      "attrs": { "color": "darkgreen", "label": "DISABLE", "bounce": "0" }
     },
     {
       "type": "wokwi-resistor",

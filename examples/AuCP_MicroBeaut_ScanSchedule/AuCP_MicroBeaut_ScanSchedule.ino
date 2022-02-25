@@ -57,12 +57,12 @@
 #define ledOutputPin  7         // Define LED Pin
 
 MicroBeaut_ScanSchedule scanSchedule;     // Scan Schedule Function
-bool inputState;                          // Input State
+bool disableState;                          // Input State
 bool outputState;                         // Output State
 
 
 // Serial Plotter Purpose
-MicroBeaut_Trigger trigDisplay;       // Scan Schedule Variable
+MicroBeaut_Trigger trigDisplay;       // Trigger Variable
 unsigned long lineNumber;             // Line Number : Max = 9999
 const float printPresetTime = 0.01;   // 10 milliseconds
 
@@ -72,7 +72,7 @@ const float printPresetTime = 0.01;   // 10 milliseconds
 #define OPTION1                    // Select Option to Compile
 //************************************************************
 
-const float numberOfScan = 12000;             // Number of scans
+const float numberOfScan = 17450;             // Number of scans
 
 void setup() {
   Serial.begin(115200);                        // Set Baud Rate
@@ -91,18 +91,18 @@ void setup() {
 
 void loop() {
 
-  inputState = digitalRead(swInputPin);  // Read Input State (0 = Release, 1 = Press)
+  disableState = !digitalRead(swInputPin);  // Read Input State (0 = Release, 1 = Press)
 
   // Scan Schedule OPTION 1: Scan Schedule Function with Enable Input
 #if defined (OPTION1)
   // Scan Schedule Function with Enable Parameter
-  scanSchedule.Run(!inputState);
+  scanSchedule.Run(disableState);
 
 
   // Scan Schedule OPTION 2: Scan Schedule Function with All Parameters
 #elif defined (OPTION2)
   // Scan Schedule Function with All Parameters
-  scanSchedule.Run(!inputState, numberOfScan, ToggleStateLED);
+  scanSchedule.Run(disableState, numberOfScan, ToggleStateLED);
 #endif
 
   digitalWrite(ledOutputPin, outputState); // ON/OFF LED
@@ -111,7 +111,7 @@ void loop() {
   if (trigDisplay.Trigger(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)
-                   + ", Input: " + String(!inputState)         // Input State
+                   + ", Disable: " + String(disableState)         // Input State
                    + ", Output: " + String(outputState)       // Output State
                    + ", Actual Time: " + String(scanSchedule.Actual(), 6));
   }
