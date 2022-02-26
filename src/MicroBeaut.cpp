@@ -4,10 +4,11 @@
 
 /*
   -- ========================================================
-	-- Library: MicorBeaut
-	-- Version: V1.2.0
-	-- Date:		24-Feb-2022
+  -- Library: MicorBeaut
+  -- Version: V1.1.1
+  -- Date:    26-Feb-2022
   -- Author:  Montree Hamarn
+  -- Email:  montree.hamarn@gmail.com
   -- GitHub:  https://github.com/MicroBeaut
   -- YouTube: What Did You Learn Today
   --          https://www.youtube.com/playlist?list=PLFf3xtcn9d47akU0G3bf2BXiMebCzrvMm
@@ -42,6 +43,9 @@ bool MicroBeaut_SR::_SR(void) {
   return _output;
 }
 
+bool MicroBeaut_SR::Output(void) {
+  return _output;
+}
 
 
 /*
@@ -67,6 +71,10 @@ bool MicroBeaut_RS::RS(bool Set, bool Reset) {
 
 bool MicroBeaut_RS::_RS(void) {
   _output = (_set | _output) & !_reset;
+  return _output;
+}
+
+bool MicroBeaut_RS::Output(void) {
   return _output;
 }
 
@@ -109,6 +117,10 @@ bool MicroBeaut_Toggle::_Toggle(void) {
   return _output;
 }
 
+bool MicroBeaut_Toggle::Output(void) {
+  return _output;
+}
+
 
 
 /*
@@ -138,6 +150,10 @@ bool MicroBeaut_Rising::_Rising(void)
   return _output;
 }
 
+bool MicroBeaut_Rising::Output(void) {
+  return _output;
+}
+
 
 
 /*
@@ -164,6 +180,10 @@ bool MicroBeaut_Falling::_Falling(void)
 {
   _output = !_input & _prevInput;
   _prevInput = _input;
+  return _output;
+}
+
+bool MicroBeaut_Falling::Output(void) {
   return _output;
 }
 
@@ -230,6 +250,10 @@ bool MicroBeaut_Debounce::_Debounce(void) {
   return _output;
 }
 
+bool MicroBeaut_Debounce::Output(void) {
+  return _output;
+}
+
 
 
 /*
@@ -287,6 +311,10 @@ bool MicroBeaut_TimerOn::_TimerOn(void) {
     _elapsedTime = 0UL;
   }
   _prevInput = _input;
+  return _output;
+}
+
+bool MicroBeaut_TimerOn::Output(void) {
   return _output;
 }
 
@@ -351,6 +379,9 @@ bool MicroBeaut_TimerOff::_TimerOff(void) {
   return _output;
 }
 
+bool MicroBeaut_TimerOff::Output(void) {
+  return _output;
+}
 
 
 /*
@@ -409,10 +440,11 @@ float MicroBeaut_Blink::GetElapsedTime(void) {
 
 bool MicroBeaut_Blink::_Blink(void) {
   if (_input) {
-    _currTime = micros();
+
     if (!_prevInput) {
-      _prevTime = _currTime;
+      _prevTime = micros();
     }
+    _currTime = micros();
     _elapsedTime += (_currTime - _prevTime);
     if (_output) {
       if (_elapsedTime >= _timeDelayOn ) {
@@ -448,6 +480,9 @@ bool MicroBeaut_Blink::_Blink(void) {
   return _output;
 }
 
+bool MicroBeaut_Blink::Output(void) {
+  return _output;
+}
 
 
 /*
@@ -509,6 +544,10 @@ bool MicroBeaut_TimePulse::_TimePulse(void) {
   return _output;
 }
 
+bool MicroBeaut_TimePulse::Output(void) {
+  return _output;
+}
+
 
 
 /*
@@ -565,7 +604,6 @@ bool MicroBeaut_Trigger::_Trigger(void) {
   }
   else {
     if (_input) {
-
       if (!_prevInput) {
         _prveTime = micros();
       }
@@ -588,18 +626,22 @@ bool MicroBeaut_Trigger::_Trigger(void) {
   return _output;
 }
 
+bool MicroBeaut_Trigger::Output(void) {
+  return _output;
+}
+
 
 
 /*
   ===========================================================================
-   Function:  TimeSchedule
-   Purpose:   Schedule execution at specified time intervals.
+  Function:  TimeSchedule
+  Purpose:   Schedule execution at specified time intervals.
 
-   Function TimeScedule schedules the execution of certain routines at
-   desired time intervals. Output is TRUE when the specified "period."
-   of time has passed, holding TRUE for one scan; otherwise, output Output is FALSE.
-   By testing the output Output, you can cause sections of the control program
-   to be executed periodically.
+  Function TimeScedule schedules the execution of certain routines at
+  desired time intervals. Output is TRUE when the specified "period."
+  of time has passed, holding TRUE for one scan; otherwise, output Output is FALSE.
+  By testing the output Output, you can cause sections of the control program
+  to be executed periodically.
 
   ===========================================================================
 */
@@ -655,18 +697,22 @@ float MicroBeaut_TimeSchedule::Actual(void) {
   return (float)_actual * 0.000001;
 }
 
+bool MicroBeaut_TimeSchedule::Output(void) {
+  return _output;
+}
+
 
 
 /*
   ===========================================================================
-   Function:  ScanSchedule
-   Purpose:   Schedules execution after a certain number of scans.
+  Function:  ScanSchedule
+  Purpose:   Schedules execution after a certain number of scans.
 
-   This function can schedule the execution of certain routines when
-   a specified number of evaluations has occurred. Output
-   is TRUE after the specified number of evaluations, holding TRUE for one
-   evaluation. By testing the output, you can cause sections of the
-   control program to be executed periodically.
+  This function can schedule the execution of certain routines when
+  a specified number of evaluations has occurred. Output
+  is TRUE after the specified number of evaluations, holding TRUE for one
+  evaluation. By testing the output, you can cause sections of the
+  control program to be executed periodically.
   ===========================================================================
 */
 
@@ -719,4 +765,8 @@ bool MicroBeaut_ScanSchedule::_Run() {
 
 float MicroBeaut_ScanSchedule::Actual(void) {
   return (float)_actual * 0.000001;
+}
+
+bool MicroBeaut_ScanSchedule::Output(void) {
+  return _output;
 }

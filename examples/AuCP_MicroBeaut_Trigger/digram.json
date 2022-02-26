@@ -1,7 +1,7 @@
 {
-  "version": 1.2,
+  "version": 1.1,
   "author": "Montree Hamarn",
-  "editor": "wokwi",
+  "editor": "MicroBeaut",
   "parts": [
     {
       "type": "wokwi-arduino-uno",
@@ -16,7 +16,7 @@
       "id": "btn1",
       "top": 128.98,
       "left": -165.84,
-      "attrs": { "color": "darkgreen", "label": "ENABLE", "bounce": "0" }
+      "attrs": { "color": "darkgreen", "label": "DISABLE", "bounce": "0" }
     },
     {
       "type": "wokwi-pushbutton",

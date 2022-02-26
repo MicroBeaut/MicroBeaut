@@ -1,8 +1,9 @@
 /*
   -- ========================================================
-  -- Subject:  Applied Microcontroller Programming (AuCP)
-  -- Purpose:  Applied PLC Function to MCU.
+  -- Subject: Applied Microcontroller Programming (AuCP)
+  -- Purpose: Applied PLC Function to MCU.
   -- Author:  Montree Hamarn
+  -- Email:   montree.hamarn@gmail.com
   -- GitHub:  https://github.com/MicroBeaut
   -- YouTube: What Did You Learn Today
   --          https://www.youtube.com/playlist?list=PLFf3xtcn9d47akU0G3bf2BXiMebCzrvMm
@@ -33,27 +34,30 @@
 
   Parameters:
   Input:
-    Input           : Input
-    Time Delay      : Time Debounce in Second : Default = 10 milliseconds
+  Input           : Input
+  Time Delay      : Time Debounce in Second : Default = 10 milliseconds
 
   Return:
-    TRUE or FALSE (HIGH/LOW)
+  TRUE or FALSE (HIGH/LOW)
+
+  Get Output/Parameters:
+  boolVariable = variableName.Output();                        // Return Current Output State
+  floatVariable = variableName.GetTimeDelay();    // Return Current Time Debounce
+  floatVariable = variableName.GetElapsedTime();  // Return Elapsed Time
 
 
   Syntax:
   Option 1:
-      variableName.SetTimeDelay(floatTimeDebounce);
-      boolVariable = variableName.Debounce(inputVariable);
+  variableName.SetTimeDelay(floatTimeDebounce);
+  boolVariable = variableName.Debounce(inputVariable);
 
   Option 2:
-    boolVariable = variableName.Debounce(inputVariable, floatTimeDebounce);
+  boolVariable = variableName.Debounce(inputVariable, floatTimeDebounce);
 
 
-  Get Parameters:
-    floatVariable = variableName.GetTimeDelay();    // Return Current Time Debounce
-    floatVariable = variableName.GetElapsedTime();  // Return Elapsed Time
+
 */
-// https://wokwi.com/arduino/projects/323857211998601812
+// WokWi: https://wokwi.com/arduino/projects/323857211998601812
 
 #include "MicroBeaut.h"
 
@@ -76,7 +80,7 @@ const float printPresetTime = 0.01; // 10 milliseconds
 #define OPTION1                   // Select Option to Compile
 //************************************************************
 
-// To Test Debounce at 1 seccond
+// To Test Debounce at 1 second
 const float timeDebounce = 1.0;      // TimeDebounce 1 second
 
 void setup() {
@@ -93,22 +97,22 @@ void loop() {
 
   // Debounce OPTION 1
   // 1. Setup Time Delay for Debounce
-  // 2. Debounce Function wiht Input
+  // 2. Debounce Function with Input
 #if defined (OPTION1)
-  debounceSW.SetTimeDelay(timeDebounce);                // Set Time Debounce
-  outputState = debounceSW.Debounce(inputState);      // Debounce Function with Input Parameter
-  digitalWrite(ledPin, outputState);                    // ON/OFF LED
+  debounceSW.SetTimeDelay(timeDebounce);          // Set Time Debounce
+  outputState = debounceSW.Debounce(inputState);  // Debounce Function with Input Parameter
+  digitalWrite(ledPin, outputState);              // ON/OFF LED
 
-  // Debounce OPTION 2: Debounce Function wiht Input
+  // Debounce OPTION 2: Debounce Function with Input
 #elif defined (OPTION2)
-  outputState = debounceSW.Debounce(inputState, timeDebounce); // Debounce Function with Input Parameter
-  digitalWrite(ledPin, outputState);                             // ON/OFF LED
+  outputState = debounceSW.Debounce(inputState, timeDebounce);  // Debounce Function with Input Parameter
+  digitalWrite(ledPin, outputState);                            // ON/OFF LED
 #endif
 
   // Trigger for Serial Plotter
   if (triggerDisplay.Trigger(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
-    Serial.println("L" + String(lineNumber) + ":Time Debounce: " + String(debounceSW.GetTimeDelay(), 6)       // Get Time Debounce
+    Serial.println("L" + String(lineNumber) + ":Time Debounce: " + String(debounceSW.GetTimeDelay(), 6) // Get Time Debounce
                    + ", Elapsed Time: " + String(debounceSW.GetElapsedTime(), 6) // Get Elapsed Time
                    + ", Input: " + String(inputState)      // Input State
                    + ", Output: " + String(outputState));  // Output State

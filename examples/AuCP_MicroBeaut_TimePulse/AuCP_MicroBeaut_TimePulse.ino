@@ -3,6 +3,7 @@
   -- Subject: Applied Microcontroller Programming (AuCP)
   -- Purpose: Applied PLC Function to MCU.
   -- Author:  Montree Hamarn
+  -- Email:   montree.hamarn@gmail.com
   -- GitHub:  https://github.com/MicroBeaut
   -- YouTube: What Did You Learn Today
   --          https://www.youtube.com/playlist?list=PLFf3xtcn9d47akU0G3bf2BXiMebCzrvMm
@@ -27,27 +28,26 @@
 
   Parameters:
   Input:
-    Input           : Input
-    Time Delay      : Time Delay in Second;
+  Input           : Input
+  Time Delay      : Time Delay in Second;
 
   Return:
-    TRUE or FALSE (HIGH/LOW)
+  TRUE or FALSE (HIGH/LOW)
 
+  Get Output/Parameters:
+  boolVariable = variableName.Output();
+  floatVariable = variableName.GetTimeDelay();    // Return Current Time Time Pulse
+  floatVariable = variableName.GetElapsedTime();  // Return Elapsed Time
 
   Syntax:
   Option 1:
-      variableName.SetTimeDelay(floatTimePulse);
-      boolVariable = variableName.TimePulse(boolInput);
+  variableName.SetTimeDelay(floatTimePulse);
+  boolVariable = variableName.TimePulse(boolInput);
 
   Option 2:
-    boolVariable = variableName.TimePulse(boolInput, floatTimePulse);
-
-
-  Get Parameters:
-    floatVariable = variableName.GetTimeDelay();    // Return Current Time Time Pulse
-    floatVariable = variableName.GetElapsedTime();  // Return Elapsed Time
+  boolVariable = variableName.TimePulse(boolInput, floatTimePulse);
 */
-// https://wokwi.com/arduino/projects/324006931497747028
+// WokWi: https://wokwi.com/arduino/projects/324006931497747028
 
 #include "MicroBeaut.h"
 
@@ -88,9 +88,9 @@ void loop() {
   // 1. Setup Time Delay for Time Pulse
   // 2. Time Pulse Function wiht Input
 #if defined (OPTION1)
-  tpOutput.SetTimeDelay(timeDelay);                  // Set Time Delay
-  outputState = tpOutput.TimePulse(inputState);           // Time Pulse Function with Input Parameter
-  digitalWrite(ledPin, outputState);                     // ON/OFF LED
+  tpOutput.SetTimeDelay(timeDelay);               // Set Time Delay
+  outputState = tpOutput.TimePulse(inputState);   // Time Pulse Function with Input Parameter
+  digitalWrite(ledPin, outputState);              // ON/OFF LED
 
   // Time Pulse OPTION 2: Time Pulse Function wiht Input
 #elif defined (OPTION2)

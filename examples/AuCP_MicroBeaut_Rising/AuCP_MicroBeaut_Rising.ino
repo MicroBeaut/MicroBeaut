@@ -3,6 +3,7 @@
   -- Subject: Applied Microcontroller Programming (AuCP)
   -- Purpose: Applied PLC Function to MCU.
   -- Author:  Montree Hamarn
+  -- Email:   montree.hamarn@gmail.com
   -- GitHub:  https://github.com/MicroBeaut
   -- YouTube: What Did You Learn Today
   --          https://www.youtube.com/playlist?list=PLFf3xtcn9d47akU0G3bf2BXiMebCzrvMm
@@ -23,17 +24,19 @@
 
   Parameters:
   Input:
-    Input           : Input
+  Input           : Input
 
   Return:
-    TRUE or FALSE (HIGH/LOW)
+  TRUE or FALSE (HIGH/LOW)
 
+  Get Output/Parameters:
+  boolVariable = variableName.Output();
 
   Syntax:
-    boolVariable = variableName.Rising(boolInput);
+  boolVariable = variableName.Rising(boolInput);
 
 */
-// https://wokwi.com/arduino/projects/324033361796399700
+// WokWi: https://wokwi.com/arduino/projects/324033361796399700
 
 #include "MicroBeaut.h"
 

@@ -3,6 +3,7 @@
   -- Subject: Applied Microcontroller Programming (AuCP)
   -- Purpose: Applied PLC Function to MCU.
   -- Author:  Montree Hamarn
+  -- Email:   montree.hamarn@gmail.com
   -- GitHub:  https://github.com/MicroBeaut
   -- YouTube: What Did You Learn Today
   --          https://www.youtube.com/playlist?list=PLFf3xtcn9d47akU0G3bf2BXiMebCzrvMm
@@ -23,17 +24,19 @@
 
   Parameters:
   Input:
-    Input           : Input
+  Input           : Input
 
   Return:
-    TRUE or FALSE (HIGH/LOW)
+  TRUE or FALSE (HIGH/LOW)
 
+  Get Output/Parameters:
+  boolVariable = variableName.Output();                        // Return Current Output State
 
   Syntax:
-    boolVariable = variableName.Falling(boolInput);
+  boolVariable = variableName.Falling(boolInput);
 
 */
-// https://wokwi.com/arduino/projects/324035086096794195
+// WokWi: https://wokwi.com/arduino/projects/324035086096794195
 
 #include "MicroBeaut.h"
 
@@ -47,8 +50,8 @@ int counterValue;
 
 
 // Serial Plotter Purpose
-MicroBeaut_Trigger triggerDisplay;  // Trigger Variable
-unsigned long lineNumber;           // Line Number : Max = 9999
+MicroBeaut_Trigger triggerDisplay;    // Trigger Variable
+unsigned long lineNumber;             // Line Number : Max = 9999
 const float printPresetTime = 0.100;  // 100 milliseconds
 
 const float timeDelay = 1.0;          // Time Delay 1 second

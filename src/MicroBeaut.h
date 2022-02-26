@@ -5,9 +5,9 @@
 
 /*
   -- ========================================================
-	-- Library: MicorBeaut
-	-- Version: V1.2.0
-	-- Date:		24-Feb-2022
+  -- Library: MicorBeaut
+  -- Version: V1.1.1
+  -- Date:  26-Feb-2022
   -- Author:  Montree Hamarn
   -- GitHub:  https://github.com/MicroBeaut
   -- YouTube: What Did You Learn Today
@@ -20,6 +20,7 @@ class MicroBeaut_SR {
   public:
     MicroBeaut_SR(void);
     bool SR(bool Set, bool Reset);
+	bool Output(void);
 
   private:
     bool _set;
@@ -34,6 +35,7 @@ class MicroBeaut_RS
   public:
     MicroBeaut_RS(void);
     bool RS(bool Set, bool Reset);
+	bool Output(void);
 
   private:
     bool _set;
@@ -49,6 +51,7 @@ class MicroBeaut_Toggle
     MicroBeaut_Toggle(void);
     bool Toggle(bool Input);
     bool Toggle(bool Input, bool Reset);
+		bool Output(void);
 
   private:
     bool _input;
@@ -64,6 +67,7 @@ class MicroBeaut_Rising
   public:
     MicroBeaut_Rising(void);
     bool Rising(bool Input);
+		bool Output(void);
 
   private:
     bool _input;
@@ -78,7 +82,7 @@ class MicroBeaut_Falling
   public:
     MicroBeaut_Falling(void);
     bool Falling(bool Input);
-
+		bool Output(void);
 
   private:
     bool _input;
@@ -97,6 +101,7 @@ class MicroBeaut_Debounce
     bool Debounce(bool Input, float TimeDelay);
     float GetTimeDelay(void);
     float GetElapsedTime(void);
+		bool Output(void);
 
   private:
     bool _input;
@@ -118,7 +123,7 @@ class MicroBeaut_TimerOn
     bool TimerOn(bool Input, float TimeDelay);
     float GetTimeDelay(void);
     float GetElapsedTime(void);
-
+		bool Output(void);
 
   private:
     bool _input;
@@ -140,7 +145,8 @@ class MicroBeaut_TimerOff
     bool TimerOff(bool Input, float TimeDelay);
     float GetTimeDelay(void);
     float GetElapsedTime(void);
-
+		bool Output(void);
+	
 
   private:
     bool _input;
@@ -165,6 +171,7 @@ class MicroBeaut_Blink
     float GetTimeDelayOn(void);
     float GetTimeDelayOff(void);
     float GetElapsedTime(void);
+		bool Output(void);
 
   private:
     bool _input;
@@ -188,6 +195,7 @@ class MicroBeaut_TimePulse
     bool TimePulse(bool Input, float TimeDelay);
     float GetTimeDelay(void);
     float GetElapsedTime(void);
+		bool Output(void);
 
   private:
     bool _input;
@@ -211,6 +219,7 @@ class MicroBeaut_Trigger
     bool Trigger(bool Input, bool Reset, float TimeDelay);
     float GetTimeDelay(void);
     float GetElapsedTime(void);
+		bool Output(void);
 
   private:
     bool _input;
@@ -228,13 +237,14 @@ class MicroBeaut_Trigger
 
 class MicroBeaut_TimeSchedule {
 
-typedef void (*MicroBeaut_CallBackFunction)(void);
+    typedef void (*MicroBeaut_CallBackFunction)(void);
   public:
     MicroBeaut_TimeSchedule(void);
     void Setup(float TimeSchedule, MicroBeaut_CallBackFunction FunctionName);
     bool Run(bool enableInput);
     bool Run(bool enableInput, float msTimeSchedule, MicroBeaut_CallBackFunction FunctionName);
     float Actual(void);
+		bool Output(void);
 
   private:
     MicroBeaut_CallBackFunction _callBackFunction;
@@ -252,21 +262,22 @@ typedef void (*MicroBeaut_CallBackFunction)(void);
 
 
 class MicroBeaut_ScanSchedule {
-typedef void (*MicroBeaut_CallBackFunction)(void);
+    typedef void (*MicroBeaut_CallBackFunction)(void);
   public:
     MicroBeaut_ScanSchedule(void);
     void Setup(unsigned long NumberOfScan, MicroBeaut_CallBackFunction FunctionName);
     bool Run(bool enableInput);
     bool Run(bool enableInput, unsigned long NumberOfScan, MicroBeaut_CallBackFunction FunctionName);
     float Actual(void);
+		bool Output(void);
 
   private:
     MicroBeaut_CallBackFunction _callBackFunction;
     bool _input;
     bool _prevInput;
     bool _output;
-	unsigned long _numberOfScan;
-	unsigned long _currNumberOfScan;
+    unsigned long _numberOfScan;
+    unsigned long _currNumberOfScan;
     unsigned long _actual;
     unsigned long _prveTime;
     unsigned long _currTime;

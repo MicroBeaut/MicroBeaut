@@ -3,6 +3,7 @@
   -- Subject: Applied Microcontroller Programming (AuCP)
   -- Purpose: Applied PLC Function to MCU.
   -- Author:  Montree Hamarn
+  -- Email:   montree.hamarn@gmail.com
   -- GitHub:  https://github.com/MicroBeaut
   -- YouTube: What Did You Learn Today
   --          https://www.youtube.com/playlist?list=PLFf3xtcn9d47akU0G3bf2BXiMebCzrvMm
@@ -10,32 +11,35 @@
 */
 /*
   -- ===========================================================================
-   Function:  ScanSchedule
-   Purpose:   Schedules execution after a certain number of scans.
+  Function:  ScanSchedule
+  Purpose:   Schedules execution after a certain number of scans.
 
-   This function can schedule the execution of certain routines when
-   a specified number of evaluations has occurred. Output
-   is TRUE after the specified number of evaluations, holding TRUE for one
-   evaluation. By testing the output, you can cause sections of the
-   control program to be executed periodically.
+  This function can schedule the execution of certain routines when
+  a specified number of evaluations has occurred. Output
+  is TRUE after the specified number of evaluations, holding TRUE for one
+  evaluation. By testing the output, you can cause sections of the
+  control program to be executed periodically.
 
   Member:
-    void Setup(unsigned long NumberOfScan, MicroBeaut_CallBackFunction FunctionName);
-    bool Run(bool enableInput);
-    bool Run(bool enableInput, unsigned long NumberOfScan, MicroBeaut_CallBackFunction FunctionName);
-    float Actual(void);
+  void Setup(unsigned long NumberOfScan, MicroBeaut_CallBackFunction FunctionName);
+  bool Run(bool enableInput);
+  bool Run(bool enableInput, unsigned long NumberOfScan, MicroBeaut_CallBackFunction FunctionName);
+  float Actual(void);
 
   Declaration:
   Microbeaut_ScanSchedule variableName
 
   Parameters:
   Input:
-    enableInput     : Enable Scan Schedule Function
-    NumberOfScan    : Number of scans
-    FunctionName    : CallBack Function
+  enableInput     : Enable Scan Schedule Function
+  NumberOfScan    : Number of scans
+  FunctionName    : CallBack Function
   Return:
-    TRUE or FALSE (HIGH/LOW)
+  TRUE or FALSE (HIGH/LOW)
 
+  Get Output/Parameters:
+  boolVariable = variableName.Output();
+  floatVariable = variableName.Actual();
 
   Syntax:
   Option 1:
@@ -44,12 +48,8 @@
 
   Option 2:
   boolVariable = Run(enableInput, NumberOfScan, functionName);
-
-  Get Parameter:
-  floatVariable = variableName.Actual();
-
 */
-////https://wokwi.com/arduino/projects/324493126851887699
+// WokWi: https://wokwi.com/arduino/projects/324493126851887699
 
 #include "MicroBeaut.h"
 

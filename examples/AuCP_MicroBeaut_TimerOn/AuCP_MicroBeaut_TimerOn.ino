@@ -3,6 +3,7 @@
   -- Subject: Applied Microcontroller Programming (AuCP)
   -- Purpose: Applied PLC Function to MCU.
   -- Author:  Montree Hamarn
+  -- Email:   montree.hamarn@gmail.com
   -- GitHub:  https://github.com/MicroBeaut
   -- YouTube: What Did You Learn Today
   --          https://www.youtube.com/playlist?list=PLFf3xtcn9d47akU0G3bf2BXiMebCzrvMm
@@ -30,27 +31,26 @@
 
   Parameters:
   Input:
-    Input           : Input
-    Time Delay      : Time Delay in Second;
+  Input           : Input
+  Time Delay      : Time Delay in Second;
 
   Return:
-    TRUE or FALSE (HIGH/LOW)
+  TRUE or FALSE (HIGH/LOW)
 
+  Get Output/Parameters:
+  boolVariable = variableName.Output();
+  floatVariable = variableName.GetTimeDelay();    // Return Current Time Timer On
+  floatVariable = variableName.GetElapsedTime();  // Return Elapsed Time
 
   Syntax:
   Option 1:
-      variableName.SetTimeDelay(floatTimeDelayOn);
-      boolVariable = variableName.TimerOn(boolInput);
+  variableName.SetTimeDelay(floatTimeDelayOn);
+  boolVariable = variableName.TimerOn(boolInput);
 
   Option 2:
-    boolVariable = variableName.TimerOn(boolInput, floatTimeDelayOn);
-
-
-  Get Parameters:
-    floatVariable = variableName.GetTimeDelay();    // Return Current Time Timer On
-    floatVariable = variableName.GetElapsedTime();  // Return Elapsed Time
+  boolVariable = variableName.TimerOn(boolInput, floatTimeDelayOn);
 */
-// https://wokwi.com/arduino/projects/324001504402866770
+// WokWi: https://wokwi.com/arduino/projects/324001504402866770
 
 #include "MicroBeaut.h"
 
@@ -91,9 +91,9 @@ void loop() {
   // 1. Setup Time Delay for Timer On
   // 2. Timer On Function with Input
 #if defined (OPTION1)
-  tonOutput.SetTimeDelay(timeDelay);                  // Set Time Delay
-  outputState = tonOutput.TimerOn(inputState);           // Timer On Function with Input Parameter
-  digitalWrite(ledPin, outputState);                     // ON/OFF LED
+  tonOutput.SetTimeDelay(timeDelay);            // Set Time Delay
+  outputState = tonOutput.TimerOn(inputState);  // Timer On Function with Input Parameter
+  digitalWrite(ledPin, outputState);            // ON/OFF LED
 
   // Timer On OPTION 2: Timer On Function with Input
 #elif defined (OPTION2)

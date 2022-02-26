@@ -5,42 +5,42 @@
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
-MicroBeaut_SR		KEYWORD1
-MicroBeaut_RS		KEYWORD1
-MicroBeaut_Toggle	KEYWORD1
-MicroBeaut_Rising	KEYWORD1
-MicroBeaut_Falling	KEYWORD1
-MicroBeaut_Debounce	KEYWORD1
-MicroBeaut_TimerOn	KEYWORD1
-MicroBeaut_TimerOff	KEYWORD1
-MicroBeaut_Blink	KEYWORD1
-MicroBeaut_TimePulse	KEYWORD1
-MicroBeaut_Trigger	KEYWORD1
-MicroBeaut_TimeSchedule	KEYWORD1
-MicroBeaut_ScanSchedule	KEYWORD1
-
+MicroBeaut_SR           KEYWORD1
+MicroBeaut_RS           KEYWORD1
+MicroBeaut_Toggle       KEYWORD1
+MicroBeaut_Rising       KEYWORD1
+MicroBeaut_Falling      KEYWORD1
+MicroBeaut_Debounce     KEYWORD1
+MicroBeaut_TimerOn      KEYWORD1
+MicroBeaut_TimerOff     KEYWORD1
+MicroBeaut_Blink        KEYWORD1
+MicroBeaut_TimePulse    KEYWORD1
+MicroBeaut_Trigger      KEYWORD1
+MicroBeaut_TimeSchedule KEYWORD1
+MicroBeaut_ScanSchedule KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
-SR		        KEYWORD2
-RS		        KEYWORD2
-Toggle			KEYWORD2
-Rising			KEYWORD2
-Falling			KEYWORD2
-Debounce		KEYWORD2
-TimerOn			KEYWORD2
-TimerOff		KEYWORD2
-Blink			KEYWORD2
-TimePulse		KEYWORD2
-Trigger			KEYWORD2
-SetTimeDelay		KEYWORD2
-GetTimeDelayOn		KEYWORD2
-GetTimeDelayOff		KEYWORD2
-GetTimeDelay		KEYWORD2
-GetElapsedTime		KEYWORD2
-Run			KEYWORD2
-Setup			KEYWORD2
+SR              KEYWORD2
+RS              KEYWORD2
+Toggle          KEYWORD2
+Rising          KEYWORD2
+Falling         KEYWORD2
+Debounce        KEYWORD2
+TimerOn         KEYWORD2
+TimerOff        KEYWORD2
+Blink           KEYWORD2
+TimePulse       KEYWORD2
+Trigger         KEYWORD2
+SetTimeDelay    KEYWORD2
+GetTimeDelayOn  KEYWORD2
+GetTimeDelayOff KEYWORD2
+GetTimeDelay    KEYWORD2
+GetElapsedTime  KEYWORD2
+Run             KEYWORD2
+Setup           KEYWORD2
+Output          KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

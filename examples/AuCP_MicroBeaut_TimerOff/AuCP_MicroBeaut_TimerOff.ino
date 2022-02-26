@@ -3,6 +3,7 @@
   -- Subject: Applied Microcontroller Programming (AuCP)
   -- Purpose: Applied PLC Function to MCU.
   -- Author:  Montree Hamarn
+  -- Email:   montree.hamarn@gmail.com
   -- GitHub:  https://github.com/MicroBeaut
   -- YouTube: What Did You Learn Today
   --          https://www.youtube.com/playlist?list=PLFf3xtcn9d47akU0G3bf2BXiMebCzrvMm
@@ -31,27 +32,26 @@
 
   Parameters:
   Input:
-    Input           : Input
-    Time Delay      : Time Delay in Second;
+  Input           : Input
+  Time Delay      : Time Delay in Second;
 
   Return:
-    TRUE or FALSE (HIGH/LOW)
+  TRUE or FALSE (HIGH/LOW)
 
+  Get Output/Parameters:
+  boolVariable = variableName.Output();
+  floatVariable = variableName.GetTimeDelay();    // Return Current Time Timer Off
+  floatVariable = variableName.GetElapsedTime();  // Return Elapsed Time
 
   Syntax:
   Option 1:
-      variableName.SetTimeDelay(floatTimeDelayOn);
-      boolVariable = variableName.TimerOff(boolInput);
+  variableName.SetTimeDelay(floatTimeDelayOn);
+  boolVariable = variableName.TimerOff(boolInput);
 
   Option 2:
-    boolVariable = variableName.TimerOff(boolInput, floatTimeDelayOn);
-
-
-  Get Parameters:
-    floatVariable = variableName.GetTimeDelay();    // Return Current Time Timer Off
-    floatVariable = variableName.GetElapsedTime();  // Return Elapsed Time
+  boolVariable = variableName.TimerOff(boolInput, floatTimeDelayOn);
 */
-// https://wokwi.com/arduino/projects/324004619609965140
+// WokWi: https://wokwi.com/arduino/projects/324004619609965140
 
 #include "MicroBeaut.h"
 
@@ -92,9 +92,9 @@ void loop() {
   // 1. Setup Time Delay for Timer Off
   // 2. Timer Off Function with Input
 #if defined (OPTION1)
-  tofOutput.SetTimeDelay(timeDelay);                  // Set Time Delay
-  outputState = tofOutput.TimerOff(inputState);           // Timer Off Function with Input Parameter
-  digitalWrite(ledPin, outputState);                     // ON/OFF LED
+  tofOutput.SetTimeDelay(timeDelay);            // Set Time Delay
+  outputState = tofOutput.TimerOff(inputState); // Timer Off Function with Input Parameter
+  digitalWrite(ledPin, outputState);            // ON/OFF LED
 
   // Timer Off OPTION 2: Timer Off Function with Input
 #elif defined (OPTION2)
@@ -108,7 +108,7 @@ void loop() {
     Serial.println("L" + String(lineNumber)
                    + ":Preset Time: " + String(tofOutput.GetTimeDelay(), 6)     // Get Time Delay
                    + ", Elapsed Time: " + String(tofOutput.GetElapsedTime(), 6) // Get Elapsed Time
-                   + ", Input: " + String(inputState)                          // Input State
-                   + ", Output: " + String(outputState));                         // Output State
+                   + ", Input: " + String(inputState)                           // Input State
+                   + ", Output: " + String(outputState));                       // Output State
   }
 }

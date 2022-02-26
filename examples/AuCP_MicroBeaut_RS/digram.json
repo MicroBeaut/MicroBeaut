@@ -1,7 +1,7 @@
 {
-  "version": 1.2,
+  "version": 1.1,
   "author": "Montree Hamarn",
-  "editor": "wokwi",
+  "editor": "MicroBeaut",
   "parts": [
     {
       "type": "wokwi-arduino-uno",
@@ -44,21 +44,21 @@
       "id": "led1",
       "top": 5,
       "left": 202.45,
-      "attrs": { "color": "green", "label": "LED1" }
+      "attrs": { "color": "green", "label": "SET" }
     },
     {
       "type": "wokwi-led",
       "id": "led2",
       "top": 5.81,
       "left": 244.26,
-      "attrs": { "color": "orange", "label": "LED2" }
+      "attrs": { "color": "orange", "label": "RESET" }
     },
     {
       "type": "wokwi-led",
       "id": "led3",
       "top": 5,
       "left": 285.09,
-      "attrs": { "color": "red", "label": "LED3" }
+      "attrs": { "color": "red", "label": "OUTPUT" }
     },
     {
       "type": "wokwi-resistor",

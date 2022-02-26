@@ -3,6 +3,7 @@
   -- Subject: Applied Microcontroller Programming (AuCP)
   -- Purpose: Applied PLC Function to MCU.
   -- Author:  Montree Hamarn
+  -- Email:   montree.hamarn@gmail.com
   -- GitHub:  https://github.com/MicroBeaut
   -- YouTube: What Did You Learn Today
   --          https://www.youtube.com/playlist?list=PLFf3xtcn9d47akU0G3bf2BXiMebCzrvMm
@@ -24,15 +25,18 @@
 
   Parameters:
   Input:
-    Set             : Set Input
-    Reset           : Reset Input
+  Set             : Set Input
+  Reset           : Reset Input
 
   Return:
-    TRUE or FALSE (HIGH/LOW)
+  TRUE or FALSE (HIGH/LOW)
+
+  Get Output/Parameters:
+  boolVariable = variableName.Output();
 
 
   Syntax:
-    boolVariable = variableName.RS(boolInput, boolReset);
+  boolVariable = variableName.RS(boolInput, boolReset);
 
 */
 // https://wokwi.com/arduino/projects/324031752349680211
@@ -94,6 +98,6 @@ void loop() {
     Serial.println("L" + String(lineNumber)
                    + " Set: " + String(setState)               // Set State
                    + ", Reset: " + String(resetState)          // Reset State
-                   + ", Output: " + String(ledOutputState * 2)); // Output State x2 for Monitor S/R Input on Serial Plotter
+                   + ", Output: " + String(ledOutputState)); // Output State
   }
 }
