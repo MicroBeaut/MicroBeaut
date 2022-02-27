@@ -1201,4 +1201,4 @@ void ToggleStateRoutine() {
 ```
 ----
 ## Reference
-TriStation™ 1131 Developer’s Workbench Libraries
+[Triconex TriStation™ 1131 Developer’s Workbench Libraries](https://www.se.com/ww/en/work/products/industrial-automation-control/triconex-safety-systems/)
