@@ -160,7 +160,7 @@ boolReturnValue = variableFunction.TimerOn(boolVariableInput, floatTimeDelayInSe
 ```C
 boolReturnOutput = variableFunction.Output();
 ```
-##### `Time Debounce Setting`
+##### `Time Delay Setting`
 ```C
 floatReturnTimeDelayInSecond = variableFunction.GetTimeDelay();
 ```
@@ -250,7 +250,7 @@ boolReturnValue = variableFunction.TimerOff(boolVariableInput, floatTimeDelayInS
 ```C
 boolReturnOutput = variableFunction.Output();
 ```
-##### `Time Debounce Setting`
+##### `Time Delay Setting`
 ```C
 floatReturnTimeDelayInSecond = variableFunction.GetTimeDelay();
 ```
@@ -342,7 +342,7 @@ boolReturnValue = variableFunction.TimePulse(boolVariableInput, floatTimeDelayIn
 ```C
 boolReturnOutput = variableFunction.Output();
 ```
-##### `Time TimePulse Setting`
+##### `Time Pulse Setting`
 ```C
 floatReturnTimeDelayInSecond = variableFunction.GetTimeDelay();
 ```
@@ -590,6 +590,21 @@ boolReturnValue = variableFunction.Trigger(boolVariableInput, boolVariableReset)
 boolReturnValue = variableFunction.Trigger(boolVariableInput, boolVariableReset, floatTimeDelayOnInSecond);
 ```
 
+#### `Getting other values from Function`
+
+##### `Output State`
+```C
+boolReturnOutput = variableFunction.Output();
+```
+##### `Time Delay Setting`
+```C
+floatReturnTimeDelayInSecond = variableFunction.GetTimeDelay();
+```
+##### `Elapsed Time`
+```C
+floatReturnElapsedTimeInSecond = variableFunction.GetElapsedTime();
+```
+
 ### Examples:
 
 #### `$Option 1`
@@ -711,7 +726,7 @@ MicroBeaut_SR variableFunction;
 boolReturnValue = variableFunction.SR(boolVariableSet, boolVariableReset);
 ```
 
-#### `Getting another values from Function`
+#### `Getting another value from Function`
 
 ##### `Output State`
 ```C
@@ -765,7 +780,7 @@ MicroBeaut_RS variableFunction;
 boolReturnValue = variableFunction.RS(boolVariableSet, boolVariableReset);
 ```
 
-#### `Getting another values from Function`
+#### `Getting another value from Function`
 
 ##### `Output State`
 ```C
@@ -826,7 +841,7 @@ boolReturnValue = variableFunction.Toggel(boolVariableInput);
 boolReturnValue = variableFunction.Toggel(boolVariableInput, boolVariableReset);
 ```
 
-#### `Getting another values from Function`
+#### `Getting another value from Function`
 
 ##### `Output State`
 ```C
