@@ -1012,7 +1012,7 @@ void loop() {
 
 ##  TimeSchedule (Schedule execution at specified time intervals)
 
-The TimeSchedule function schedules execution with a specified time period. Output is TRUE when the specified period of time has passed, holding true for one scan. Otherwise, the output is FALSE. By testing the output Output, you can cause sections of the subroutine to be executed periodically.
+The TimeSchedule function is used to schedule a selected subroutine's execution after the specified period of time has passed and the output is TRUE for one scan. Otherwise, the output is FALSE. Input enables the function.
 
 ### `Syntax:`
 
@@ -1107,7 +1107,7 @@ void ToggleStateRoutine() {
 
 ##  ScanSchedule (Schedules execution after a certain number of scans)
 
-The ScanSchedule function is used to schedule a selected subroutine's execution after a specified number of scans occur. Output is TRUE after the specified number of scans occur and holds TRUE for one scan. By testing the output, sections of the control program can execute periodically. This function block must be invoked precisely once per scan. Otherwise, the scan count is incorrect.
+The ScanSchedule function is used to schedule a selected subroutine's execution after a specified number of scans occur. Input enables the function. Output is TRUE after the specified number of scans occur and holds TRUE for one scan.
 
 ### `Syntax:`
 
