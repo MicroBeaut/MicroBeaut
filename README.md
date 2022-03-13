@@ -166,7 +166,6 @@ MicroBeaut_TimeOn variableFunction;
 ```
 #### `Function Use`
 
-##### `$Option 1`
 ```C
 variableFunction.SetTimeDelay(floatTimeDelayInSecond);
 boolReturnValue = variableFunction.TimerOff(boolVariableInput);
@@ -681,7 +680,6 @@ MicroBeaut_TimeSchedule variableFunction;
 ```
 #### `Function Use`
 
-##### `$Option 1`
 ```C
 variableFunction.Config(floatTimeScheduleInSecond, CallbackFunction);
 boolReturnValue = variableFunction.Run(boolVariableEnable = true);
