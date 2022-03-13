@@ -2,8 +2,8 @@
   -- ========================================================
   -- Subject: Applied Microcontroller Programming (AuCP)
   -- Purpose: Applied PLC Function to MCU.
-  -- Author:  Montree Hamarn
-  -- Email:   montree.hamarn@gmail.com
+  -- Author:  Montree Hamarn, Natvalun Tavepontakul
+  -- Email:   montree.hamarn@gmail.com, natvalun.tavepontakul@hotmail.com
   -- GitHub:  https://github.com/MicroBeaut
   -- YouTube: What Did You Learn Today
   --          https://www.youtube.com/playlist?list=PLFf3xtcn9d47akU0G3bf2BXiMebCzrvMm
@@ -13,16 +13,14 @@
   -- ===========================================================================
   Function: TimerOn
 
-  The rising edge of input "Input" starts a timer of duration "TimeDelay".
+  The rising edge of input "timerOnInput" starts a timer of duration "TimeDelay".
   When the elapsed time is greater than or equal to "TimeDelay",
   the timer stops, and output changes from FALSE to TRUE.
-  The next falling edge of the input "Input" initializes the timer.
+  The next falling edge of the input "timerOnInput" initializes the timer.
 
   Member:
-  MicroBeaut_TimerOn(void);
-  void SetTimeDelay(float TimeDelay);
-  bool TimerOn(bool Input);
-  bool TimerOn(bool Input, float TimeDelay);
+  void SetTimeDelay(float timeDelay);
+  bool TimerOn(bool timerOnInput);
   float GetTimeDelay(void);
   float GetElapsedTime(void);
 
@@ -43,66 +41,45 @@
   floatVariable = variableName.GetElapsedTime();  // Return Elapsed Time
 
   Syntax:
-  Option 1:
   variableName.SetTimeDelay(floatTimeDelayOn);
   boolVariable = variableName.TimerOn(boolInput);
 
-  Option 2:
-  boolVariable = variableName.TimerOn(boolInput, floatTimeDelayOn);
 */
 // WokWi: https://wokwi.com/arduino/projects/324001504402866770
 
 #include "MicroBeaut.h"
 
-#define swPin   2               // Define Push Button Pin
-#define ledPin  3               // Define LED Pin
+#define inputPin   2  // Define Push Button Pin
+#define outputPin  3  // Define LED Pin
 
-MicroBeaut_TimerOn tonOutput;   // Timer On Variable
-bool inputState;                // Input State
-bool outputState;               // Output State
+bool inputState;      // Input State
+bool outputState;     // Output State
 
+MicroBeaut_TimerOn tonOutput; // Timer On Variable
+const float timeDelay = 1.0;  // Time Delay 1 second
 
 // Serial Plotter Purpose
-MicroBeaut_Trigger triggerDisplay;  // Trigger Variable
-unsigned long lineNumber;           // Line Number : Max = 9999
-const float printPresetTime = 0.01;  // 10 milliseconds
-
-
-// TYPE YOUR OPTION (OPTION1-2)
-//************************************************************
-#define OPTION1                   // Select Option to Compile
-//************************************************************
-
-const float timeDelay = 1.0;          // Time Delay 1 second
+MicroBeaut_Trigger triggerPlotter;      // Trigger Variable
+unsigned long lineNumber;               // Line Number : Max = 9999
+const float plotterPresetTime = 0.01;  // 10 milliseconds
 
 void setup() {
-  Serial.begin(115200);                           // Set Baud Rate
-  triggerDisplay.SetTimeDelay(printPresetTime);   // Initial Time Delay for Serial Plotter
+  Serial.begin(115200);                             // Set Baud Rate
+  triggerPlotter.SetTimeDelay(plotterPresetTime);   // Initial Time Delay for Serial Plotter
 
-  pinMode(swPin, INPUT);              // Input Pin Mode
-  pinMode(ledPin, OUTPUT);            // Output Pin Mode
+  pinMode(inputPin, INPUT);     // Input Pin Mode
+  pinMode(outputPin, OUTPUT);   // Output Pin Mode
+  tonOutput.SetTimeDelay(timeDelay);  // Set Time Delay
 }
 
 void loop() {
-
-  inputState = digitalRead(swPin);    // Read Input State (0 = Release, 1 = Press)
-
-  // Timer On OPTION 1
-  // 1. Setup Time Delay for Timer On
-  // 2. Timer On Function with Input
-#if defined (OPTION1)
-  tonOutput.SetTimeDelay(timeDelay);            // Set Time Delay
+  inputState = digitalRead(inputPin);           // Read Input State (0 = Release, 1 = Press)
   outputState = tonOutput.TimerOn(inputState);  // Timer On Function with Input Parameter
-  digitalWrite(ledPin, outputState);            // ON/OFF LED
+  digitalWrite(outputPin, outputState);         // ON/OFF LED
 
-  // Timer On OPTION 2: Timer On Function with Input
-#elif defined (OPTION2)
-  outputState = tonOutput.TimerOn(inputState, timeDelay);  // Timer On Function with Input Parameter
-  digitalWrite(ledPin, outputState);                       // ON/OFF LED
-#endif
 
   // Trigger for Serial Plotter
-  if (triggerDisplay.Trigger(true)) {
+  if (triggerPlotter.Trigger(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)
                    + ":Preset Time: " + String(tonOutput.GetTimeDelay(), 6)     // Get Time Delay

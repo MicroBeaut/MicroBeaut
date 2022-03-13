@@ -4,29 +4,27 @@
 #include "Arduino.h"
 
 /*
-  -- ========================================================
+  -- ======================================================================================
   -- Library: MicorBeaut
-  -- Version: V1.1.1
-  -- Date:  26-Feb-2022
-  -- Author:  Montree Hamarn
+  -- Version: V1.1.2
+  -- Date:    13-Mar-2022
+  -- Author:  Montree Hamarn, Natvalun Tavepontakul
+  -- Email:   montree.hamarn@gmail.com, natvalun.tavepontakul@hotmail.com
   -- GitHub:  https://github.com/MicroBeaut
   -- YouTube: What Did You Learn Today
   --          https://www.youtube.com/playlist?list=PLFf3xtcn9d47akU0G3bf2BXiMebCzrvMm
-  -- ========================================================
+  -- ======================================================================================
 */
 
 
 class MicroBeaut_SR {
   public:
     MicroBeaut_SR(void);
-    bool SR(bool Set, bool Reset);
-	bool Output(void);
+    bool SR(bool setInput, bool resetInput);
+    bool Output(void);
 
   private:
-    bool _set;
-    bool _reset;
     bool _output;
-    bool _SR(void);
 };
 
 
@@ -34,14 +32,11 @@ class MicroBeaut_RS
 {
   public:
     MicroBeaut_RS(void);
-    bool RS(bool Set, bool Reset);
-	bool Output(void);
+    bool RS(bool setInput, bool resetInput);
+    bool Output(void);
 
   private:
-    bool _set;
-    bool _reset;
     bool _output;
-    bool _RS(void);
 };
 
 
@@ -49,16 +44,12 @@ class MicroBeaut_Toggle
 {
   public:
     MicroBeaut_Toggle(void);
-    bool Toggle(bool Input);
-    bool Toggle(bool Input, bool Reset);
-		bool Output(void);
+    bool Toggle(bool toggleInput, bool resetInput = false);
+    bool Output(void);
 
   private:
-    bool _input;
     bool _prevInput;
-    bool _reset;
     bool _output;
-    bool _Toggle(void);
 };
 
 
@@ -66,14 +57,12 @@ class MicroBeaut_Rising
 {
   public:
     MicroBeaut_Rising(void);
-    bool Rising(bool Input);
-		bool Output(void);
+    bool Rising(bool risingInput);
+    bool Output(void);
 
   private:
-    bool _input;
     bool _prevInput;
     bool _output;
-    bool _Rising(void);
 };
 
 
@@ -81,14 +70,12 @@ class MicroBeaut_Falling
 {
   public:
     MicroBeaut_Falling(void);
-    bool Falling(bool Input);
-		bool Output(void);
+    bool Falling(bool fallingInput);
+    bool Output(void);
 
   private:
-    bool _input;
     bool _prevInput;
     bool _output;
-    bool _Falling(void);
 };
 
 
@@ -96,21 +83,19 @@ class MicroBeaut_Debounce
 {
   public:
     MicroBeaut_Debounce(void);
-    void SetTimeDelay(float TimeDelay);
-    bool Debounce(bool Input);
-    bool Debounce(bool Input, float TimeDelay);
-    float GetTimeDelay(void);
+    void SetTimeDebounce(float timeDebounce = 0.01);
+    bool Debounce(bool bounceInput);
+    bool Output(void);
+    float GetTimeDebounce(void);
     float GetElapsedTime(void);
-		bool Output(void);
 
   private:
     bool _input;
     bool _prevInput;
     bool _output;
     unsigned long _prveTime;
-    unsigned long _timeDelay;
+    unsigned long _timeDebounce = 10000UL;
     unsigned long _elapsedTime;
-    bool _Debounce(void);
 };
 
 
@@ -118,21 +103,18 @@ class MicroBeaut_TimerOn
 {
   public:
     MicroBeaut_TimerOn(void);
-    void SetTimeDelay(float TimeDelay);
-    bool TimerOn(bool Input);
-    bool TimerOn(bool Input, float TimeDelay);
+    void SetTimeDelay(float timeDelay);
+    bool TimerOn(bool timerOnInput);
+    bool Output(void);
     float GetTimeDelay(void);
     float GetElapsedTime(void);
-		bool Output(void);
 
   private:
-    bool _input;
     bool _prevInput;
     bool _output;
     unsigned long _prveTime;
     unsigned long _timeDelay;
     unsigned long _elapsedTime;
-    bool _TimerOn(void);
 };
 
 
@@ -140,22 +122,19 @@ class MicroBeaut_TimerOff
 {
   public:
     MicroBeaut_TimerOff(void);
-    void SetTimeDelay(float TimeDelay);
-    bool TimerOff(bool Input);
-    bool TimerOff(bool Input, float TimeDelay);
+    void SetTimeDelay(float timeDelay);
+    bool TimerOff(bool timerOffInput);
+    bool Output(void);
     float GetTimeDelay(void);
     float GetElapsedTime(void);
-		bool Output(void);
-	
+
 
   private:
-    bool _input;
     bool _prevInput;
     bool _output;
     unsigned long _prveTime;
     unsigned long _timeDelay;
     unsigned long _elapsedTime;
-    bool _TimerOff(void);
 };
 
 
@@ -163,18 +142,14 @@ class MicroBeaut_Blink
 {
   public:
     MicroBeaut_Blink(void);
-    void SetTimeDelay(float TimeDelay);
-    void SetTimeDelay(float TimeDelayOff, float TimeDelayOn);
-    bool Blink(bool Input);
-    bool Blink(bool Input, float TimeDelay);
-    bool Blink(bool, float TimeDelayOff, float TimeDelayOn);
+    void SetTimeDelay(float timeDelayOff, float timeDelayOn);
+    bool Blink(bool enableInput = true);
+    bool Output(void);
     float GetTimeDelayOn(void);
     float GetTimeDelayOff(void);
     float GetElapsedTime(void);
-		bool Output(void);
 
   private:
-    bool _input;
     bool _prevInput;
     bool _output;
     unsigned long _prevTime;
@@ -182,7 +157,6 @@ class MicroBeaut_Blink
     unsigned long _timeDelayOn;
     unsigned long _timeDelayOff;
     unsigned long _elapsedTime;
-    bool _Blink(void);
 };
 
 
@@ -190,22 +164,19 @@ class MicroBeaut_TimePulse
 {
   public:
     MicroBeaut_TimePulse(void);
-    void SetTimeDelay(float TimeDelay);
-    bool TimePulse(bool Input);
-    bool TimePulse(bool Input, float TimeDelay);
+    void SetTimeDelay(float timeDelay);
+    bool TimePulse(bool pulseInput);
+    bool Output(void);
     float GetTimeDelay(void);
     float GetElapsedTime(void);
-		bool Output(void);
 
   private:
-    bool _input;
     bool _prevInput;
     bool _reset;
     bool _output;
     unsigned long _prveTime;
     unsigned long _timeDelay;
     unsigned long _elapsedTime;
-    bool _TimePulse(void);
 };
 
 
@@ -213,68 +184,55 @@ class MicroBeaut_Trigger
 {
   public:
     MicroBeaut_Trigger(void);
-    void SetTimeDelay(float TimeDelay);
-    bool Trigger(bool Input);
-    bool Trigger(bool Input, bool Reset);
-    bool Trigger(bool Input, bool Reset, float TimeDelay);
+    void SetTimeDelay(float timeDelay);
+    bool Trigger(bool enableInput = true, bool resetInput = false);
+    bool Output(void);
     float GetTimeDelay(void);
     float GetElapsedTime(void);
-		bool Output(void);
 
   private:
-    bool _input;
-    bool _reset;
     bool _prevInput;
     bool _output;
     unsigned long _prveTime;
     unsigned long _currTime;
     unsigned long _timeDelay;
     unsigned long _elapsedTime;
-
-    bool _Trigger(void);
 };
 
 
+typedef void (*MicroBeaut_CallBackFunction)(void);
 class MicroBeaut_TimeSchedule {
 
-    typedef void (*MicroBeaut_CallBackFunction)(void);
   public:
     MicroBeaut_TimeSchedule(void);
-    void Setup(float TimeSchedule, MicroBeaut_CallBackFunction FunctionName);
-    bool Run(bool enableInput);
-    bool Run(bool enableInput, float msTimeSchedule, MicroBeaut_CallBackFunction FunctionName);
+    void Config(float timeSchedule, MicroBeaut_CallBackFunction functionName);
+    bool Run(bool enableInput = true);
     float Actual(void);
-		bool Output(void);
+    bool Output(void);
 
   private:
     MicroBeaut_CallBackFunction _callBackFunction;
-    bool _input;
-    bool _prevInput;
+    bool _prevEnable;
     bool _output;
     unsigned long _actual;
     unsigned long _timeSchedule;
     unsigned long _prveTime;
     unsigned long _currTime;
     unsigned long _elapsedTime;
-
-    bool _Run();
 };
 
 
 class MicroBeaut_ScanSchedule {
-    typedef void (*MicroBeaut_CallBackFunction)(void);
   public:
     MicroBeaut_ScanSchedule(void);
-    void Setup(unsigned long NumberOfScan, MicroBeaut_CallBackFunction FunctionName);
-    bool Run(bool enableInput);
-    bool Run(bool enableInput, unsigned long NumberOfScan, MicroBeaut_CallBackFunction FunctionName);
+    void Config(unsigned long numberOfScan, MicroBeaut_CallBackFunction functionName);
+    bool Run(bool enableInput = true);
     float Actual(void);
-		bool Output(void);
+    bool Output(void);
 
   private:
     MicroBeaut_CallBackFunction _callBackFunction;
-    bool _input;
-    bool _prevInput;
+    bool _prevEnable;
     bool _output;
     unsigned long _numberOfScan;
     unsigned long _currNumberOfScan;
@@ -282,8 +240,6 @@ class MicroBeaut_ScanSchedule {
     unsigned long _prveTime;
     unsigned long _currTime;
     unsigned long _elapsedTime;
-
-    bool _Run();
 };
 
 #endif

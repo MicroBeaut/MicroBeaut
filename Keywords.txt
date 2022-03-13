@@ -34,12 +34,14 @@ Blink           KEYWORD2
 TimePulse       KEYWORD2
 Trigger         KEYWORD2
 SetTimeDelay    KEYWORD2
+SetTimeDebounce KEYWORD2
 GetTimeDelayOn  KEYWORD2
 GetTimeDelayOff KEYWORD2
 GetTimeDelay    KEYWORD2
+GetTimeDebounce KEYWORD2
 GetElapsedTime  KEYWORD2
 Run             KEYWORD2
-Setup           KEYWORD2
+Config          KEYWORD2
 Output          KEYWORD2
 
 #######################################

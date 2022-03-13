@@ -2,8 +2,8 @@
   -- ========================================================
   -- Subject: Applied Microcontroller Programming (AuCP)
   -- Purpose: Applied PLC Function to MCU.
-  -- Author:  Montree Hamarn
-  -- Email:   montree.hamarn@gmail.com
+  -- Author:  Montree Hamarn, Natvalun Tavepontakul
+  -- Email:   montree.hamarn@gmail.com, natvalun.tavepontakul@hotmail.com
   -- GitHub:  https://github.com/MicroBeaut
   -- YouTube: What Did You Learn Today
   --          https://www.youtube.com/playlist?list=PLFf3xtcn9d47akU0G3bf2BXiMebCzrvMm
@@ -16,21 +16,20 @@
   Set the Output on the falling edge of Input.
 
   Member:
-  Microbeaut_Falling(void);
-  bool Falling(bool Input);
+  bool Falling(bool fallingInput);
 
   Declaration:
   Microbeaut_Falling variableName
 
   Parameters:
   Input:
-  Input           : Input
+  FallingInput         : Input
 
   Return:
   TRUE or FALSE (HIGH/LOW)
 
   Get Output/Parameters:
-  boolVariable = variableName.Output();                        // Return Current Output State
+  boolVariable = variableName.Output(); // Return Current Output State
 
   Syntax:
   boolVariable = variableName.Falling(boolInput);
@@ -40,42 +39,40 @@
 
 #include "MicroBeaut.h"
 
-#define swPin   2               // Define Push Button Pin
-#define ledPin  3               // Define LED Pin
+#define inputPin   2  // Define Push Button Pin
+#define outputPin  3  // Define LED Pin
 
-MicroBeaut_Falling feInput;     // Falling Edge Variable
 bool inputState;                // Input State
 bool outputState;               // Output State
-int counterValue;
 
+MicroBeaut_Falling fallingFunction; // Falling Edge Variable
+int counterValue;                   // Count-Up Variable
 
 // Serial Plotter Purpose
-MicroBeaut_Trigger triggerDisplay;    // Trigger Variable
-unsigned long lineNumber;             // Line Number : Max = 9999
-const float printPresetTime = 0.100;  // 100 milliseconds
-
-const float timeDelay = 1.0;          // Time Delay 1 second
+MicroBeaut_Trigger triggerPlotter;  // Trigger Variable
+unsigned long lineNumber;           // Line Number : Max = 9999
+const float plotterPresetTime = 0.1;  // 100 milliseconds
 
 void setup() {
   Serial.begin(115200);                           // Set Baud Rate
-  triggerDisplay.SetTimeDelay(printPresetTime);   // Initial Time Delay for Serial Plotter
+  triggerPlotter.SetTimeDelay(plotterPresetTime); // Initial Time Delay for Serial Plotter
 
-  pinMode(swPin, INPUT);              // Input Pin Mode
-  pinMode(ledPin, OUTPUT);            // Output Pin Mode
+  pinMode(inputPin, INPUT);              // Input Pin Mode
+  pinMode(outputPin, OUTPUT);            // Output Pin Mode
 }
 
 void loop() {
-  inputState = digitalRead(swPin);              // Read Input State (0 = Release, 1 = Press)
-  outputState = feInput.Falling(inputState);    // Falling Edge Function with Input Parameter
+  inputState = digitalRead(inputPin);              // Read Input State (0 = Release, 1 = Press)
+  outputState = fallingFunction.Falling(inputState);    // Falling Edge Function with Input Parameter
 
   // Counter by Falling Edge Input
   if (outputState) {
     counterValue = counterValue < 15 ? counterValue + 1 : 0;
   }
-  digitalWrite(ledPin, outputState);            // ON/OFF LED
+  digitalWrite(outputPin, outputState);            // ON/OFF LED
 
   // Trigger for Serial Plotter
-  if (triggerDisplay.Trigger(true) | outputState) {
+  if (triggerPlotter.Trigger(true) | outputState) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)
                    + ", Input: " + String(inputState)              // Input State

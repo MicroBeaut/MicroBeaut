@@ -2,8 +2,8 @@
   -- ========================================================
   -- Subject: Applied Microcontroller Programming (AuCP)
   -- Purpose: Applied PLC Function to MCU.
-  -- Author:  Montree Hamarn
-  -- Email:   montree.hamarn@gmail.com
+  -- Author:  Montree Hamarn, Natvalun Tavepontakul
+  -- Email:   montree.hamarn@gmail.com, natvalun.tavepontakul@hotmail.com
   -- GitHub:  https://github.com/MicroBeaut
   -- YouTube: What Did You Learn Today
   --          https://www.youtube.com/playlist?list=PLFf3xtcn9d47akU0G3bf2BXiMebCzrvMm
@@ -21,10 +21,10 @@
   to be executed periodically.
 
   Member:
-  void Setup(float TimeSchedule, MicroBeaut_CallBackFunction FunctionName);
-  bool Run(bool enableInput);
-  bool Run(bool enableInput, float msTimeSchedule, MicroBeaut_CallBackFunction FunctionName);
+  void Config(float timeSchedule, MicroBeaut_CallBackFunction functionName);
+  bool Run(bool enableInput = true);
   float Actual(void);
+  bool Output(void);
 
   Declaration:
   Microbeaut_TimeSchedule variableName
@@ -42,75 +42,50 @@
   floatVariable = variableName.Actual();
 
   Syntax:
-  Option 1:
-  variableName.Setup(timeSchedule, functionName);
+  variableName.Config(timeSchedule, functionName);
   boolVariable = Run(enableInput);
 
-  Option 2:
-  boolVariable = Run(enableInput, timeSchedule, functionName);
 */
 // WokWi: https://wokwi.com/arduino/projects/324491194348339795
 
 #include "MicroBeaut.h"
 
-#define btInputPin    A0        // Define Push Button Pin
-#define ledOutputPin  7         // Define LED Pin
+#define inputPin    A0  // Define Push Button Pin
+#define outputPin   7   // Define LED Pin
 
-MicroBeaut_TimeSchedule timeSchedule; // Time Schedule Function
-bool disableState;                    // Input State
-bool outputState;                     // Output State
+bool inputState;        // Input State
+bool outputState;       // Output State
 
+MicroBeaut_TimeSchedule timeScheduleFunction; // Time Schedule Function
+const float timeInterval = 0.5;       // Time Delay 0.5 second
 
 // Serial Plotter Purpose
-MicroBeaut_Trigger trigDisplay;     // Trigger Variable
-unsigned long lineNumber;           // Line Number : Max = 9999
-const float printPresetTime = 0.01; // 10 milliseconds
-
-
-// TYPE YOUR OPTION (OPTION1-2)
-//************************************************************
-#define OPTION1                    // Select Option to Compile
-//************************************************************
-
-const float timeInterval = 0.5; // Time Delay 0.5 second
+MicroBeaut_Trigger triggerPlotter;    // Trigger Variable
+unsigned long lineNumber;             // Line Number : Max = 9999
+const float plotterPresetTime = 0.01; // 10 milliseconds
 
 void setup() {
-  Serial.begin(115200);                       // Set Baud Rate
-  trigDisplay.SetTimeDelay(printPresetTime);  // Initial Time Delay for Serial Plotter
+  Serial.begin(115200);                           // Set Baud Rate
+  triggerPlotter.SetTimeDelay(plotterPresetTime); // Initial Time Delay for Serial Plotter
 
-
-  pinMode(btInputPin, INPUT);     // Input Pin Mode
-  pinMode(ledOutputPin, OUTPUT);  // Output Pin Mode
-
-  // Time Schedule OPTION 1: Time Schedule Function with Enable Input and CallBack Function
-#if defined (OPTION1)
-  timeSchedule.Setup(timeInterval, ToggleStateLED);  // Time Schedule Function with Input Parameter
-#endif
+  pinMode(inputPin, INPUT);   // Input Pin Mode
+  pinMode(outputPin, OUTPUT); // Output Pin Mode
+  timeScheduleFunction.Config(timeInterval, ToggleStateLED);  // Time Schedule Function with Input Parameter
 }
 
 void loop() {
+  inputState = !digitalRead(inputPin);  // Read Input State (0 = Release, 1 = Press)
+  timeScheduleFunction.Run(inputState);         // Time Schedule Function with Enable Parameter
+  digitalWrite(outputPin, outputState); // ON/OFF LED
 
-  disableState = !digitalRead(btInputPin);  // Read Input State (0 = Release, 1 = Press)
-
-  // Time Schedule OPTION 1: Time Schedule Function with Enable Input
-#if defined (OPTION1)
-  timeSchedule.Run(disableState);           // Time Schedule Function with Enable Parameter
-
-
-  // Time Schedule OPTION 2: Time Schedule Function with All Parameters
-#elif defined (OPTION2)
-  timeSchedule.Run(disableState, timeInterval, ToggleStateLED);  // Time Schedule Function with All Parameters
-#endif
-
-  digitalWrite(ledOutputPin, outputState); // ON/OFF LED
 
   // Time Schedule for Serial Plotter
-  if (trigDisplay.Trigger(true)) {
+  if (triggerPlotter.Trigger(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)
-                   + ", Enable: " + String(disableState)      // Input State
-                   + ", Output: " + String(outputState)       // Output State
-                   + ", Actual Time: " + String(timeSchedule.Actual(), 6));
+                   + ", Enable: " + String(inputState)    // Input State
+                   + ", Output: " + String(outputState)   // Output State
+                   + ", Actual Time: " + String(timeScheduleFunction.Actual(), 6));
   }
 }
 

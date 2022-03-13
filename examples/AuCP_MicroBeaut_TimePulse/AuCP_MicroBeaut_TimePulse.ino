@@ -2,8 +2,8 @@
   -- ========================================================
   -- Subject: Applied Microcontroller Programming (AuCP)
   -- Purpose: Applied PLC Function to MCU.
-  -- Author:  Montree Hamarn
-  -- Email:   montree.hamarn@gmail.com
+  -- Author:  Montree Hamarn, Natvalun Tavepontakul
+  -- Email:   montree.hamarn@gmail.com, natvalun.tavepontakul@hotmail.com
   -- GitHub:  https://github.com/MicroBeaut
   -- YouTube: What Did You Learn Today
   --          https://www.youtube.com/playlist?list=PLFf3xtcn9d47akU0G3bf2BXiMebCzrvMm
@@ -16,10 +16,8 @@
   Generate a pulse of duration "TimeDelay" starting on the rising edge of the input
 
   Member:
-  Microbeaut_TimePulse(void);
-  void SetTimeDelay(float TimeDelay);
-  bool TimePulse(bool Input);
-  bool TimePulse(bool Input, float TimeDelay);
+  void SetTimeDelay(float timeDelay);
+  bool TimePulse(bool pulseInput);
   float GetTimeDelay(void);
   float GetElapsedTime(void);
 
@@ -40,70 +38,49 @@
   floatVariable = variableName.GetElapsedTime();  // Return Elapsed Time
 
   Syntax:
-  Option 1:
   variableName.SetTimeDelay(floatTimePulse);
   boolVariable = variableName.TimePulse(boolInput);
-
-  Option 2:
-  boolVariable = variableName.TimePulse(boolInput, floatTimePulse);
 */
 // WokWi: https://wokwi.com/arduino/projects/324006931497747028
 
 #include "MicroBeaut.h"
 
-#define swPin   2               // Define Push Button Pin
-#define ledPin  3               // Define LED Pin
+#define inputPin   2               // Define Push Button Pin
+#define outputPin  3               // Define LED Pin
 
-MicroBeaut_TimePulse tpOutput;  // Time Pulse Variable
-bool inputState;                // Input State
-bool outputState;               // Output State
-
+bool inputState;  // Input State
+bool outputState; // Output State
+MicroBeaut_TimePulse timepulseFunction; // Time Pulse Variable
+const float timeDelay = 1.0;            // Time Delay 1 second
 
 // Serial Plotter Purpose
-MicroBeaut_Trigger triggerDisplay;  // Trigger Variable
+MicroBeaut_Trigger triggerPlotter;  // Trigger Variable
 unsigned long lineNumber;           // Line Number : Max = 9999
-const float printPresetTime = 0.01;  // 10 milliseconds
+const float plotterPresetTime = 0.01;  // 10 milliseconds
 
 
-// TYPE YOUR OPTION (OPTION1-2)
-//************************************************************
-#define OPTION1                     // Select Option to Compile
-//************************************************************
-
-const float timeDelay = 1.0;          // Time Delay 1 second
 
 void setup() {
   Serial.begin(115200);                           // Set Baud Rate
-  triggerDisplay.SetTimeDelay(printPresetTime);   // Initial Time Delay for Serial Plotter
+  triggerPlotter.SetTimeDelay(plotterPresetTime);   // Initial Time Delay for Serial Plotter
 
-  pinMode(swPin, INPUT);              // Input Pin Mode
-  pinMode(ledPin, OUTPUT);            // Output Pin Mode
+  pinMode(inputPin, INPUT);              // Input Pin Mode
+  pinMode(outputPin, OUTPUT);            // Output Pin Mode
+  timepulseFunction.SetTimeDelay(timeDelay);  // Set Time Delay
 }
 
 void loop() {
+  inputState = digitalRead(inputPin);    // Read Input State (0 = Release, 1 = Press)
+  outputState = timepulseFunction.TimePulse(inputState);   // Time Pulse Function with Input Parameter
+  digitalWrite(outputPin, outputState); // ON/OFF LED
 
-  inputState = digitalRead(swPin);    // Read Input State (0 = Release, 1 = Press)
-
-  // Time Pulse OPTION 1
-  // 1. Setup Time Delay for Time Pulse
-  // 2. Time Pulse Function wiht Input
-#if defined (OPTION1)
-  tpOutput.SetTimeDelay(timeDelay);               // Set Time Delay
-  outputState = tpOutput.TimePulse(inputState);   // Time Pulse Function with Input Parameter
-  digitalWrite(ledPin, outputState);              // ON/OFF LED
-
-  // Time Pulse OPTION 2: Time Pulse Function wiht Input
-#elif defined (OPTION2)
-  outputState = tpOutput.TimePulse(inputState, timeDelay);  // Time Pulse Function with Input Parameter
-  digitalWrite(ledPin, outputState);                       // ON/OFF LED
-#endif
 
   // Trigger for Serial Plotter
-  if (triggerDisplay.Trigger(true)) {
+  if (triggerPlotter.Trigger(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)
-                   + ":Preset Time: " + String(tpOutput.GetTimeDelay(), 6)     // Get Time Delay
-                   + ", Elapsed Time: " + String(tpOutput.GetElapsedTime(), 6) // Get Elapsed Time
+                   + ":Preset Time: " + String(timepulseFunction.GetTimeDelay(), 6)     // Get Time Delay
+                   + ", Elapsed Time: " + String(timepulseFunction.GetElapsedTime(), 6) // Get Elapsed Time
                    + ", Input: " + String(inputState)           // Input State
                    + ", Output: " + String(outputState));      // Output State
   }

@@ -35,10 +35,10 @@ I hope you will enjoy Microcontroller Programming and hope these libraries may h
 
 ## Debounce
 
-The debounce function delays TimeDelay from the rising edge and falling edge of input to the output's rising edge and falling edge.
+The debounce function delays TimeDebounce from the rising edge and falling edge of input to the output's rising edge and falling edge.
 
-The rising edge of the input starts the timer. While the input is TRUE, after a delay of duration TimeDelay, the timer changes the output to TRUE.
-The falling edge of the input starts the timer. While the input is FALSE, after a delay of duration TimeDelay, the timer changes the output to FALSE.
+The rising edge of the input starts the timer. While the input is TRUE, after a delay of duration TimeDebounce, the timer changes the output to TRUE.
+The falling edge of the input starts the timer. While the input is FALSE, after a delay of duration TimeDebounce, the timer changes the output to FALSE.
 
 ### `Syntax:`
 
@@ -47,17 +47,10 @@ The falling edge of the input starts the timer. While the input is FALSE, after 
 MicroBeaut_Debounce variableFunction;
 ```
 #### `Function Use`
-
-##### `$Option 1`
 ```C
-variableFunction.SetTimeDelay(floatTimeDelayInSecond);
+variableFunction.SetTimeDebounce(floatTimeDebounceInSecond);
 boolReturnValue = variableFunction.Debounce(boolVariableInput);
 ```
-##### `$Option 2`
-```C
-boolReturnValue = variableFunction.Debounce(boolVariableInput, floatTimeDelayInSecond);
-```
-
 #### `Getting other values from Function`
 
 ##### `Output State`
@@ -66,16 +59,14 @@ boolReturnOutput = variableFunction.Output();
 ```
 ##### `Time Debounce Setting`
 ```C
-floatReturnTimeDelayInSecond = variableFunction.GetTimeDelay();
+floatReturnTimeDelayInSecond = variableFunction.GetTimeDebounce();
 ```
 ##### `Elapsed Time`
 ```C
 floatReturnElapsedTimeInSecond = variableFunction.GetElapsedTime();
 ```
 
-### Examples:
-
-#### `$Option 1`
+### Example:
 ```C
 #include "MicroBeaut.h"
 
@@ -92,7 +83,7 @@ const float timeDebounce = 0.01;  // Time Debounce = 10 milliseconds
 void setup() {
 	pinMode(inputPin, INPUT);                // Set Pin as an Input Mode
 	pinMode(LED_BUILTIN, OUTPUT);            // Set Pin as an Output Mode
-	debFunction.SetTimeDelay(timeDebounce);  // Set Time Debounce
+	debFunction.SetTimeDebounce(timeDebounce);  // Set Time Debounce
 }
 
 void loop() {
@@ -100,32 +91,6 @@ void loop() {
 	inputState = debFunction.Debounce(digitalRead(inputPin));  // Read Input and Debounce
 	outputState ^= (inputState & !prevInput);                  // Toggle Output
 	digitalWrite(LED_BUILTIN, outputState);                    // Write Output
-}
-```
-
-#### `$Option 2`
-```C
-#include "MicroBeaut.h"
-
-#define inputPin 8  // Define Input Pin
-
-MicroBeaut_Debounce debFunction;  // Debounce Variable
-bool inputState;    // Input State
-bool prevInput;     // Previous Input State
-bool outputState;   // Output State
-
-const float timeDebounce = 0.01;  // Time Debounce = 10 milliseconds
-
-void setup() {
-	pinMode(inputPin, INPUT);       // Set Pin as an Input Mode
-	pinMode(LED_BUILTIN, OUTPUT);   // Set Pin as an Output Mode
-}
-
-void loop() {
-	prevInput = inputState; // Previous Input = Current Input
-	inputState = debFunction.Debounce(digitalRead(inputPin), timeDebounce);  // Read Input and Debounce
-	outputState ^= (inputState & !prevInput); // Toggle Output
-	digitalWrite(LED_BUILTIN, outputState);   // Write Output
 }
 ```
 
@@ -142,16 +107,9 @@ The rising edge of the input starts the timer. While the input is TRUE, after a 
 MicroBeaut_TimeOn variableFunction;
 ```
 #### `Function Use`
-
-##### `$Option 1`
 ```C
 variableFunction.SetTimeDelay(floatTimeDelayInSecond);
 boolReturnValue = variableFunction.TimerOn(boolVariableInput);
-```
-
-##### `$Option 2`
-```C
-boolReturnValue = variableFunction.TimerOn(boolVariableInput, floatTimeDelayInSecond);
 ```
 
 #### `Getting other values from Function`
@@ -169,9 +127,8 @@ floatReturnTimeDelayInSecond = variableFunction.GetTimeDelay();
 floatReturnElapsedTimeInSecond = variableFunction.GetElapsedTime();
 ```
 
-### Examples:
+### Example:
 
-#### `$Option 1`
 ```C
 #include "MicroBeaut.h"
 
@@ -196,30 +153,6 @@ void loop() {
 	digitalWrite(LED_BUILTIN, outputState);         // Write Output
 }
 ```
-#### `$Option2`
-```C
-#include "MicroBeaut.h"
-
-
-#define inputPin 8  // Define Input Pin
-
-MicroBeaut_TimerOn tonFunction;   // Timer On Variable
-bool inputState;  // Input State
-bool outputState; // Output State
-
-const float timeDelay = 1.0;  // Time Delay = 1 Second
-
-void setup() {
-	pinMode(inputPin, INPUT);     // Set Pin as an Input Mode
-	pinMode(LED_BUILTIN, OUTPUT); // Set Pin as an Output Modee
-}
-
-void loop() {
-	inputState = digitalRead(inputPin);     // Read Input
-	outputState = tonFunction.TimerOn(inputState, timeDelay);  // Timer On Function with Input and Time Delay
-	digitalWrite(LED_BUILTIN, outputState); // Write Output
-}
-```
 
 ## TimerOff (Timer Off)
 The timer off function delays TimeDelay from the input's falling edge to the output's falling edge.
@@ -239,11 +172,6 @@ variableFunction.SetTimeDelay(floatTimeDelayInSecond);
 boolReturnValue = variableFunction.TimerOff(boolVariableInput);
 ```
 
-##### `$Option 2`
-```C
-boolReturnValue = variableFunction.TimerOff(boolVariableInput, floatTimeDelayInSecond);
-```
-
 #### `Getting other values from Function`
 
 ##### `Output State`
@@ -259,10 +187,7 @@ floatReturnTimeDelayInSecond = variableFunction.GetTimeDelay();
 floatReturnElapsedTimeInSecond = variableFunction.GetElapsedTime();
 ```
 
-### Examples:
-
-#### `$Option 1` 
-
+### Example:
 ```C
 #include "MicroBeaut.h"
 
@@ -287,31 +212,6 @@ void loop() {
 	digitalWrite(LED_BUILTIN, outputState); // Write Output
 }
 ```
-#### `$Option 2` 
-```C
-#include "MicroBeaut.h"
-
-
-#define inputPin 8  // Define Input Pin
-
-MicroBeaut_TimerOff tofFunction;  // Timer Off Variable
-bool inputState;    // Input State
-bool outputState;   // Output State
-
-const float timeDelay = 1.0;      // Time Delay = 1 Second
-
-void setup() {
-	pinMode(inputPin, INPUT_PULLUP);  // Set Pin as an Input Mode
-	pinMode(LED_BUILTIN, OUTPUT);     // Set Pin as an Output Mode
-}
-
-void loop() {
-	inputState = digitalRead(inputPin);     // Read Input
-	outputState = tofFunction.TimerOff(inputState, timeDelay);  // Timer Off Function with Input and Time Delay
-	digitalWrite(LED_BUILTIN, outputState); // Write Output
-}
-```
-
 
 ##  TimePulse (Time Pulse)
 The time pulse function generates a pulse of duration TimeDelay starting on the rising edge of the input.
@@ -325,15 +225,9 @@ The rising edge of the input starts the timer, setting output to TRUE. While the
 MicroBeaut_TimePulse variableFunction;
 ```
 #### `Function Use`
-
-##### `$Option 1`
 ```C
 variableFunction.SetTimeDelay(floatTimeDelayInSecond);
 boolReturnValue = variableFunction.TimePulse(boolVariableInput);
-```
-##### `$Option 2`
-```C
-boolReturnValue = variableFunction.TimePulse(boolVariableInput, floatTimeDelayInSecond);
 ```
 
 #### `Getting other values from Function`
@@ -351,9 +245,8 @@ floatReturnTimeDelayInSecond = variableFunction.GetTimeDelay();
 floatReturnElapsedTimeInSecond = variableFunction.GetElapsedTime();
 ```
 
-### Examples:
+### Example:
 
-#### `$Option 1`
 ```C
 #include "MicroBeaut.h"
 
@@ -378,31 +271,6 @@ void loop() {
 	digitalWrite(LED_BUILTIN, outputState); // Write Output
 }
 ```
-##### `$Option 2`
-```C
-#include "MicroBeaut.h"
-
-
-#define inputPin 8  // Define Input Pin
-
-MicroBeaut_TimePulse tpFunction;  // Time Pulse Variable
-bool inputState;    // Input State
-bool outputState;   // Output State
-
-const float timeDelay = 1.0;  // Time Pulse = 1 Second
-
-void setup() {
-	pinMode(inputPin, INPUT);     // Set Pin as an Input Mode
-	pinMode(LED_BUILTIN, OUTPUT); // Set Pin as an Output Mode
-}
-
-void loop() {
-	inputState = digitalRead(inputPin);     // Read Input
-	outputState = tpFunction.TimePulse(inputState, timeDelay);  // Time Pulse Function with Input and Time Delay
-	digitalWrite(LED_BUILTIN, outputState); // Write Output
-}
-```
-
 
 ##  Blink
 The input enables blinking. The blink function generates a pulse output that is supposed to repeatedly turn the result on and off. The reset input resets the output to FALSE and initiates the pulse-off period. TimeDelayOn specifies how long the pulse is on; TimeDelayOff specifies how long the pulse is off.
@@ -415,26 +283,9 @@ MicroBeaut_Blink variableFunction;
 ```
 #### `Function Use`
 
-##### `$Option 1`
-```C
-variableFunction.SetTimeDelay(floatTimeDelayInSecond);
-boolReturnValue = variableFunction.Blink(boolVariableInput);
-```
-
-##### `$Option 2`
 ```C
 variableFunction.SetTimeDelay(floatTimeDelayOffInSecond, floatTimeDelayOnInSecond);
-boolReturnValue = variableFunction.Blink(boolVariableInput);
-```
-
-##### `$Option 3`
-```C
-boolReturnValue = variableFunction.Blink(boolVariableInput, floatTimeDelayInSecond);
-```
-
-##### `$Option 4`
-```C
-boolReturnValue = variableFunction.Blink(boolVariableInput, floatTimeDelayOffInSecond, floatTimeDelayOnInSecond);
+boolReturnValue = variableFunction.Blink(boolVariableInput = true);
 ```
 
 #### `Getting other values from Function`
@@ -452,35 +303,8 @@ floatReturnTimeDelayInSecond = variableFunction.GetTimeDelay();
 floatReturnElapsedTimeInSecond = variableFunction.GetElapsedTime();
 ```
 
-### Examples:
+### Example:
 
-#### `$Option 1`
-```C
-#include "MicroBeaut.h"
-
-
-#define inputPin 8  // Define Input Pin
-
-MicroBeaut_Blink blinkFunction;   // Blink Variable
-bool enableState;   // Enable State (0 = Disable, 1=Enable)
-bool outputState;   // Output State
-
-const float timeDelay = 0.5;      // OFF = 0.5 Second, ON = 0.5 Second
-
-void setup() {
-	pinMode(inputPin, INPUT_PULLUP);  // Set Pin as an Input Mode
-	pinMode(LED_BUILTIN, OUTPUT);     // Set Pin as an Output Mode
-	blinkFunction.SetTimeDelay(timeDelay);  // Set Blink
-}
-
-void loop() {
-	enableState = digitalRead(inputPin);    // Read Input (0 = Disable, 1 = Enable)
-	outputState = blinkFunction.Blink(enableState); // Blink Function with Enable Input
-	digitalWrite(LED_BUILTIN, outputState); // Write Output
-}
-```
-
-#### `$Option 2`
 ```C
 #include "MicroBeaut.h"
 
@@ -507,57 +331,6 @@ void loop() {
 }
 ```
 
-#### `$Option 3`
-```C
-#include "MicroBeaut.h"
-
-
-#define inputPin 8  // Define Input Pin
-
-MicroBeaut_Blink blinkFunction;   // Blink Variable
-bool enableState;   // Enable State (0 = Disable, 1=Enable)
-bool outputState;   // Output State
-
-const float timeDelay = 0.5;      // OFF = 0.5 Second, ON = 0.5 Second
-
-void setup() {
-	pinMode(inputPin, INPUT_PULLUP);  // Set Pin as an Input Mode
-	pinMode(LED_BUILTIN, OUTPUT);     // Set Pin as an Output Mode
-}
-
-void loop() {
-	enableState = digitalRead(inputPin);    // Read Input (0 = Disable, 1 = Enable)
-	outputState = blinkFunction.Blink(enableState, timeDelay); // Blink Function with Enable Input and Time Delay
-	digitalWrite(LED_BUILTIN, outputState); // Write Output
-}
-```
-
-#### `$Option 4`
-```C
-#include "MicroBeaut.h"
-
-
-#define inputPin 8  // Define Input Pin
-
-MicroBeaut_Blink blinkFunction;   // Blink Variable
-bool enableState;   // Enable State (0 = Disable, 1=Enable)
-bool outputState;   // Output State
-
-const float timeDelayOff = 0.25;  // OFF Delay = 0.25 second
-const float timeDealyOn = 0.5;    // ON Delay = 0.5 second
-
-void setup() {
-pinMode(inputPin, INPUT_PULLUP);  // Set Pin as an Input Mode
-pinMode(LED_BUILTIN, OUTPUT);     // Set Pin as an Output Mode
-}
-
-void loop() {
-	enableState = digitalRead(inputPin);    // Read Input (0 = Disable, 1 = Enable)
-	outputState = blinkFunction.Blink(enableState, timeDelayOff, timeDealyOn);// Blink Function with Enable Input and Time Delay (ON/OFF)
-	digitalWrite(LED_BUILTIN, outputState); // Write Output
-}
-```
-
 ### Trigger
 The trigger function sets the output only one scan.
 
@@ -573,21 +346,9 @@ MicroBeaut_Trigger variableFunction;
 ```
 #### `Function Use`
 
-##### `$Option 1`
 ```C
 variableFunction.SetTimeDelay(floatTimeDelayInSecond);
-boolReturnValue = variableFunction.Trigger(boolVariableInput);
-```
-
-##### `$Option 2`
-```C
-variableFunction.SetTimeDelay(floatTimeDelayOffInSecond, floatTimeDelayOnInSecond);
-boolReturnValue = variableFunction.Trigger(boolVariableInput, boolVariableReset);
-```
-
-##### `$Option 3`
-```C
-boolReturnValue = variableFunction.Trigger(boolVariableInput, boolVariableReset, floatTimeDelayOnInSecond);
+boolReturnValue = variableFunction.Trigger(boolVariableInput = true, boolVariableReset = false);
 ```
 
 #### `Getting other values from Function`
@@ -605,40 +366,8 @@ floatReturnTimeDelayInSecond = variableFunction.GetTimeDelay();
 floatReturnElapsedTimeInSecond = variableFunction.GetElapsedTime();
 ```
 
-### Examples:
+### Example:
 
-#### `$Option 1`
-```C
-#include "MicroBeaut.h"
-
-
-#define inputPin 8  // Define Input Pin
-
-MicroBeaut_Trigger trigFunction;  // Trigger Variable
-bool inputState;    // Input State
-bool outputState;   // Output State
-bool trigState;     // Trigger State
-
-const float timeDelay = 1.0;  // Trigger Delay = 1 Second
-
-void setup() {
-Serial.begin(115200);
-	pinMode(inputPin, INPUT_PULLUP);      // Set Pin as an Input Mode
-	pinMode(LED_BUILTIN, OUTPUT);         // Set Pin as an Output Mode
-	trigFunction.SetTimeDelay(timeDelay); // Set Trigger Delay
-}
-
-void loop() {
-	inputState = digitalRead(inputPin);     // Read Input
-	outputState = trigFunction.Trigger(inputState); // Trigger Function with Input
-	digitalWrite(LED_BUILTIN, outputState); // Write Output
-	if(trigFunction.Output()) {
-		Serial.println("Applying MicroBeaut to your program will make it easier to manage your Multitasking Programming.");
-	}
-}
-```
-
-#### `$Option 2`
 ```C
 #include "MicroBeaut.h"
 
@@ -673,42 +402,6 @@ void loop() {
 }
 ```
 
-#### `$Option 3`
-```C
-#include "MicroBeaut.h"
-
-
-#define inputPin 8  // Define Input Pin
-#define resetPin 9  // Define Input Pin
-
-MicroBeaut_Trigger trigFunction;  // Trigger Variable
-bool inputState;    // Input State
-bool resetState;    // Input State
-bool outputState;   // Output State
-bool trigState;     // Trigger State
-
-const float timeDelay = 1.0;  // Trigger Delay = 1 Second
-
-void setup() {
-	Serial.begin(115200);
-	pinMode(inputPin, INPUT_PULLUP);  // Set Pin as an Input Mode
-	pinMode(resetPin, INPUT);         // Set Pin as an Input Mode
-	pinMode(LED_BUILTIN, OUTPUT);     // Set Pin as an Output Mode
-}
-
-void loop() {
-	inputState = digitalRead(inputPin);     // Read Input
-	resetState = digitalRead(resetPin);     // Read Input
-	outputState = trigFunction.Trigger(inputState, resetState, timeDelay); // Trigger Function with Input
-	digitalWrite(LED_BUILTIN, outputState); // Write Output
-	if(trigFunction.Output()) {
-		Serial.println("Applying MicroBeaut to your program will make it easier to manage your Multitasking Programming.");
-	}
-}
-```
-
-----
-
 # Bistable
 
 ## SR (Set Dominant)
@@ -733,7 +426,7 @@ boolReturnValue = variableFunction.SR(boolVariableSet, boolVariableReset);
 boolReturnOutput = variableFunction.Output();
 ```
 
-### Examples:
+### Example:
 
 ```C
 #include "MicroBeaut.h"
@@ -787,7 +480,7 @@ boolReturnValue = variableFunction.RS(boolVariableSet, boolVariableReset);
 boolReturnOutput = variableFunction.Output();
 ```
 
-### Examples:
+### Example:
 
 ```C
 #include "MicroBeaut.h"
@@ -830,15 +523,8 @@ MicroBeaut_Toggle variableFunction;
 
 
 #### `Function Use`
-
-##### `$Option 1`
 ```C
-boolReturnValue = variableFunction.Toggel(boolVariableInput);
-```
-
-##### `$Option 2`
-```C
-boolReturnValue = variableFunction.Toggel(boolVariableInput, boolVariableReset);
+boolReturnValue = variableFunction.Toggel(boolVariableInput, boolVariableReset = false);
 ```
 
 #### `Getting another value from Function`
@@ -848,34 +534,7 @@ boolReturnValue = variableFunction.Toggel(boolVariableInput, boolVariableReset);
 boolReturnOutput = variableFunction.Output();
 ```
 
-### Examples:
-
-##### `$Option 1`
-
-```C
-#include "MicroBeaut.h"
-
-
-#define inputPin 8  // Define Input Pin
-
-MicroBeaut_Toggle togFunction;  // RS Variable
-bool inputState;    // Input State
-bool outputState;   // Output State
-
-
-void setup() {
-	pinMode(inputPin, INPUT_PULLUP);  // Set Pin as an Input Mode
-	pinMode(LED_BUILTIN, OUTPUT);     // Set Pin as an Output Mode
-}
-
-void loop() {
-	inputState = digitalRead(inputPin);           // Read Input
-	outputState = togFunction.Toggle(inputState); // Toggle Function with Input
-	digitalWrite(LED_BUILTIN, outputState);       // Write Output
-}
-```
-
-##### `$Option 2`
+### Example:
 
 ```C
 #include "MicroBeaut.h"
@@ -931,7 +590,7 @@ boolReturnValue = variableFunction.Rising(boolVariableInput);
 boolReturnOutput = variableFunction.Output();
 ```
 
-### Examples:
+### Example:
 
 ```C
 #include "MicroBeaut.h"
@@ -980,7 +639,7 @@ boolReturnValue = variableFunction.Falling(boolVariableInput);
 boolReturnOutput = variableFunction.Output();
 ```
 
-### Examples:
+### Example:
 
 ```C
 #include "MicroBeaut.h"
@@ -1024,29 +683,12 @@ MicroBeaut_TimeSchedule variableFunction;
 
 ##### `$Option 1`
 ```C
-variableFunction.Setup(floatTimeDelayInSecond, CallbackFunction);
-boolReturnValue = variableFunction.Run(boolVariableEnable);
-```
-##### `$Option 2`
-```C
-boolReturnValue = variableFunction.Run(boolVariableEnable, floatTimeDelayInSecond, CallbackFunction);
+variableFunction.Config(floatTimeScheduleInSecond, CallbackFunction);
+boolReturnValue = variableFunction.Run(boolVariableEnable = true);
 ```
 
-#### `Getting other values from Function`
+### Example:
 
-##### `Output State`
-```C
-boolReturnOutput = variableFunction.Output();
-```
-##### `Actual Time`
-```C
-floatReturnActualTimeInSecond = variableFunction.Actual();
-```
-
-
-### Examples:
-
-#### `$Option 1`
 ```C
 #include "MicroBeaut.h"
 
@@ -1076,35 +718,6 @@ void ToggleStateRoutine() {
 }
 ```
 
-#### `$Option 2`
-```C
-#include "MicroBeaut.h"
-
-
-#define inputPin 8  // Define Input Pin
-
-MicroBeaut_TimeSchedule tsFunction; // Time Schedule Variable
-bool enableState; // Enable State
-bool outputState; // Output State
-
-const float timeSchedule = 1.0;     // Time Schedule = 1 Second
-
-void setup() {
-	pinMode(inputPin, INPUT_PULLUP);    // Set Pin as an Input Mode
-	pinMode(LED_BUILTIN, OUTPUT);       // Set Pin as an Output Mode
-}
-
-void loop() {
-	enableState = digitalRead(inputPin);     // Read Input
-	tsFunction.Run(enableState, timeSchedule, ToggleStateRoutine);  // Time Schedule Function with Enable
-	digitalWrite(LED_BUILTIN, outputState); // Write Output
-}
-
-void ToggleStateRoutine() {
-	outputState = !outputState;
-}
-```
-
 ##  ScanSchedule (Schedules execution after a certain number of scans)
 
 The ScanSchedule function is used to schedule a selected subroutine's execution after a specified number of scans occur. Input enables the function. Output is TRUE after the specified number of scans occur and holds TRUE for one scan.
@@ -1117,14 +730,9 @@ The ScanSchedule function is used to schedule a selected subroutine's execution 
 ```
 #### `Function Use`
 
-##### `$Option 1`
 ```C
-variableFunction.Setup(uintNumberOfScan, CallbackFunction);
+variableFunction.Setup(uIntNumberOfScan, CallbackFunction);
 boolReturnValue = variableFunction.Run(boolVariableEnable);
-```
-##### `$Option 2`
-```C
-boolReturnValue = variableFunction.Run(boolVariableEnable, uintNumberOfScan, CallbackFunction);
 ```
 
 #### `Getting other values from Function`
@@ -1139,9 +747,8 @@ floatReturnActualTimeInSecond = variableFunction.Actual();
 ```
 
 
-### Examples:
+### Example:
 
-#### `$Option 1`
 ```C
 #include "MicroBeaut.h"
 
@@ -1171,34 +778,6 @@ void ToggleStateRoutine() {
 }
 ```
 
-#### `$Option 2`
-```C
-#include "MicroBeaut.h"
-
-
-#define inputPin 8 // Define Input Pin
-
-MicroBeaut_ScanSchedule ssFunction; // Scan Schedule Variable
-bool enableState;  // Eanble State
-bool outputState;  // Output State
-
-const unsigned long numberOfScan = 17450; // Number of scans
-
-void setup() {
-  pinMode(inputPin, INPUT_PULLUP);    // Set Pin as an Input Mode
-  pinMode(LED_BUILTIN, OUTPUT);       // Set Pin as an Output Mode
-}
-
-void loop() {
-  enableState = digitalRead(inputPin);     // Read Input
-  ssFunction.Run(enableState, numberOfScan, ToggleStateRoutine);  // Scan Schedule Function with Enable 
-  digitalWrite(LED_BUILTIN, outputState); // Write Output
-}
-
-void ToggleStateRoutine() {
-  outputState = !outputState;
-}
-```
 ----
 ## Reference
 [Triconex TriStation™ 1131 Developer’s Workbench Libraries](https://www.se.com/ww/en/work/products/industrial-automation-control/triconex-safety-systems/)
