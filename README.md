@@ -702,7 +702,7 @@ const float timeSchedule = 1.0; // Time Schedule = 1 Second
 void setup() {
 	pinMode(inputPin, INPUT_PULLUP);  // Set Pin as an Input Mode
 	pinMode(LED_BUILTIN, OUTPUT);     // Set Pin as an Output Mode
-	tsFunction.Setup(timeSchedule, ToggleStateRoutine);  // Set Time Schedule and Callback Function
+	tsFunction.Config(timeSchedule, ToggleStateRoutine);  // Set Time Schedule and Callback Function
 }
 
 void loop() {
@@ -729,7 +729,7 @@ The ScanSchedule function is used to schedule a selected subroutine's execution 
 #### `Function Use`
 
 ```C
-functionVariable.Setup(uIntNumberOfScan, CallbackFunction);
+functionVariable.Config(uIntNumberOfScan, CallbackFunction);
 boolReturnValue = functionVariable.Run(boolVariableEnable);
 ```
 
@@ -762,7 +762,7 @@ const unsigned long numberOfScan = 17450; // Number of scans
 void setup() {
   pinMode(inputPin, INPUT_PULLUP);    // Set Pin as an Input Mode
   pinMode(LED_BUILTIN, OUTPUT);       // Set Pin as an Output Mode
-  ssFunction.Setup(numberOfScan, ToggleStateRoutine);  // Set Scan Schedule and Callback Function
+  ssFunction.Config(numberOfScan, ToggleStateRoutine);  // Set Scan Schedule and Callback Function
 }
 
 void loop() {
