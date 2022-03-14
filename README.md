@@ -44,26 +44,26 @@ The falling edge of the input starts the timer. While the input is FALSE, after 
 
 #### `Declaration`
 ```C
-MicroBeaut_Debounce variableFunction;
+MicroBeaut_Debounce functionVariable;
 ```
 #### `Function Use`
 ```C
-variableFunction.SetTimeDebounce(floatTimeDebounceInSecond);
-boolReturnValue = variableFunction.Debounce(boolVariableInput);
+functionVariable.SetTimeDebounce(floatTimeDebounceInSecond);
+boolReturnValue = functionVariable.Debounce(boolVariableInput);
 ```
 #### `Getting other values from Function`
 
 ##### `Output State`
 ```C
-boolReturnOutput = variableFunction.Output();
+boolReturnOutput = functionVariable.Output();
 ```
 ##### `Time Debounce Setting`
 ```C
-floatReturnTimeDelayInSecond = variableFunction.GetTimeDebounce();
+floatReturnTimeDelayInSecond = functionVariable.GetTimeDebounce();
 ```
 ##### `Elapsed Time`
 ```C
-floatReturnElapsedTimeInSecond = variableFunction.GetElapsedTime();
+floatReturnElapsedTimeInSecond = functionVariable.GetElapsedTime();
 ```
 
 ### Example:
@@ -104,27 +104,27 @@ The rising edge of the input starts the timer. While the input is TRUE, after a 
 
 #### `Declaration`
 ```C
-MicroBeaut_TimeOn variableFunction;
+MicroBeaut_TimeOn functionVariable;
 ```
 #### `Function Use`
 ```C
-variableFunction.SetTimeDelay(floatTimeDelayInSecond);
-boolReturnValue = variableFunction.TimerOn(boolVariableInput);
+functionVariable.SetTimeDelay(floatTimeDelayInSecond);
+boolReturnValue = functionVariable.TimerOn(boolVariableInput);
 ```
 
 #### `Getting other values from Function`
 
 ##### `Output State`
 ```C
-boolReturnOutput = variableFunction.Output();
+boolReturnOutput = functionVariable.Output();
 ```
 ##### `Time Delay Setting`
 ```C
-floatReturnTimeDelayInSecond = variableFunction.GetTimeDelay();
+floatReturnTimeDelayInSecond = functionVariable.GetTimeDelay();
 ```
 ##### `Elapsed Time`
 ```C
-floatReturnElapsedTimeInSecond = variableFunction.GetElapsedTime();
+floatReturnElapsedTimeInSecond = functionVariable.GetElapsedTime();
 ```
 
 ### Example:
@@ -162,28 +162,28 @@ The falling edge of the input starts the timer. While the input is FALSE, after 
 
 #### `Declaration`
 ```C
-MicroBeaut_TimeOn variableFunction;
+MicroBeaut_TimeOn functionVariable;
 ```
 #### `Function Use`
 
 ```C
-variableFunction.SetTimeDelay(floatTimeDelayInSecond);
-boolReturnValue = variableFunction.TimerOff(boolVariableInput);
+functionVariable.SetTimeDelay(floatTimeDelayInSecond);
+boolReturnValue = functionVariable.TimerOff(boolVariableInput);
 ```
 
 #### `Getting other values from Function`
 
 ##### `Output State`
 ```C
-boolReturnOutput = variableFunction.Output();
+boolReturnOutput = functionVariable.Output();
 ```
 ##### `Time Delay Setting`
 ```C
-floatReturnTimeDelayInSecond = variableFunction.GetTimeDelay();
+floatReturnTimeDelayInSecond = functionVariable.GetTimeDelay();
 ```
 ##### `Elapsed Time`
 ```C
-floatReturnElapsedTimeInSecond = variableFunction.GetElapsedTime();
+floatReturnElapsedTimeInSecond = functionVariable.GetElapsedTime();
 ```
 
 ### Example:
@@ -221,27 +221,27 @@ The rising edge of the input starts the timer, setting output to TRUE. While the
 
 #### `Declaration`
 ```C
-MicroBeaut_TimePulse variableFunction;
+MicroBeaut_TimePulse functionVariable;
 ```
 #### `Function Use`
 ```C
-variableFunction.SetTimeDelay(floatTimeDelayInSecond);
-boolReturnValue = variableFunction.TimePulse(boolVariableInput);
+functionVariable.SetTimeDelay(floatTimeDelayInSecond);
+boolReturnValue = functionVariable.TimePulse(boolVariableInput);
 ```
 
 #### `Getting other values from Function`
 
 ##### `Output State`
 ```C
-boolReturnOutput = variableFunction.Output();
+boolReturnOutput = functionVariable.Output();
 ```
 ##### `Time Pulse Setting`
 ```C
-floatReturnTimeDelayInSecond = variableFunction.GetTimeDelay();
+floatReturnTimeDelayInSecond = functionVariable.GetTimeDelay();
 ```
 ##### `Elapsed Time`
 ```C
-floatReturnElapsedTimeInSecond = variableFunction.GetElapsedTime();
+floatReturnElapsedTimeInSecond = functionVariable.GetElapsedTime();
 ```
 
 ### Example:
@@ -278,28 +278,28 @@ The input enables blinking. The blink function generates a pulse output that is 
 
 #### `Declaration`
 ```C
-MicroBeaut_Blink variableFunction;
+MicroBeaut_Blink functionVariable;
 ```
 #### `Function Use`
 
 ```C
-variableFunction.SetTimeDelay(floatTimeDelayOffInSecond, floatTimeDelayOnInSecond);
-boolReturnValue = variableFunction.Blink(boolVariableInput = true);
+functionVariable.SetTimeDelay(floatTimeDelayOffInSecond, floatTimeDelayOnInSecond);
+boolReturnValue = functionVariable.Blink(boolVariableInput = true);
 ```
 
 #### `Getting other values from Function`
 
 ##### `Output State`
 ```C
-boolReturnOutput = variableFunction.Output();
+boolReturnOutput = functionVariable.Output();
 ```
 ##### `Time Blink Setting`
 ```C
-floatReturnTimeDelayInSecond = variableFunction.GetTimeDelay();
+floatReturnTimeDelayInSecond = functionVariable.GetTimeDelay();
 ```
 ##### `Elapsed Time`
 ```C
-floatReturnElapsedTimeInSecond = variableFunction.GetElapsedTime();
+floatReturnElapsedTimeInSecond = functionVariable.GetElapsedTime();
 ```
 
 ### Example:
@@ -341,28 +341,28 @@ The reset input resets the output to FALSE and resets the timer.
 
 #### `Declaration`
 ```C
-MicroBeaut_Trigger variableFunction;
+MicroBeaut_Trigger functionVariable;
 ```
 #### `Function Use`
 
 ```C
-variableFunction.SetTimeDelay(floatTimeDelayInSecond);
-boolReturnValue = variableFunction.Trigger(boolVariableInput = true, boolVariableReset = false);
+functionVariable.SetTimeDelay(floatTimeDelayInSecond);
+boolReturnValue = functionVariable.Trigger(boolVariableInput = true, boolVariableReset = false);
 ```
 
 #### `Getting other values from Function`
 
 ##### `Output State`
 ```C
-boolReturnOutput = variableFunction.Output();
+boolReturnOutput = functionVariable.Output();
 ```
 ##### `Time Delay Setting`
 ```C
-floatReturnTimeDelayInSecond = variableFunction.GetTimeDelay();
+floatReturnTimeDelayInSecond = functionVariable.GetTimeDelay();
 ```
 ##### `Elapsed Time`
 ```C
-floatReturnElapsedTimeInSecond = variableFunction.GetElapsedTime();
+floatReturnElapsedTimeInSecond = functionVariable.GetElapsedTime();
 ```
 
 ### Example:
@@ -410,19 +410,19 @@ The RS function block is a latch with the reset input dominant over the set inpu
 
 #### `Declaration`
 ```C
-MicroBeaut_SR variableFunction;
+MicroBeaut_SR functionVariable;
 ```
 
 #### `Function Use`
 ```C
-boolReturnValue = variableFunction.SR(boolVariableSet, boolVariableReset);
+boolReturnValue = functionVariable.SR(boolVariableSet, boolVariableReset);
 ```
 
 #### `Getting another value from Function`
 
 ##### `Output State`
 ```C
-boolReturnOutput = variableFunction.Output();
+boolReturnOutput = functionVariable.Output();
 ```
 
 ### Example:
@@ -464,19 +464,19 @@ S is FASE, then Q1 does not change.
 
 #### `Declaration`
 ```C
-MicroBeaut_RS variableFunction;
+MicroBeaut_RS functionVariable;
 ```
 
 #### `Function Use`
 ```C
-boolReturnValue = variableFunction.RS(boolVariableSet, boolVariableReset);
+boolReturnValue = functionVariable.RS(boolVariableSet, boolVariableReset);
 ```
 
 #### `Getting another value from Function`
 
 ##### `Output State`
 ```C
-boolReturnOutput = variableFunction.Output();
+boolReturnOutput = functionVariable.Output();
 ```
 
 ### Example:
@@ -516,21 +516,21 @@ The rising edge of input "Input" toggles Output. Input "Reset" resets Output (to
 
 #### `Declaration`
 ```C
-MicroBeaut_Toggle variableFunction;
+MicroBeaut_Toggle functionVariable;
 ```
 
 
 
 #### `Function Use`
 ```C
-boolReturnValue = variableFunction.Toggel(boolVariableInput, boolVariableReset = false);
+boolReturnValue = functionVariable.Toggel(boolVariableInput, boolVariableReset = false);
 ```
 
 #### `Getting another value from Function`
 
 ##### `Output State`
 ```C
-boolReturnOutput = variableFunction.Output();
+boolReturnOutput = functionVariable.Output();
 ```
 
 ### Example:
@@ -574,19 +574,19 @@ Set Output on the rising edge of Input.
 
 #### `Declaration`
 ```C
-MicroBeaut_Rising variableFunction;
+MicroBeaut_Rising functionVariable;
 ```
 #### `Function Use`
 
 ```C
-boolReturnValue = variableFunction.Rising(boolVariableInput);
+boolReturnValue = functionVariable.Rising(boolVariableInput);
 ```
 
 #### `Getting another value from Function`
 
 ##### `Output State`
 ```C
-boolReturnOutput = variableFunction.Output();
+boolReturnOutput = functionVariable.Output();
 ```
 
 ### Example:
@@ -623,19 +623,19 @@ Set Output on the falling edge of Input.
 
 #### `Declaration`
 ```C
-MicroBeaut_Falling variableFunction;
+MicroBeaut_Falling functionVariable;
 ```
 #### `Function Use`
 
 ```C
-boolReturnValue = variableFunction.Falling(boolVariableInput);
+boolReturnValue = functionVariable.Falling(boolVariableInput);
 ```
 
 #### `Getting another value from Function`
 
 ##### `Output State`
 ```C
-boolReturnOutput = variableFunction.Output();
+boolReturnOutput = functionVariable.Output();
 ```
 
 ### Example:
@@ -676,13 +676,13 @@ The TimeSchedule function is used to schedule a selected subroutine's execution 
 
 #### `Declaration`
 ```C
-MicroBeaut_TimeSchedule variableFunction;
+MicroBeaut_TimeSchedule functionVariable;
 ```
 #### `Function Use`
 
 ```C
-variableFunction.Config(floatTimeScheduleInSecond, CallbackFunction);
-boolReturnValue = variableFunction.Run(boolVariableEnable = true);
+functionVariable.Config(floatTimeScheduleInSecond, CallbackFunction);
+boolReturnValue = functionVariable.Run(boolVariableEnable = true);
 ```
 
 ### Example:
@@ -702,7 +702,7 @@ const float timeSchedule = 1.0; // Time Schedule = 1 Second
 void setup() {
 	pinMode(inputPin, INPUT_PULLUP);  // Set Pin as an Input Mode
 	pinMode(LED_BUILTIN, OUTPUT);     // Set Pin as an Output Mode
-	tsFunction.Config(timeSchedule, ToggleStateRoutine);  // Set Time Schedule and Callback Function
+	tsFunction.Setup(timeSchedule, ToggleStateRoutine);  // Set Time Schedule and Callback Function
 }
 
 void loop() {
@@ -724,24 +724,24 @@ The ScanSchedule function is used to schedule a selected subroutine's execution 
 
 #### `Declaration`
   ```C
-  MicroBeaut_ScanSchedule variableFunction;
+  MicroBeaut_ScanSchedule functionVariable;
 ```
 #### `Function Use`
 
 ```C
-variableFunction.Config(uIntNumberOfScan, CallbackFunction);
-boolReturnValue = variableFunction.Run(boolVariableEnable);
+functionVariable.Setup(uIntNumberOfScan, CallbackFunction);
+boolReturnValue = functionVariable.Run(boolVariableEnable);
 ```
 
 #### `Getting other values from Function`
 
 ##### `Output State`
 ```C
-boolReturnOutput = variableFunction.Output();
+boolReturnOutput = functionVariable.Output();
 ```
 ##### `Actual Time`
 ```C
-floatReturnActualTimeInSecond = variableFunction.Actual();
+floatReturnActualTimeInSecond = functionVariable.Actual();
 ```
 
 
@@ -762,7 +762,7 @@ const unsigned long numberOfScan = 17450; // Number of scans
 void setup() {
   pinMode(inputPin, INPUT_PULLUP);    // Set Pin as an Input Mode
   pinMode(LED_BUILTIN, OUTPUT);       // Set Pin as an Output Mode
-  ssFunction.Config(numberOfScan, ToggleStateRoutine);  // Set Scan Schedule and Callback Function
+  ssFunction.Setup(numberOfScan, ToggleStateRoutine);  // Set Scan Schedule and Callback Function
 }
 
 void loop() {
