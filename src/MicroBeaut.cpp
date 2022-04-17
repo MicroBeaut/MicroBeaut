@@ -4,8 +4,7 @@
 
 /*
   -- ======================================================================================
-  -- Library: MicorBeaut
-  -- Version: V1.1.2
+  -- Library: MicroBeaut
   -- Date:    13-Mar-2022
   -- Author:  Montree Hamarn, Natvalun Tavepontakul
   -- Email:   montree.hamarn@gmail.com, natvalun.tavepontakul@hotmail.com
