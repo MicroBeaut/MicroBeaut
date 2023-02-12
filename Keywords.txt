@@ -22,27 +22,17 @@ MicroBeaut_ScanSchedule KEYWORD1
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
-SR              KEYWORD2
-RS              KEYWORD2
-Toggle          KEYWORD2
-Rising          KEYWORD2
-Falling         KEYWORD2
-Debounce        KEYWORD2
-TimerOn         KEYWORD2
-TimerOff        KEYWORD2
-Blink           KEYWORD2
-TimePulse       KEYWORD2
-Trigger         KEYWORD2
-SetTimeDelay    KEYWORD2
-SetTimeDebounce KEYWORD2
-GetTimeDelayOn  KEYWORD2
-GetTimeDelayOff KEYWORD2
-GetTimeDelay    KEYWORD2
-GetTimeDebounce KEYWORD2
-GetElapsedTime  KEYWORD2
-Run             KEYWORD2
-Config          KEYWORD2
-Output          KEYWORD2
+readInput       KEYWORD2
+setTimeDelay    KEYWORD2
+setTimeDebounce KEYWORD2
+getTimeDelayOn  KEYWORD2
+getTimeDelayOff KEYWORD2
+getTimeDelay    KEYWORD2
+getTimeDebounce KEYWORD2
+getElapsedTime  KEYWORD2
+setTimeSchedule KEYWORD2
+setScanSchedule KEYWORD2
+readStatus      KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
