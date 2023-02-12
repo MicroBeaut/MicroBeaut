@@ -558,7 +558,7 @@ bool outputState;   // Output State
 
 
 void setup() {
-	pinMode(inputPin, INPUT_PULLUP);  // Set Pin as an Input Mode
+	pinMode(inputPin, INPUT);  				// Set Pin as an Input Mode
 	pinMode(resetPin, INPUT);         // Set Pin as an Input Mode
 	pinMode(LED_BUILTIN, OUTPUT);     // Set Pin as an Output Mode
 }
