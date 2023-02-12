@@ -692,7 +692,7 @@ MicroBeaut_TimeSchedule functionVariable;
 #### `Function Use`
 
 ```C
-functionVariable.setTimeSchedule(floatTimeScheduleInSecond, CallbackFunction);
+functionVariable.setTimeSchedule(uint16TimeScheduleInSecond, CallbackFunction);
 boolReturnValue = functionVariable.readInput(boolVariableEnable = true);
 ```
 
@@ -753,7 +753,7 @@ boolReturnOutput = functionVariable.readStatus();
 ```
 ##### `Actual Time`
 ```C
-floatReturnActualTimeInSecond = functionVariable.Actual();
+uint16ReturnActualTimeInMillisec = functionVariable.Actual();
 ```
 
 

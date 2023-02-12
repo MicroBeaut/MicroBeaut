@@ -65,8 +65,8 @@ void setup() {
 }
 
 void loop() {
-  inputState = digitalRead(inputPin);       // Read Input State (0 = Release, 1 = Press)
-  outputState = reInput.readInput(inputState); // Rising Edge Function with Input Parameter
+  inputState = digitalRead(inputPin);           // Read Input State (0 = Release, 1 = Press)
+  outputState = reInput.readInput(inputState);  // Rising Edge Function with Input Parameter
 
   // Counter by Rising Edge Input
   if (outputState) {
@@ -78,8 +78,8 @@ void loop() {
   if (triggerPlotter.readInput(true) | outputState) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)
-                   + ", Input: " + String(inputState)              // Input State
-                   + ", readStatus: " + String(outputState)            // Output Stat
-                   + " :Counter Number: " + String(counterValue)); // Counter Value
+                   + ", Input: " + String(inputState)               // Input State
+                   + ", Output: " + String(outputState)         // Output Stat
+                   + " :Counter Number: " + String(counterValue));  // Counter Value
   }
 }

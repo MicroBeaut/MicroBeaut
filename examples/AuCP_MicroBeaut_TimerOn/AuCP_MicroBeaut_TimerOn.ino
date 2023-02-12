@@ -30,18 +30,18 @@
   Parameters:
   Input:
   Input           : Input
-  Time Delay      : Time Delay in Second;
+  Time Delay      : Time Delay in Milliseconds;
 
   Return:
   TRUE or FALSE (HIGH/LOW)
 
   Get Output/Parameters:
   boolVariable = variableName.readStatus();
-  floatVariable = variableName.GetTimeDelay();    // Return Current Time Timer On
-  floatVariable = variableName.GetElapsedTime();  // Return Elapsed Time
+  uint16Variable = variableName.GetTimeDelay();    // Return Current Time Timer On
+  uint16Variable = variableName.GetElapsedTime();  // Return Elapsed Time
 
   Syntax:
-  variableName.setTimeDelay(floatTimeDelayOn);
+  variableName.setTimeDelay(uint16TimeDelayOn);
   boolVariable = variableName.readInput(boolInput);
 
 */
@@ -55,7 +55,7 @@
 bool inputState;      // Input State
 bool outputState;     // Output State
 
-MicroBeaut_TimerOn tonOutput; // Timer On Variable
+MicroBeaut_TimerOn tonOutput;     // Timer On Variable
 const uint16_t timeDelay = 1000;  // Time Delay 1 second
 
 // Serial Plotter Purpose
@@ -77,7 +77,6 @@ void loop() {
   outputState = tonOutput.readInput(inputState);  // Timer On Function with Input Parameter
   digitalWrite(outputPin, outputState);         // ON/OFF LED
 
-
   // readInput for Serial Plotter
   if (triggerPlotter.readInput(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
@@ -85,6 +84,6 @@ void loop() {
                    + ":Preset Time: " + String(tonOutput.getTimeDelay())     // Get Time Delay
                    + ", Elapsed Time: " + String(tonOutput.getElapsedTime()) // Get Elapsed Time
                    + ", Input: " + String(inputState)            // Input State
-                   + ", readStatus: " + String(outputState));        // Output State
+                   + ", Output: " + String(outputState));        // Output State
   }
 }

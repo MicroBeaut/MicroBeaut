@@ -38,7 +38,7 @@
 
   Get Output/Parameters:
   boolVariable = variableName.readStatus();
-  floatVariable = variableName.getElapsedTime();
+  uint16Variable = variableName.getElapsedTime();
 
   Syntax:
   variableName.setScanSchedule(numberOfScan, functionName);
@@ -61,7 +61,7 @@ const unsigned long numberOfScan = 17450;     // Number of scans
 // Serial Plotter Purpose
 MicroBeaut_Trigger triggerPlotter;    // Trigger Variable
 unsigned long lineNumber;             // Line Number : Max = 9999
-const uint16_t plotterPresetTime =10; // 10 milliseconds
+const uint16_t plotterPresetTime = 100; // 100 milliseconds
 
 void ToggleStateLED();
 
@@ -79,20 +79,17 @@ void loop() {
   inputState = !digitalRead(inputPin);  // Read Input State (0 = Release, 1 = Press)
   scanScheduleFunction.readInput(inputState); // Scan Schedule Function with Enable Parameter
 
-  digitalWrite(outputPin, outputState); // ON/OFF LED
-
   // Scan Schedule for Serial Plotter
   if (triggerPlotter.readInput(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)
                    + ", Enable: " + String(inputState)  // Input State
-                   + ", readStatus: " + String(outputState) // Output State
-
-                   + ", getElapsedTime Time: " + String(scanScheduleFunction.getElapsedTime()));
+                   + ", Output: " + String(outputState) // Output State
+                   + ", Elapsed Scan: " + String(scanScheduleFunction.getElapsedScan()));
   }
 }
 
-void ToggleStateLED()
-{
+void ToggleStateLED() {
   outputState = !outputState;
+  digitalWrite(outputPin, outputState); // ON/OFF LED
 }

@@ -77,7 +77,7 @@ void loop() {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)
                    + ", Input: " + String(inputState)              // Input State
-                   + ", readStatus: " + String(outputState)            // Output State                   
+                   + ", Output: " + String(outputState)            // Output State                   
                    + " :Counter Number: " + String(counterValue)); // Counter Value
   }
 }

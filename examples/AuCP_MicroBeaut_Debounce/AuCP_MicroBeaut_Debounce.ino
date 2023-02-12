@@ -39,13 +39,13 @@
   TRUE or FALSE (HIGH/LOW)
 
   Get Output/Parameters:
-  boolVariable = variableName.readStatus();           // Return Current Output State
-  floatVariable = variableName.GetTimeDebounce();    // Return Current Time Debounce
-  floatVariable = variableName.getElapsedTime();  // Return Elapsed Time
+  boolVariable = variableName.readStatus();       // Return Current Output State
+  uint16Variable = variableName.GetTimeDebounce(); // Return Current Time Debounce
+  uint16Variable = variableName.getElapsedTime();  // Return Elapsed Time
 
 
   Syntax:
-  variableName.setTimeDebounce(floatTimeDebounce);
+  variableName.setTimeDebounce(uint16TimeDebounce);
   boolVariable = variableName.readInput(bounceInput);
 
 */
@@ -59,13 +59,13 @@
 bool inputState;  // Input State
 bool outputState; // Output State
 
-MicroBeaut_Debounce  debounceFunction;  // Debounce Variable
-const uint16_t timeDebounce = 10;        // TimeDebounce 10 milliseconds
+MicroBeaut_Debounce  debounceFunction;    // Debounce Variable
+const uint16_t timeDebounce = 10;         // TimeDebounce 10 milliseconds
 
 // Serial Plotter Purpose
-MicroBeaut_Trigger triggerPlotter;    // Trigger Variable
-unsigned long lineNumber;             // Line Number : Max = 999
-const uint16_t plotterPresetTime = 10; // 10 milliseconds
+MicroBeaut_Trigger triggerPlotter;      // Trigger Variable
+unsigned long lineNumber;               // Line Number : Max = 999
+const uint16_t plotterPresetTime = 10;  // 10 milliseconds
 
 void setup() {
   Serial.begin(115200); // Set Baud Rate
@@ -78,13 +78,13 @@ void setup() {
 
 void loop() {
   inputState = digitalRead(inputPin);   // Read Input State (0 = Release, 1 = Press)
-  outputState = debounceFunction.readInput(inputState);  // Debounce Function with Input Parameter
+  outputState = debounceFunction.readInput(inputState); // Debounce Function with Input Parameter
   digitalWrite(outputPin, outputState); // ON/OFF LED
 
   // readInput for Serial Plotter
   if (triggerPlotter.readInput(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
-    Serial.println("L" + String(lineNumber) + ":Time Debounce: " + String(debounceFunction.getTimeDebounce()) // Get Time readInput
+    Serial.println("L" + String(lineNumber) + ":Time Debounce: " + String((uint16_t)debounceFunction.getTimeDebounce(), DEC) // Get Time readInput
                    + ", Elapsed Time: " + String(debounceFunction.getElapsedTime()) // Get Elapsed Time
                    + ", Input: " + String(inputState)      // Input State
                    + ", readStatus: " + String(outputState));  // Output State

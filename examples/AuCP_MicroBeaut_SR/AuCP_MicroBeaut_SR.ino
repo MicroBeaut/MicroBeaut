@@ -57,8 +57,8 @@ MicroBeaut_Toggle toggleSet;    // Toggle Variable
 MicroBeaut_Toggle toggleReset;  // Toggle Variable
 
 // Serial Plotter Purpose
-MicroBeaut_Trigger triggerPlotter;    // Toggle Variable
-unsigned long lineNumber;             // Line Number : Max = 9999
+MicroBeaut_Trigger triggerPlotter;      // Toggle Variable
+unsigned long lineNumber;               // Line Number : Max = 9999
 const uint16_t plotterPresetTime = 250; // 250 milliseconds
 
 void setup() {
@@ -73,13 +73,12 @@ void setup() {
 }
 
 void loop() {
-
   setState = digitalRead(setPin);     // Read Input State (0 = Release, 1 = Press)
   toggleSet.readInput(setState);         // Toggle Function with Input Parameter
   digitalWrite(setLEDPin, toggleSet.readStatus());  // ON/OFF LED
 
-  resetState = digitalRead(resetPin); // Read Input State (0 = Release, 1 = Press)
-  toggleReset.readInput(resetState);     // Toggle Function with Input Parameter
+  resetState = digitalRead(resetPin);   // Read Input State (0 = Release, 1 = Press)
+  toggleReset.readInput(resetState);    // Toggle Function with Input Parameter
   digitalWrite(resetLedPin, toggleReset.readStatus());  // ON/OFF LED
 
   // To Test SR Function
@@ -90,9 +89,8 @@ void loop() {
   if (triggerPlotter.readInput(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;           // Compare / Increase / Reset Line Number
     Serial.println("L" + String(lineNumber)                       // Plotter Line Number
-                   + " Set: " + String(toggleSet.readStatus())                  // Set State
-                   + ", Reset: " + String(toggleReset.readStatus())             // Reset State
-                   + ", readStatus: " + String(srFunction.readStatus()));  // Output State
-
+                   + " Set: " + String(toggleSet.readStatus())          // Set State
+                   + ", Reset: " + String(toggleReset.readStatus())     // Reset State
+                   + ", Output: " + String(srFunction.readStatus()));   // Output State
   }
 }

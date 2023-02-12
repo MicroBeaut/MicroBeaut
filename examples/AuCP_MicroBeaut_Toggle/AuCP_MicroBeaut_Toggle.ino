@@ -78,6 +78,6 @@ void loop() {
     Serial.println("L" + String(lineNumber)
                    + ", Input: " + String(inputState)     // Input State
                    + ", Reset: " + String(resetState)     // Reset State
-                   + ", readStatus: " + String(outputState)); // Output State
+                   + ", Output: " + String(outputState)); // Output State
   }
 }

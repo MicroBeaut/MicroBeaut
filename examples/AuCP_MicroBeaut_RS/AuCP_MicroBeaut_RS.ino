@@ -34,7 +34,6 @@
   Get Output/Parameters:
   boolVariable = variableName.readStatus();
 
-
   Syntax:
   boolVariable = variableName.readInput(boolInput, boolReset);
 
@@ -60,28 +59,26 @@ MicroBeaut_Toggle toggleReset;  // Toggle Variable
 // Serial Plotter Purpose
 MicroBeaut_Trigger triggerPlotter;    // Toggle Variable
 unsigned long lineNumber;             // Line Number : Max = 9999
-const float plotterPresetTime = 250; // 250 milliseconds
-
+const uint16_t plotterPresetTime = 250;  // 250 milliseconds
 
 void setup() {
   Serial.begin(115200);                           // Set Baud Rate
   triggerPlotter.setTimeDelay(plotterPresetTime); // Initial Time Delay for Serial Plotter
 
-  pinMode(setPin, INPUT);               // Input Pin Mode
-  pinMode(resetPin, INPUT);             // Input Pin Mode
+  pinMode(setPin, INPUT);                 // Input Pin Mode
+  pinMode(resetPin, INPUT);               // Input Pin Mode
   pinMode(setLEDPin, OUTPUT);             // Output Pin Mode
   pinMode(resetLEDPin, OUTPUT);           // Output Pin Mode
   pinMode(outputLEDPin, OUTPUT);          // Output Pin Mode
 }
 
 void loop() {
-
-  setState = digitalRead(setPin);         // Read Input State (0 = Release, 1 = Press)
-  toggleSet.readInput(setState);       // Toggle Function with Input Parameter
+  setState = digitalRead(setPin);     // Read Input State (0 = Release, 1 = Press)
+  toggleSet.readInput(setState);      // Toggle Function with Input Parameter
   digitalWrite(setLEDPin, toggleSet.readStatus());          // ON/OFF LED
 
-  resetState = digitalRead(resetPin);    // Read Input State (0 = Release, 1 = Press)
-  toggleReset.readInput(resetState); // Toggle Function with Input Parameter
+  resetState = digitalRead(resetPin); // Read Input State (0 = Release, 1 = Press)
+  toggleReset.readInput(resetState);  // Toggle Function with Input Parameter
   digitalWrite(resetLEDPin, toggleReset.readStatus());      // ON/OFF LED
 
   // To Test RS Function
@@ -92,8 +89,8 @@ void loop() {
   if (triggerPlotter.readInput(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;       // Compare / Increase / Reset Line Number
     Serial.println("L" + String(lineNumber)
-                   + " Set: " + String(toggleSet.readStatus())               // Set State
-                   + ", Reset: " + String(toggleReset.readStatus())          // Reset State
-                   + ", readStatus: " + String(rsFunction.readStatus())); // Output State
+                   + " Set: " + String(toggleSet.readStatus())          // Set State
+                   + ", Reset: " + String(toggleReset.readStatus())     // Reset State
+                   + ", Output: " + String(rsFunction.readStatus()));   // Output State
   }
 }

@@ -34,11 +34,11 @@
 
   Get Output/Parameters:
   boolVariable = variableName.readStatus();
-  floatVariable = variableName.getTimeDelay();    // Return Current Time Time Pulse
-  floatVariable = variableName.getElapsedTime();  // Return Elapsed Time
+  uint16Variable = variableName.getTimeDelay();    // Return Current Time Time Pulse
+  uint16Variable = variableName.getElapsedTime();  // Return Elapsed Time
 
   Syntax:
-  variableName.setTimeDelay(floatTimePulse);
+  variableName.setTimeDelay(uint16TimePulse);
   boolVariable = variableName.readInput(boolInput);
 */
 // WokWi: https://wokwi.com/arduino/projects/324006931497747028
@@ -52,18 +52,16 @@ bool inputState;  // Input State
 bool outputState; // Output State
 
 MicroBeaut_TimePulse timepulseFunction; // Time Pulse Variable
-const uint16_t timeDelay = 1000;            // Time Delay 1 second
+const uint16_t timeDelay = 1000;        // Time Delay 1 second
 
 // Serial Plotter Purpose
 MicroBeaut_Trigger triggerPlotter;  // Trigger Variable
 unsigned long lineNumber;           // Line Number : Max = 9999
 const uint16_t plotterPresetTime = 100;  // 10 milliseconds
 
-
-
 void setup() {
   Serial.begin(115200);                           // Set Baud Rate
-  triggerPlotter.setTimeDelay(plotterPresetTime);   // Initial Time Delay for Serial Plotter
+  triggerPlotter.setTimeDelay(plotterPresetTime); // Initial Time Delay for Serial Plotter
 
   pinMode(inputPin, INPUT);              // Input Pin Mode
   pinMode(outputPin, OUTPUT);            // OutputPin Mode
@@ -75,14 +73,13 @@ void loop() {
   outputState = timepulseFunction.readInput(inputState);   // Time Pulse Function with Input Parameter
   digitalWrite(outputPin, outputState); // ON/OFF LED
 
-
   // readInput for Serial Plotter
   if (triggerPlotter.readInput(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)
                    + ":Preset Time: " + String(timepulseFunction.getTimeDelay())     // Get Time Delay
                    + ", Elapsed Time: " + String(timepulseFunction.getElapsedTime()) // Get Elapsed Time
-                   + ", Input: " + String(inputState)           // Input State
-                   + ", readStatus: " + String(outputState));      // Output State
+                   + ", Input: " + String(inputState)     // Input State
+                   + ", Output: " + String(outputState)); // Output State
   }
 }

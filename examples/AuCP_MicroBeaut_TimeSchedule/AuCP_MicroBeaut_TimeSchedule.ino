@@ -39,7 +39,7 @@
 
   Get Output/Parameters:
   boolVariable = variableName.readStatus();
-  floatVariable = variableName.getElapsedTime();
+  uint16Variable = variableName.getElapsedTime();
 
   Syntax:
   variableName.setTimeSchedule(timeSchedule, functionName);
@@ -77,20 +77,18 @@ void loop() {
   inputState = !digitalRead(inputPin);  // Read Input State (0 = Release, 1 = Press)
   timeScheduleFunction.readInput(inputState);         // Time Schedule Function with Enable Parameter
 
-
   // Time Schedule for Serial Plotter
   if (triggerPlotter.readInput(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)
                    + ", Enable: " + String(inputState)    // Input State
-                   + ", readStatus: " + String(outputState)   // Output State
+                   + ", Output: " + String(outputState)   // Output State
 
                    + ", getElapsedTime Time: " + String(timeScheduleFunction.getElapsedTime()));
   }
 }
 
-void ToggleStateLED()
-{
+void ToggleStateLED() {
   outputState = !outputState;
   digitalWrite(outputPin, outputState); // ON/OFF LED
 }

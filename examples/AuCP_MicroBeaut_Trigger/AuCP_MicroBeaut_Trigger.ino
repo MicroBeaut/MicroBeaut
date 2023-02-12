@@ -30,18 +30,18 @@
   Parameters:
   Input:
   Input           : Input
-  Time Delay      : Time Delay in Second;
+  Time Delay      : Time Delay in Milliseconds;
 
   Return:
   TRUE or FALSE (HIGH/LOW)
 
   Get Output/Parameters:
   boolVariable = variableName.readStatus();
-  floatVariable = variableName.getTimeDelay();    // Return Current Time Trigger
-  floatVariable = variableName.getElapsedTime();  // Return Elapsed Time
+  uint16Variable = variableName.getTimeDelay();    // Return Current Time Trigger
+  uint16Variable = variableName.getElapsedTime();  // Return Elapsed Time
 
   Syntax:
-  variableName.setTimeDelay(floatTimeTrigger);
+  variableName.setTimeDelay(uint16TimeTrigger);
   boolVariable = variableName.readInput(boolInput, boolReset);
 */
 // WokWi: https://wokwi.com/arduino/projects/324014687430640212
@@ -56,19 +56,16 @@ bool inputState;  // Input State
 bool resetState;  // Input State
 bool outputState; // Output State
 
-
-MicroBeaut_Trigger triggerFunction;  // Trigger Variable
-const uint16_t timeDelay = 1000;          // Time Delay 1 second
+MicroBeaut_Trigger triggerFunction;   // Trigger Variable
+const uint16_t timeDelay = 1000;      // Time Delay 1 second
 
 // Serial Plotter Purpose
-MicroBeaut_Trigger triggerPlotter;  // Trigger Variable
-unsigned long lineNumber;           // Line Number : Max = 9999
-const uint16_t plotterPresetTime = 10; // 10 milliseconds
-
-
+MicroBeaut_Trigger triggerPlotter;      // Trigger Variable
+unsigned long lineNumber;               // Line Number : Max = 9999
+const uint16_t plotterPresetTime = 10;  // 10 milliseconds
 
 void setup() {
-  Serial.begin(115200);                         // Set Baud Rate
+  Serial.begin(115200);                           // Set Baud Rate
   triggerPlotter.setTimeDelay(plotterPresetTime); // Initial Time Delay for Serial Plotter
 
   pinMode(inputPin, INPUT);   // Input Pin Mode
@@ -78,9 +75,8 @@ void setup() {
 }
 
 void loop() {
-
-  inputState = !digitalRead(inputPin); // Read Input State (0 = Release, 1 = Press)
-  resetState = digitalRead(resetPin); // Read Input State (0 = Release, 1 = Press)
+  inputState = !digitalRead(inputPin);  // Read Input State (0 = Release, 1 = Press)
+  resetState = digitalRead(resetPin);   // Read Input State (0 = Release, 1 = Press)
   outputState = triggerFunction.readInput(inputState, resetState);  // Trigger Function with Input Parameter
   digitalWrite(outputPin, outputState);     // ON/OFF LED
 
@@ -92,6 +88,6 @@ void loop() {
                    + ", Elapsed Time: " + String(triggerFunction.getElapsedTime()) // Get Elapsed Time
                    + ", Enable: " + String(inputState)         // Enable State
                    + ", Reset: " + String(resetState)          // Reset State
-                   + ", readStatus: " + String(outputState));      // Output State
+                   + ", Output: " + String(outputState));      // Output State
   }
 }

@@ -20,6 +20,7 @@ class MicroBeaut_ScanSchedule {
     MicroBeaut_ScanSchedule(void);
     void setScanSchedule(unsigned long numberOfScan, MicroBeaut_CallBackFunction functionName = nullptr);
     bool readInput(bool enable = true);
+    unsigned long getElapsedScan(void);
     uint16_t getElapsedTime(void);
     bool readStatus(void);
 };
