@@ -1,7 +1,7 @@
 {
   "version": 1.1,
-  "author": "Montree Hamarn",
-  "editor": "MicroBeaut",
+  "author": "MicroBeaut",
+  "editor": "wokwi",
   "parts": [
     { "type": "wokwi-arduino-uno", "id": "uno", "top": 0, "left": 0, "attrs": {} },
     {

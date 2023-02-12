@@ -76,7 +76,6 @@ void setup() {
 void loop() {
   inputState = !digitalRead(inputPin);  // Read Input State (0 = Release, 1 = Press)
   timeScheduleFunction.Run(inputState);         // Time Schedule Function with Enable Parameter
-  digitalWrite(outputPin, outputState); // ON/OFF LED
 
 
   // Time Schedule for Serial Plotter
@@ -92,4 +91,5 @@ void loop() {
 void ToggleStateLED()
 {
   outputState = !outputState;
+  digitalWrite(outputPin, outputState); // ON/OFF LED
 }

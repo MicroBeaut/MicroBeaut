@@ -20,7 +20,7 @@
 class MicroBeaut_SR {
   public:
     MicroBeaut_SR(void);
-    bool SR(bool setInput, bool resetInput);
+    bool SR(bool setInput, bool resetInput = false);
     bool Output(void);
 
   private:
@@ -32,7 +32,7 @@ class MicroBeaut_RS
 {
   public:
     MicroBeaut_RS(void);
-    bool RS(bool setInput, bool resetInput);
+    bool RS(bool setInput, bool resetInput = false);
     bool Output(void);
 
   private:
