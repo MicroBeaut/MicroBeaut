@@ -84,7 +84,7 @@ void loop() {
   // readInput for Serial Plotter
   if (triggerPlotter.readInput(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
-    Serial.println("L" + String(lineNumber) + ":Time readInput: " + String(debounceFunction.getTimeDebounce()) // Get Time readInput
+    Serial.println("L" + String(lineNumber) + ":Time Debounce: " + String(debounceFunction.getTimeDebounce()) // Get Time readInput
                    + ", Elapsed Time: " + String(debounceFunction.getElapsedTime()) // Get Elapsed Time
                    + ", Input: " + String(inputState)      // Input State
                    + ", readStatus: " + String(outputState));  // Output State

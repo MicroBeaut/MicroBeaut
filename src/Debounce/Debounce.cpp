@@ -41,11 +41,11 @@ bool MicroBeaut_Debounce::readInput(bool input) {
 }
 
 uint16_t MicroBeaut_Debounce::getTimeDebounce() {
-  return ((uint16_t)_usTimeDebounce * 0.001);
+  return (uint16_t)(_usTimeDebounce * 0.001);
 }
 
 uint16_t MicroBeaut_Debounce::getElapsedTime() {
-  return ((uint16_t)_usElapsedTime * 0.001);
+  return (uint16_t)(_usElapsedTime * 0.001);
 }
 
 bool MicroBeaut_Debounce::readStatus() {

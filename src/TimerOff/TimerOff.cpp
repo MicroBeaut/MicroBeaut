@@ -42,9 +42,9 @@ bool MicroBeaut_TimerOff::readStatus() {
 }
 
 uint16_t MicroBeaut_TimerOff::getTimeDelay() {
-  return ((uint16_t)_usTimeDelay * 0.001);
+  return (uint16_t)(_usTimeDelay * 0.001);
 }
 
 uint16_t MicroBeaut_TimerOff::getElapsedTime() {
-  return ((uint16_t)_usElapsedTime * 0.001);
+  return (uint16_t)(_usElapsedTime * 0.001);
 }

@@ -50,7 +50,7 @@ bool MicroBeaut_ScanSchedule::readInput(bool enable) {
 }
 
 uint16_t MicroBeaut_ScanSchedule::getElapsedTime() {
-  return (uint16_t)_actual * 0.001;
+  return (uint16_t)(_actual * 0.001);
 }
 
 bool MicroBeaut_ScanSchedule::readStatus() {

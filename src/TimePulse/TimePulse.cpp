@@ -44,9 +44,9 @@ bool MicroBeaut_TimePulse::readStatus() {
 }
 
 uint16_t MicroBeaut_TimePulse::getTimeDelay() {
-  return ((uint16_t)_usTimeDelay * 0.001);
+  return (uint16_t)(_usTimeDelay * 0.001);
 }
 
 uint16_t MicroBeaut_TimePulse::getElapsedTime() {
-  return ((uint16_t)_usElapsedTime * 0.001);
+  return (uint16_t)(_usElapsedTime * 0.001);
 }

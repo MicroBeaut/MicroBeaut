@@ -9,7 +9,7 @@ private:
     bool _prevInput;
     bool _output;
     unsigned long _prevTime;
-    unsigned long _usTimeDebounce = 10000UL;
+    unsigned long _usTimeDebounce = 100UL;
     unsigned long _usElapsedTime;
 
   public:

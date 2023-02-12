@@ -54,9 +54,9 @@ bool MicroBeaut_Trigger::readStatus() {
 }
 
 uint16_t MicroBeaut_Trigger::getTimeDelay() {
-  return ((uint16_t)_usTimeDelay * 0.001);
+  return (uint16_t)(_usTimeDelay * 0.001);
 }
 
 uint16_t MicroBeaut_Trigger::getElapsedTime() {
-  return ((uint16_t)_usElapsedTime * 0.001);
+  return (uint16_t)(_usElapsedTime * 0.001);
 }

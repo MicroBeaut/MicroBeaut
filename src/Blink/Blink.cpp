@@ -67,13 +67,13 @@ bool MicroBeaut_Blink::readStatus() {
 }
 
 uint16_t MicroBeaut_Blink::getTimeDelayOn() {
-  return ((uint16_t)_timeDelayOn * 0.001);
+  return (uint16_t)(_timeDelayOn * 0.001);
 }
 
 uint16_t MicroBeaut_Blink::getTimeDelayOff() {
-  return ((uint16_t)_timeDelayOff * 0.001);
+  return (uint16_t)(_timeDelayOff * 0.001);
 }
 
 uint16_t MicroBeaut_Blink::getElapsedTime() {
-  return ((uint16_t)_usElapsedTime * 0.001);
+  return (uint16_t)(_usElapsedTime * 0.001);
 }
