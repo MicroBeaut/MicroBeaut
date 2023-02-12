@@ -21,9 +21,9 @@
   control program to be executed periodically.
 
   Member:
-  void Config(unsigned long numberOfScan, MicroBeaut_CallBackFunction functionName);
-  bool Run(bool enableInput = true);
-  float Actual(void);
+  void setScanSchedule(unsigned long numberOfScan, MicroBeaut_CallBackFunction functionName);
+  bool readInput(bool enableInput = true);
+  uint16_t getElapsedTime(void);
 
   Declaration:
   Microbeaut_ScanSchedule variableName
@@ -37,12 +37,12 @@
   TRUE or FALSE (HIGH/LOW)
 
   Get Output/Parameters:
-  boolVariable = variableName.Output();
-  floatVariable = variableName.Actual();
+  boolVariable = variableName.readStatus();
+  floatVariable = variableName.getElapsedTime();
 
   Syntax:
-  variableName.Config(numberOfScan, functionName);
-  boolVariable = Run(enableInput);
+  variableName.setScanSchedule(numberOfScan, functionName);
+  boolVariable = readInput(enableInput);
 
 */
 // WokWi: https://wokwi.com/arduino/projects/324493126851887699
@@ -56,38 +56,39 @@ bool inputState;  // Input State
 bool outputState; // Output State
 
 MicroBeaut_ScanSchedule scanScheduleFunction; // Scan Schedule Function
-const float numberOfScan = 17450;     // Number of scans
+const unsigned long numberOfScan = 17450;     // Number of scans
 
 // Serial Plotter Purpose
 MicroBeaut_Trigger triggerPlotter;    // Trigger Variable
 unsigned long lineNumber;             // Line Number : Max = 9999
-const float plotterPresetTime = 0.01; // 10 milliseconds
+const uint16_t plotterPresetTime =10; // 10 milliseconds
 
 void ToggleStateLED();
 
 void setup() {
   Serial.begin(115200);                           // Set Baud Rate
-  triggerPlotter.SetTimeDelay(plotterPresetTime); // Initial Time Delay for Serial Plotter
+  triggerPlotter.setTimeDelay(plotterPresetTime); // Initial Time Delay for Serial Plotter
 
   pinMode(inputPin, INPUT);   // Input Pin Mode
   pinMode(outputPin, OUTPUT); // Output Pin Mode
 
-  scanScheduleFunction.Config(numberOfScan, ToggleStateLED); // Scan Schedule Function with Enable Input and CallBack Function
+  scanScheduleFunction.setScanSchedule(numberOfScan, ToggleStateLED); // Scan Schedule Function with Enable Input and CallBack Function
 }
 
 void loop() {
   inputState = !digitalRead(inputPin);  // Read Input State (0 = Release, 1 = Press)
-  scanScheduleFunction.Run(inputState); // Scan Schedule Function with Enable Parameter
+  scanScheduleFunction.readInput(inputState); // Scan Schedule Function with Enable Parameter
 
   digitalWrite(outputPin, outputState); // ON/OFF LED
 
   // Scan Schedule for Serial Plotter
-  if (triggerPlotter.Trigger(true)) {
+  if (triggerPlotter.readInput(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)
                    + ", Enable: " + String(inputState)  // Input State
-                   + ", Output: " + String(outputState) // Output State
-                   + ", Actual Time: " + String(scanScheduleFunction.Actual(), 6));
+                   + ", readStatus: " + String(outputState) // Output State
+
+                   + ", getElapsedTime Time: " + String(scanScheduleFunction.getElapsedTime()));
   }
 }
 

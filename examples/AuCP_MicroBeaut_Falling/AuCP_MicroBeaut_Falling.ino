@@ -16,7 +16,7 @@
   Set the Output on the falling edge of Input.
 
   Member:
-  bool Falling(bool fallingInput);
+  bool readInput(bool fallingInput);
 
   Declaration:
   Microbeaut_Falling variableName
@@ -29,10 +29,11 @@
   TRUE or FALSE (HIGH/LOW)
 
   Get Output/Parameters:
-  boolVariable = variableName.Output(); // Return Current Output State
+  boolVariable = variableName.readStatus(); // Return Current Output State
+
 
   Syntax:
-  boolVariable = variableName.Falling(boolInput);
+  boolVariable = variableName.readInput(boolInput);
 
 */
 // WokWi: https://wokwi.com/arduino/projects/324035086096794195
@@ -51,19 +52,19 @@ int counterValue;                   // Count-Up Variable
 // Serial Plotter Purpose
 MicroBeaut_Trigger triggerPlotter;  // Trigger Variable
 unsigned long lineNumber;           // Line Number : Max = 9999
-const float plotterPresetTime = 0.1;  // 100 milliseconds
+const uint16_t plotterPresetTime = 100;  // 100 milliseconds
 
 void setup() {
   Serial.begin(115200);                           // Set Baud Rate
-  triggerPlotter.SetTimeDelay(plotterPresetTime); // Initial Time Delay for Serial Plotter
+  triggerPlotter.setTimeDelay(plotterPresetTime); // Initial Time Delay for Serial Plotter
 
   pinMode(inputPin, INPUT);              // Input Pin Mode
-  pinMode(outputPin, OUTPUT);            // Output Pin Mode
+  pinMode(outputPin, OUTPUT);            // OutputPin Mode
 }
 
 void loop() {
   inputState = digitalRead(inputPin);              // Read Input State (0 = Release, 1 = Press)
-  outputState = fallingFunction.Falling(inputState);    // Falling Edge Function with Input Parameter
+  outputState = fallingFunction.readInput(inputState);    // Falling Edge Function with Input Parameter
 
   // Counter by Falling Edge Input
   if (outputState) {
@@ -71,12 +72,12 @@ void loop() {
   }
   digitalWrite(outputPin, outputState);            // ON/OFF LED
 
-  // Trigger for Serial Plotter
-  if (triggerPlotter.Trigger(true) | outputState) {
+  // readInput for Serial Plotter
+  if (triggerPlotter.readInput(true) | outputState) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)
                    + ", Input: " + String(inputState)              // Input State
-                   + ", Output: " + String(outputState)            // Output State
+                   + ", readStatus: " + String(outputState)            // Output State                   
                    + " :Counter Number: " + String(counterValue)); // Counter Value
   }
 }

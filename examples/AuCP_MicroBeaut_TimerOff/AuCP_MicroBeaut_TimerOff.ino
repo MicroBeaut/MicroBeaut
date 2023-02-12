@@ -20,11 +20,11 @@
   and the elapsed time to zero.
 
   Member:
-  void SetTimeDelay(float timeDelay);
-  bool TimerOff(bool timerOffInput);
-  bool Output(void);
-  float GetTimeDelay(void);
-  float GetElapsedTime(void);
+  void setTimeDelay(uint16_t timeDelay);
+  bool readInput(bool timerOffInput);
+  bool readStatus(void);
+  uint16_t getTimeDelay(void);
+  uint16_t getElapsedTime(void);
 
   Declaration:
   MicroBeaut_TimerOff variableName
@@ -38,13 +38,13 @@
   TRUE or FALSE (HIGH/LOW)
 
   Get Output/Parameters:
-  boolVariable = variableName.Output();
-  floatVariable = variableName.GetTimeDelay();    // Return Current Time Timer Off
-  floatVariable = variableName.GetElapsedTime();  // Return Elapsed Time
+  boolVariable = variableName.readStatus();
+  floatVariable = variableName.getTimeDelay();    // Return Current Time Timer Off
+  floatVariable = variableName.getElapsedTime();  // Return Elapsed Time
 
   Syntax:
-  variableName.SetTimeDelay(floatTimeDelayOn);
-  boolVariable = variableName.TimerOff(boolInput);
+  variableName.setTimeDelay(floatTimeDelayOn);
+  boolVariable = variableName.readInput(boolInput);
 
 */
 // WokWi: https://wokwi.com/arduino/projects/324004619609965140
@@ -58,16 +58,16 @@ bool inputState;      // Input State
 bool outputState;     // Output State
 
 MicroBeaut_TimerOff tofFunction;  // Timer Off Variable
-const float timeDelay = 1.0;      // Time Delay 1 second
+const uint16_t timeDelay = 100;      // Time Delay 1 second
 
 // Serial Plotter Purpose
 MicroBeaut_Trigger triggerPlotter;  // Trigger Variable
 unsigned long lineNumber;           // Line Number : Max = 9999
-const float plotterPresetTime = 0.01; // 10 milliseconds
+const uint16_t plotterPresetTime = 10; // 10 milliseconds
 
 void setup() {
   Serial.begin(115200);                           // Set Baud Rate
-  triggerPlotter.SetTimeDelay(plotterPresetTime);   // Initial Time Delay for Serial Plotter
+  triggerPlotter.setTimeDelay(plotterPresetTime);   // Initial Time Delay for Serial Plotter
 
   pinMode(inputPin, INPUT_PULLUP);    // Input Pin Mode
   pinMode(outputPin, OUTPUT);         // Output Pin Mode
@@ -76,17 +76,17 @@ void setup() {
 
 void loop() {
   inputState = digitalRead(inputPin);    // Read Input State (0 = Press, 1 = Release)
-  outputState = tofFunction.TimerOff(inputState); // Timer Off Function with Input Parameter
+  outputState = tofFunction.readInput(inputState); // Timer Off Function with Input Parameter
   digitalWrite(outputPin, outputState);         // ON/OFF LED
 
 
-  // Trigger for Serial Plotter
-  if (triggerPlotter.Trigger(true)) {
+  // readInput for Serial Plotter
+  if (triggerPlotter.readInput(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)
-                   + ":Preset Time: " + String(tofFunction.GetTimeDelay(), 6)     // Get Time Delay
-                   + ", Elapsed Time: " + String(tofFunction.GetElapsedTime(), 6) // Get Elapsed Time
+                   + ":Preset Time: " + String(tofFunction.getTimeDelay())     // Get Time Delay
+                   + ", Elapsed Time: " + String(tofFunction.getElapsedTime()) // Get Elapsed Time
                    + ", Input: " + String(inputState)                             // Input State
-                   + ", Output: " + String(outputState));                         // Output State
+                   + ", readStatus: " + String(outputState));                         // Output State
   }
 }

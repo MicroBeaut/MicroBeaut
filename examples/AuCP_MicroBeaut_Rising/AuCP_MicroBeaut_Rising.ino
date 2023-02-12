@@ -17,7 +17,7 @@
 
   Member:
   Microbeaut_Rising(void);
-  bool Rising(bool risingInput);
+  bool readInput(bool risingInput);
 
   Declaration:
   Microbeaut_Rising variableName
@@ -30,10 +30,10 @@
   TRUE or FALSE (HIGH/LOW)
 
   Get Output/Parameters:
-  boolVariable = variableName.Output();
+  boolVariable = variableName.readStatus();
 
   Syntax:
-  boolVariable = variableName.Rising(boolInput);
+  boolVariable = variableName.readInput(boolInput);
 
 */
 // WokWi: https://wokwi.com/arduino/projects/324033361796399700
@@ -52,13 +52,13 @@ int counterValue;           // Count-Up Variable
 // Serial Plotter Purpose
 MicroBeaut_Trigger triggerPlotter;  // Trigger Variable
 unsigned long lineNumber;           // Line Number : Max = 9999
-const float plotterPresetTime = 0.100;  // 100 milliseconds
+const uint16_t plotterPresetTime = 100;  // 100 milliseconds
 
-const float timeDelay = 1.0;  // Time Delay 1 second
+const uint16_t timeDelay = 1000;  // Time Delay 1 second
 
 void setup() {
   Serial.begin(115200);                           // Set Baud Rate
-  triggerPlotter.SetTimeDelay(plotterPresetTime); // Initial Time Delay for Serial Plotter
+  triggerPlotter.setTimeDelay(plotterPresetTime); // Initial Time Delay for Serial Plotter
 
   pinMode(inputPin, INPUT);   // Input Pin Mode
   pinMode(outputPin, OUTPUT); // Output Pin Mode
@@ -66,7 +66,7 @@ void setup() {
 
 void loop() {
   inputState = digitalRead(inputPin);       // Read Input State (0 = Release, 1 = Press)
-  outputState = reInput.Rising(inputState); // Rising Edge Function with Input Parameter
+  outputState = reInput.readInput(inputState); // Rising Edge Function with Input Parameter
 
   // Counter by Rising Edge Input
   if (outputState) {
@@ -74,12 +74,12 @@ void loop() {
   }
   digitalWrite(outputPin, outputState);            // ON/OFF LED
 
-  // Trigger for Serial Plotter
-  if (triggerPlotter.Trigger(true) | outputState) {
+  // readInput for Serial Plotter
+  if (triggerPlotter.readInput(true) | outputState) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)
                    + ", Input: " + String(inputState)              // Input State
-                   + ", Output: " + String(outputState)            // Output State
+                   + ", readStatus: " + String(outputState)            // Output Stat
                    + " :Counter Number: " + String(counterValue)); // Counter Value
   }
 }

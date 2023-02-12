@@ -18,7 +18,7 @@
 
   Member:
   bool Toggle(bool toggleInput, bool resetInput = false);
-  bool Output(void);
+  bool readStatus(void);
 
   Declaration:
   Microbeaut_Toggle variableName
@@ -32,7 +32,7 @@
   TRUE or FALSE (HIGH/LOW)
 
   Get Output/Parameters:
-  boolVariable = variableName.Output();
+  boolVariable = variableName.readStatus();
 
   Syntax:
   boolVariable = variableName.Toggle(boolInput, boolReset);
@@ -55,11 +55,11 @@ MicroBeaut_Toggle toggleFuncton;  // Toggle Variable
 // Printing Purpose
 MicroBeaut_Trigger triggerPlotter;    // Toggle Variable
 unsigned long lineNumber;             // Line Number : Max = 9999
-const float plotterPresetTime = 0.01; // 10 milliseconds
+const uint16_t plotterPresetTime = 10; // 10 milliseconds
 
 void setup() {
   Serial.begin(115200);                           // Set Baud Rate
-  triggerPlotter.SetTimeDelay(plotterPresetTime); // Initial Time Delay for Printing
+  triggerPlotter.setTimeDelay(plotterPresetTime); // Initial Time Delay for Printing
 
   pinMode(inputPin, INPUT);   // Input Pin Mode
   pinMode(resetPin, INPUT);   // Input Pin Mode
@@ -69,15 +69,15 @@ void setup() {
 void loop() {
   inputState = digitalRead(inputPin); // Read Input State (0 = Release, 1 = Press)
   resetState = digitalRead(resetPin); // Read Input State (0 = Release, 1 = Press)
-  outputState = toggleFuncton.Toggle(inputState, resetState);  // Toggle Function with Input Parameter
+  outputState = toggleFuncton.readInput(inputState, resetState);  // Toggle Function with Input Parameter
   digitalWrite(outputPin, outputState);    // ON/OFF LED
 
   // Toggle for Printing
-  if (triggerPlotter.Trigger(true)) {
+  if (triggerPlotter.readInput(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
     Serial.println("L" + String(lineNumber)
                    + ", Input: " + String(inputState)     // Input State
                    + ", Reset: " + String(resetState)     // Reset State
-                   + ", Output: " + String(outputState)); // Output State
+                   + ", readStatus: " + String(outputState)); // Output State
   }
 }

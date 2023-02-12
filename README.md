@@ -48,22 +48,23 @@ MicroBeaut_Debounce functionVariable;
 ```
 #### `Function Use`
 ```C
-functionVariable.SetTimeDebounce(floatTimeDebounceInSecond);
-boolReturnValue = functionVariable.Debounce(boolVariableInput);
+functionVariable.setTimeDebounce(uint16TimeDebounceInMillisec);
+boolReturnValue = functionVariable.readInput(boolVariableInput);
 ```
 #### `Getting other values from Function`
 
-##### `Output State`
+##### `Output State
+`
 ```C
-boolReturnOutput = functionVariable.Output();
+boolReturnOutput = functionVariable.readStatus();
 ```
 ##### `Time Debounce Setting`
 ```C
-floatReturnTimeDelayInSecond = functionVariable.GetTimeDebounce();
+uint16ReturnTimeInMillisec = functionVariable.getTimeDebounce();
 ```
 ##### `Elapsed Time`
 ```C
-floatReturnElapsedTimeInSecond = functionVariable.GetElapsedTime();
+uint16ReturnTimeInMillisec = functionVariable.getElapsedTime();
 ```
 
 ### Example:
@@ -78,17 +79,17 @@ bool inputState;    // Input State
 bool prevInput;     // Previous Input State
 bool outputState;   // Output State
 
-const float timeDebounce = 0.01;  // Time Debounce = 10 milliseconds
+const uint16_t msTimeDebounce = 10;  // Time Debounce = 10 milliseconds
 
 void setup() {
 	pinMode(inputPin, INPUT);                // Set Pin as an Input Mode
 	pinMode(LED_BUILTIN, OUTPUT);            // Set Pin as an Output Mode
-	debFunction.SetTimeDebounce(timeDebounce);  // Set Time Debounce
+	debFunction.setTimeDebounce(msTimeDebounce);  // Set Time Debounce
 }
 
 void loop() {
 	prevInput = inputState;                                    // Previous Input = Current Input
-	inputState = debFunction.Debounce(digitalRead(inputPin));  // Read Input and Debounce
+	inputState = debFunction.readInput(digitalRead(inputPin));  // Read Input and Debounce
 	outputState ^= (inputState & !prevInput);                  // Toggle Output
 	digitalWrite(LED_BUILTIN, outputState);                    // Write Output
 }
@@ -108,23 +109,24 @@ MicroBeaut_TimeOn functionVariable;
 ```
 #### `Function Use`
 ```C
-functionVariable.SetTimeDelay(floatTimeDelayInSecond);
-boolReturnValue = functionVariable.TimerOn(boolVariableInput);
+functionVariable.setTimeDelay(msTimeDelay);
+boolReturnValue = functionVariable.readInput(boolVariableInput);
 ```
 
 #### `Getting other values from Function`
 
-##### `Output State`
+##### `Output State
+`
 ```C
-boolReturnOutput = functionVariable.Output();
+boolReturnOutput = functionVariable.readStatus();
 ```
 ##### `Time Delay Setting`
 ```C
-floatReturnTimeDelayInSecond = functionVariable.GetTimeDelay();
+uint16ReturnTimeInMillisec = functionVariable.getTimeDelay();
 ```
 ##### `Elapsed Time`
 ```C
-floatReturnElapsedTimeInSecond = functionVariable.GetElapsedTime();
+uint16ReturnTimeInMillisec = functionVariable.getElapsedTime();
 ```
 
 ### Example:
@@ -139,17 +141,17 @@ MicroBeaut_TimerOn tonFunction; // Timer On Variable
 bool inputState;  // Input State
 bool outputState; // Output State
 
-const float timeDelay = 1.0;  // Time Delay = 1 Second
+const uint16_t msTimeDelay = 1000;  // Time Delay = 1 Second
 
 void setup() {
 	pinMode(inputPin, INPUT);     // Set Pin as an Input Mode
 	pinMode(LED_BUILTIN, OUTPUT); // Set Pin as an Output Mode
-	tonFunction.SetTimeDelay(timeDelay);  // Set Time Delay
+	tonFunction.setTimeDelay(msTimeDelay);  // Set Time Delay
 }
 
 void loop() {
 	inputState = digitalRead(inputPin); // Read Input
-	outputState = tonFunction.TimerOn(inputState);  // Timer On Function with Input
+	outputState = tonFunction.readInput(inputState);  // Timer On Function with Input
 	digitalWrite(LED_BUILTIN, outputState);         // Write Output
 }
 ```
@@ -167,23 +169,24 @@ MicroBeaut_TimeOn functionVariable;
 #### `Function Use`
 
 ```C
-functionVariable.SetTimeDelay(floatTimeDelayInSecond);
-boolReturnValue = functionVariable.TimerOff(boolVariableInput);
+functionVariable.setTimeDelay(msTimeDelay);
+boolReturnValue = functionVariable.readInput(boolVariableInput);
 ```
 
 #### `Getting other values from Function`
 
-##### `Output State`
+##### `Output State
+`
 ```C
-boolReturnOutput = functionVariable.Output();
+boolReturnOutput = functionVariable.readStatus();
 ```
 ##### `Time Delay Setting`
 ```C
-floatReturnTimeDelayInSecond = functionVariable.GetTimeDelay();
+uint16ReturnTimeInMillisec = functionVariable.getTimeDelay();
 ```
 ##### `Elapsed Time`
 ```C
-floatReturnElapsedTimeInSecond = functionVariable.GetElapsedTime();
+uint16ReturnTimeInMillisec = functionVariable.getElapsedTime();
 ```
 
 ### Example:
@@ -197,17 +200,17 @@ MicroBeaut_TimerOff tofFunction;  // Timer Off Variable
 bool inputState;    // Input State
 bool outputState;   // Output State
 
-const float timeDelay = 1.0;      // Time Delay = 1 Second
+const uint16_t msTimeDelay = 1000;      // Time Delay = 1 Second
 
 void setup() {
 	pinMode(inputPin, INPUT_PULLUP);      // Set Pin as an Input Mode
 	pinMode(LED_BUILTIN, OUTPUT);         // Set Pin as an Output Mode
-	tofFunction.SetTimeDelay(timeDelay);  // Set Time Delay
+	tofFunction.setTimeDelay(msTimeDelay);  // Set Time Delay
 }
 
 void loop() {
 	inputState = digitalRead(inputPin);     // Read Input
-	outputState = tofFunction.TimerOff(inputState); // Timer Off Function with Input
+	outputState = tofFunction.readInput(inputState); // Timer Off Function with Input
 	digitalWrite(LED_BUILTIN, outputState); // Write Output
 }
 ```
@@ -225,23 +228,24 @@ MicroBeaut_TimePulse functionVariable;
 ```
 #### `Function Use`
 ```C
-functionVariable.SetTimeDelay(floatTimeDelayInSecond);
-boolReturnValue = functionVariable.TimePulse(boolVariableInput);
+functionVariable.setTimeDelay(msTimeDelay);
+boolReturnValue = functionVariable.readInput(boolVariableInput);
 ```
 
 #### `Getting other values from Function`
 
-##### `Output State`
+##### `Output State
+`
 ```C
-boolReturnOutput = functionVariable.Output();
+boolReturnOutput = functionVariable.readStatus();
 ```
 ##### `Time Pulse Setting`
 ```C
-floatReturnTimeDelayInSecond = functionVariable.GetTimeDelay();
+uint16ReturnTimeInMillisec = functionVariable.getTimeDelay();
 ```
 ##### `Elapsed Time`
 ```C
-floatReturnElapsedTimeInSecond = functionVariable.GetElapsedTime();
+uint16ReturnTimeInMillisec = functionVariable.getElapsedTime();
 ```
 
 ### Example:
@@ -256,17 +260,17 @@ MicroBeaut_TimePulse tpFunction;  // Time Pulse Variable
 bool inputState;    // Input State
 bool outputState;   // Output State
 
-const float timeDelay = 1.0;  // Time Pulse = 1 Second
+const uint16_t msTimeDelay = 1000;  // Time Pulse = 1 Second
 
 void setup() {
 	pinMode(inputPin, INPUT);     // Set Pin as an Input Mode
 	pinMode(LED_BUILTIN, OUTPUT); // Set Pin as an Output Mode
-	tpFunction.SetTimeDelay(timeDelay); // Set Time Pulse
+	tpFunction.setTimeDelay(msTimeDelay); // Set Time Pulse
 }
 
 void loop() {
 	inputState = digitalRead(inputPin);     // Read Input
-	outputState = tpFunction.TimePulse(inputState); // Time Pulse Function with Input
+	outputState = tpFunction.readInput(inputState); // Time Pulse Function with Input
 	digitalWrite(LED_BUILTIN, outputState); // Write Output
 }
 ```
@@ -283,23 +287,24 @@ MicroBeaut_Blink functionVariable;
 #### `Function Use`
 
 ```C
-functionVariable.SetTimeDelay(floatTimeDelayOffInSecond, floatTimeDelayOnInSecond);
-boolReturnValue = functionVariable.Blink(boolVariableInput = true);
+functionVariable.setTimeDelay(msTimeDelayOff, msTimeDelayOn);
+boolReturnValue = functionVariable.readInput(boolVariableInput = true);
 ```
 
 #### `Getting other values from Function`
 
-##### `Output State`
+##### `Output State
+`
 ```C
-boolReturnOutput = functionVariable.Output();
+boolReturnOutput = functionVariable.readStatus();
 ```
 ##### `Time Blink Setting`
 ```C
-floatReturnTimeDelayInSecond = functionVariable.GetTimeDelay();
+uint16ReturnTimeInMillisec = functionVariable.getTimeDelay();
 ```
 ##### `Elapsed Time`
 ```C
-floatReturnElapsedTimeInSecond = functionVariable.GetElapsedTime();
+uint16ReturnTimeInMillisec = functionVariable.getElapsedTime();
 ```
 
 ### Example:
@@ -314,18 +319,18 @@ MicroBeaut_Blink blinkFunction;   // Blink Variable
 bool enableState;   // Enable State (0 = Disable, 1=Enable)
 bool outputState;   // Output State
 
-const float timeDelayOff = 0.25;  // OFF Delay = 0.25 second
-const float timeDealyOn = 0.5;    // ON Delay = 0.5 second
+const uint16_t msTimeDelayOff = 250;  // OFF Delay = 0.25 second
+const uint16_t msTimeDelayOn = 500;    // ON Delay = 0.5 second
 
 void setup() {
 	pinMode(inputPin, INPUT_PULLUP);  // Set Pin as an Input Mode
 	pinMode(LED_BUILTIN, OUTPUT);     // Set Pin as an Output Mode
-	blinkFunction.SetTimeDelay(timeDelayOff, timeDealyOn);  // Set Blink
+	blinkFunction.setTimeDelay(msTimeDelayOff, msTimeDelayOn);  // Set Blink
 }
 
 void loop() {
 	enableState = digitalRead(inputPin);    // Read Input (0 = Disable, 1 = Enable)
-	outputState = blinkFunction.Blink(enableState); // Blink Function with Enable Input
+	outputState = blinkFunction.readInput(enableState); // Blink Function with Enable Input
 	digitalWrite(LED_BUILTIN, outputState); // Write Output
 }
 ```
@@ -346,23 +351,24 @@ MicroBeaut_Trigger functionVariable;
 #### `Function Use`
 
 ```C
-functionVariable.SetTimeDelay(floatTimeDelayInSecond);
-boolReturnValue = functionVariable.Trigger(boolVariableInput = true, boolVariableReset = false);
+functionVariable.setTimeDelay(msTimeDelay);
+boolReturnValue = functionVariable.readInput(boolVariableInput = true, boolVariableReset = false);
 ```
 
 #### `Getting other values from Function`
 
-##### `Output State`
+##### `Output State
+`
 ```C
-boolReturnOutput = functionVariable.Output();
+boolReturnOutput = functionVariable.readStatus();
 ```
 ##### `Time Delay Setting`
 ```C
-floatReturnTimeDelayInSecond = functionVariable.GetTimeDelay();
+uint16ReturnTimeInMillisec = functionVariable.getTimeDelay();
 ```
 ##### `Elapsed Time`
 ```C
-floatReturnElapsedTimeInSecond = functionVariable.GetElapsedTime();
+uint16ReturnTimeInMillisec = functionVariable.getElapsedTime();
 ```
 
 ### Example:
@@ -380,22 +386,22 @@ bool resetState;    // Input State
 bool outputState;   // Output State
 bool trigState;     // Trigger State
 
-const float timeDelay = 1.0;  // Trigger Delay = 1 Second
+const uint16_t msTimeDelay = 1000;  // Trigger Delay = 1 Second
 
 void setup() {
 	Serial.begin(115200);
 	pinMode(inputPin, INPUT_PULLUP);  // Set Pin as an Input Mode
 	pinMode(resetPin, INPUT);         // Set Pin as an Input Mode
 	pinMode(LED_BUILTIN, OUTPUT);     // Set Pin as an Output Mode
-	trigFunction.SetTimeDelay(timeDelay); // Set Trigger Delay
+	trigFunction.setTimeDelay(msTimeDelay); // Set Trigger Delay
 }
 
 void loop() {
 	inputState = digitalRead(inputPin);     // Read Input
 	resetState = digitalRead(resetPin);     // Read Input
-	outputState = trigFunction.Trigger(inputState, resetState); // Trigger Function with Input
+	outputState = trigFunction.readInput(inputState, resetState); // Trigger Function with Input
 	digitalWrite(LED_BUILTIN, outputState); // Write Output
-	if(trigFunction.Output()) {
+	if(trigFunction.readStatus()) {
 		Serial.println("Applying MicroBeaut to your program will make it easier to manage your Multitasking Programming.");
 	}
 }
@@ -415,14 +421,15 @@ MicroBeaut_SR functionVariable;
 
 #### `Function Use`
 ```C
-boolReturnValue = functionVariable.SR(boolVariableSet, boolVariableReset);
+boolReturnValue = functionVariable.readInput(boolVariableSet, boolVariableReset);
 ```
 
 #### `Getting another value from Function`
 
-##### `Output State`
+##### `Output State
+`
 ```C
-boolReturnOutput = functionVariable.Output();
+boolReturnOutput = functionVariable.readStatus();
 ```
 
 ### Example:
@@ -449,7 +456,7 @@ void setup() {
 void loop() {
 	setState = digitalRead(setPin);         // Read Input
 	resetState = digitalRead(resetPin);     // Read Input
-	outputState = srFunction.SR(setState, resetState); // SR Function with Set and Reset
+	outputState = srFunction.readInput(setState, resetState); // SR Function with Set and Reset
 	digitalWrite(LED_BUILTIN, outputState); // Write Output
 }
 ```
@@ -469,14 +476,15 @@ MicroBeaut_RS functionVariable;
 
 #### `Function Use`
 ```C
-boolReturnValue = functionVariable.RS(boolVariableSet, boolVariableReset);
+boolReturnValue = functionVariable.readInput(boolVariableSet, boolVariableReset);
 ```
 
 #### `Getting another value from Function`
 
-##### `Output State`
+##### `Output State
+`
 ```C
-boolReturnOutput = functionVariable.Output();
+boolReturnOutput = functionVariable.readStatus();
 ```
 
 ### Example:
@@ -503,14 +511,14 @@ void setup() {
 void loop() {
 	setState = digitalRead(setPin);       // Read Input
 	resetState = digitalRead(resetPin);   // Read Input
-	outputState = rsFunction.RS(setState, resetState); // RS Function with Set and Reset
+	outputState = rsFunction.readInput(setState, resetState); // RS Function with Set and Reset
 	digitalWrite(LED_BUILTIN, outputState); // Write Output
 }
 ```
 
 ## Toggle
 
-The rising edge of input "Input" toggles Output. Input "Reset" resets Output (to FALSE).
+The rising edge of input "Input" toggles readStatus. Input "Reset" resets readStatus (to FALSE).
 
 ### `Syntax:`
 
@@ -523,14 +531,15 @@ MicroBeaut_Toggle functionVariable;
 
 #### `Function Use`
 ```C
-boolReturnValue = functionVariable.Toggel(boolVariableInput, boolVariableReset = false);
+boolReturnValue = functionVariable.readInput(boolVariableInput, boolVariableReset = false);
 ```
 
 #### `Getting another value from Function`
 
-##### `Output State`
+##### `Output State
+`
 ```C
-boolReturnOutput = functionVariable.Output();
+boolReturnOutput = functionVariable.readStatus();
 ```
 
 ### Example:
@@ -557,7 +566,7 @@ void setup() {
 void loop() {
 	inputState = digitalRead(inputPin);     // Read Input
 	resetState = digitalRead(resetPin);     // Read Input
-	outputState = togFunction.Toggle(inputState, resetState); // Toggle Function with Input and Reset
+	outputState = togFunction.readInput(inputState, resetState); // Toggle Function with Input and Reset
 	digitalWrite(LED_BUILTIN, outputState); // Write Output
 }
 ```
@@ -568,7 +577,7 @@ void loop() {
 
 ## Rising (Rising Edge)
 
-Set Output on the rising edge of Input.
+Set readStatus on the rising edge of Input.
 
 ### `Syntax:`
 
@@ -579,14 +588,15 @@ MicroBeaut_Rising functionVariable;
 #### `Function Use`
 
 ```C
-boolReturnValue = functionVariable.Rising(boolVariableInput);
+boolReturnValue = functionVariable.readInput(boolVariableInput);
 ```
 
 #### `Getting another value from Function`
 
-##### `Output State`
+##### `Output State
+`
 ```C
-boolReturnOutput = functionVariable.Output();
+boolReturnOutput = functionVariable.readStatus();
 ```
 
 ### Example:
@@ -609,7 +619,7 @@ void setup() {
 
 void loop() {
 	prevInput = inputState;                                 // Previous Input = Current Input
-	inputState = reFunction.Rising(digitalRead(inputPin));  // Read Input and Rising Edge Detector
+	inputState = reFunction.readInput(digitalRead(inputPin));  // Read Input and Rising Edge Detector
 	outputState ^= (inputState & !prevInput);               // Toggle Output
 	digitalWrite(LED_BUILTIN, outputState);                 // Write Output
 }
@@ -617,7 +627,7 @@ void loop() {
 
 ## Falling (Falling Edge)
 
-Set Output on the falling edge of Input.
+Set readStatus on the falling edge of Input.
 
 ### `Syntax:`
 
@@ -628,14 +638,15 @@ MicroBeaut_Falling functionVariable;
 #### `Function Use`
 
 ```C
-boolReturnValue = functionVariable.Falling(boolVariableInput);
+boolReturnValue = functionVariable.readInput(boolVariableInput);
 ```
 
 #### `Getting another value from Function`
 
-##### `Output State`
+##### `Output State
+`
 ```C
-boolReturnOutput = functionVariable.Output();
+boolReturnOutput = functionVariable.readStatus();
 ```
 
 ### Example:
@@ -658,7 +669,7 @@ void setup() {
 
 void loop() {
 	prevInput = inputState;                    // Previous Input = Current Input
-	inputState = feFunction.Falling(digitalRead(inputPin)); // Read Input and Falling Edge Detector
+	inputState = feFunction.readInput(digitalRead(inputPin)); // Read Input and Falling Edge Detector
 	outputState ^= (inputState & !prevInput);  // Toggle Output
 	digitalWrite(LED_BUILTIN, outputState);    // Write Output
 }
@@ -681,8 +692,8 @@ MicroBeaut_TimeSchedule functionVariable;
 #### `Function Use`
 
 ```C
-functionVariable.Config(floatTimeScheduleInSecond, CallbackFunction);
-boolReturnValue = functionVariable.Run(boolVariableEnable = true);
+functionVariable.setTimeSchedule(floatTimeScheduleInSecond, CallbackFunction);
+boolReturnValue = functionVariable.readInput(boolVariableEnable = true);
 ```
 
 ### Example:
@@ -697,17 +708,17 @@ MicroBeaut_TimeSchedule tsFunction; // Time Schedule Variable
 bool enableState;    // Input State
 bool outputState;   // Output State
 
-const float timeSchedule = 1.0; // Time Schedule = 1 Second
+const uint16_t timeSchedule = 1000; // Time Schedule = 1 Second
 
 void setup() {
 	pinMode(inputPin, INPUT_PULLUP);  // Set Pin as an Input Mode
 	pinMode(LED_BUILTIN, OUTPUT);     // Set Pin as an Output Mode
-	tsFunction.Config(timeSchedule, ToggleStateRoutine);  // Set Time Schedule and Callback Function
+	tsFunction.setTimeSchedule(timeSchedule, ToggleStateRoutine);  // Set Time Schedule and Callback Function
 }
 
 void loop() {
 	enableState = digitalRead(inputPin);     // Read Input
-	tsFunction.Run(enableState);             // Time Schedule Function with Enable
+	tsFunction.readInput(enableState);             // Time Schedule Function with Enable
 	digitalWrite(LED_BUILTIN, outputState); // Write Output
 }
 
@@ -718,7 +729,7 @@ void ToggleStateRoutine() {
 
 ##  ScanSchedule (Schedules execution after a certain number of scans)
 
-The ScanSchedule function is used to schedule a selected subroutine's execution after a specified number of scans occur. Input enables the function. Output is TRUE after the specified number of scans occur and holds TRUE for one scan.
+The ScanSchedule function is used to schedule a selected subroutine's execution after a specified number of scans occur. Input enables the function. readStatus is TRUE after the specified number of scans occur and holds TRUE for one scan.
 
 ### `Syntax:`
 
@@ -729,15 +740,16 @@ The ScanSchedule function is used to schedule a selected subroutine's execution 
 #### `Function Use`
 
 ```C
-functionVariable.Config(uIntNumberOfScan, CallbackFunction);
-boolReturnValue = functionVariable.Run(boolVariableEnable);
+functionVariable.setScanSchedule(uIntNumberOfScan, CallbackFunction);
+boolReturnValue = functionVariable.readInput(boolVariableEnable);
 ```
 
 #### `Getting other values from Function`
 
-##### `Output State`
+##### `Output State
+`
 ```C
-boolReturnOutput = functionVariable.Output();
+boolReturnOutput = functionVariable.readStatus();
 ```
 ##### `Actual Time`
 ```C
@@ -762,12 +774,12 @@ const unsigned long numberOfScan = 17450; // Number of scans
 void setup() {
   pinMode(inputPin, INPUT_PULLUP);    // Set Pin as an Input Mode
   pinMode(LED_BUILTIN, OUTPUT);       // Set Pin as an Output Mode
-  ssFunction.Config(numberOfScan, ToggleStateRoutine);  // Set Scan Schedule and Callback Function
+  ssFunction.setScanSchedule(numberOfScan, ToggleStateRoutine);  // Set Scan Schedule and Callback Function
 }
 
 void loop() {
   enableState = digitalRead(inputPin);     // Read Input
-  ssFunction.Run(enableState);             // Scan Schedule Function with Enable
+  ssFunction.readInput(enableState);             // Scan Schedule Function with Enable
   digitalWrite(LED_BUILTIN, outputState); // Write Output
 }
 

@@ -22,10 +22,10 @@
   the timer stops and output changes from TRUE to FALSE.
 
   Member:
-  void SetTimeDebounce(float timeDebounce = 0.01);
-  bool Debounce(bool bounceInput);
-  float GetTimeDebounce(void);
-  float GetElapsedTime(void);
+  void setTimeDebounce(uint16_t timeDebounce = 0.01);
+  bool readInput(bool bounceInput);
+  uint16_t GetTimeDebounce(void);
+  uint16_t getElapsedTime(void);
 
   Declaration:
   MicroBeaut_Debounce variableName
@@ -39,14 +39,14 @@
   TRUE or FALSE (HIGH/LOW)
 
   Get Output/Parameters:
-  boolVariable = variableName.Output();           // Return Current Output State
+  boolVariable = variableName.readStatus();           // Return Current Output State
   floatVariable = variableName.GetTimeDebounce();    // Return Current Time Debounce
-  floatVariable = variableName.GetElapsedTime();  // Return Elapsed Time
+  floatVariable = variableName.getElapsedTime();  // Return Elapsed Time
 
 
   Syntax:
-  variableName.SetTimeDebounce(floatTimeDebounce);
-  boolVariable = variableName.Debounce(bounceInput);
+  variableName.setTimeDebounce(floatTimeDebounce);
+  boolVariable = variableName.readInput(bounceInput);
 
 */
 // WokWi: https://wokwi.com/arduino/projects/323857211998601812
@@ -60,33 +60,33 @@ bool inputState;  // Input State
 bool outputState; // Output State
 
 MicroBeaut_Debounce  debounceFunction;  // Debounce Variable
-const float timeDebounce = 0.01;        // TimeDebounce 10 milliseconds
+const uint16_t timeDebounce = 10;        // TimeDebounce 10 milliseconds
 
 // Serial Plotter Purpose
 MicroBeaut_Trigger triggerPlotter;    // Trigger Variable
 unsigned long lineNumber;             // Line Number : Max = 999
-const float plotterPresetTime = 0.01; // 10 milliseconds
+const uint16_t plotterPresetTime = 10; // 10 milliseconds
 
 void setup() {
   Serial.begin(115200); // Set Baud Rate
-  triggerPlotter.SetTimeDelay(plotterPresetTime); // Initial Time Delay for Serial Plotter
+  triggerPlotter.setTimeDelay(plotterPresetTime); // Initial Time Delay for Serial Plotter
 
   pinMode(inputPin, INPUT);              // Input Pin Mode
-  pinMode(outputPin, OUTPUT);            // Output Pin Mode
-  debounceFunction.SetTimeDebounce(timeDebounce); // Set Time Debounce
+  pinMode(outputPin, OUTPUT);            // OutputPin Mode
+  debounceFunction.setTimeDebounce(timeDebounce); // Set Time Debounce
 }
 
 void loop() {
   inputState = digitalRead(inputPin);   // Read Input State (0 = Release, 1 = Press)
-  outputState = debounceFunction.Debounce(inputState);  // Debounce Function with Input Parameter
+  outputState = debounceFunction.readInput(inputState);  // Debounce Function with Input Parameter
   digitalWrite(outputPin, outputState); // ON/OFF LED
 
-  // Trigger for Serial Plotter
-  if (triggerPlotter.Trigger(true)) {
+  // readInput for Serial Plotter
+  if (triggerPlotter.readInput(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;
-    Serial.println("L" + String(lineNumber) + ":Time Debounce: " + String(debounceFunction.GetTimeDebounce(), 6) // Get Time Debounce
-                   + ", Elapsed Time: " + String(debounceFunction.GetElapsedTime(), 6) // Get Elapsed Time
+    Serial.println("L" + String(lineNumber) + ":Time readInput: " + String(debounceFunction.getTimeDebounce()) // Get Time readInput
+                   + ", Elapsed Time: " + String(debounceFunction.getElapsedTime()) // Get Elapsed Time
                    + ", Input: " + String(inputState)      // Input State
-                   + ", Output: " + String(outputState));  // Output State
+                   + ", readStatus: " + String(outputState));  // Output State
   }
 }

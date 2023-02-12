@@ -1,0 +1,4 @@
+{
+    "board": "arduino:avr:uno",
+    "sketch": "examples\\AuCP_MicroBeaut_ScanSchedule\\AuCP_MicroBeaut_ScanSchedule.ino"
+}

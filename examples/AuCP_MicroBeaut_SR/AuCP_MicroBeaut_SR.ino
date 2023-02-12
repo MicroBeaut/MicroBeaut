@@ -32,7 +32,7 @@
   TRUE or FALSE (HIGH/LOW)
 
   Get Output/Parameters:
-  boolVariable = variableName.Output();
+  boolVariable = variableName.readStatus();
 
   Syntax:
   boolVariable = variableName.SR(boolSet, boolReset);
@@ -59,11 +59,11 @@ MicroBeaut_Toggle toggleReset;  // Toggle Variable
 // Serial Plotter Purpose
 MicroBeaut_Trigger triggerPlotter;    // Toggle Variable
 unsigned long lineNumber;             // Line Number : Max = 9999
-const float plotterPresetTime = 0.25; // 250 milliseconds
+const uint16_t plotterPresetTime = 250; // 250 milliseconds
 
 void setup() {
   Serial.begin(115200);                           // Set Baud Rate
-  triggerPlotter.SetTimeDelay(plotterPresetTime); // Initial Time Delay for Serial Plotter
+  triggerPlotter.setTimeDelay(plotterPresetTime); // Initial Time Delay for Serial Plotter
 
   pinMode(setPin, INPUT);         // Input Pin Mode
   pinMode(resetPin, INPUT);       // Input Pin Mode
@@ -75,23 +75,24 @@ void setup() {
 void loop() {
 
   setState = digitalRead(setPin);     // Read Input State (0 = Release, 1 = Press)
-  toggleSet.Toggle(setState);         // Toggle Function with Input Parameter
-  digitalWrite(setLEDPin, toggleSet.Output());  // ON/OFF LED
+  toggleSet.readInput(setState);         // Toggle Function with Input Parameter
+  digitalWrite(setLEDPin, toggleSet.readStatus());  // ON/OFF LED
 
   resetState = digitalRead(resetPin); // Read Input State (0 = Release, 1 = Press)
-  toggleReset.Toggle(resetState);     // Toggle Function with Input Parameter
-  digitalWrite(resetLedPin, toggleReset.Output());  // ON/OFF LED
+  toggleReset.readInput(resetState);     // Toggle Function with Input Parameter
+  digitalWrite(resetLedPin, toggleReset.readStatus());  // ON/OFF LED
 
   // To Test SR Function
-  srFunction.SR(toggleSet.Output(), toggleReset.Output()); // SR Function with Set/Reset Parameter
-  digitalWrite(outputLEDPin, srFunction.Output());         // ON/OFF LED
+  srFunction.readInput(toggleSet.readStatus(), toggleReset.readStatus()); // SR Function with Set/Reset Parameter
+  digitalWrite(outputLEDPin, srFunction.readStatus());         // ON/OFF LED
 
   // Toggle for Serial Plotter
-  if (triggerPlotter.Trigger(true)) {
+  if (triggerPlotter.readInput(true)) {
     lineNumber = lineNumber < 999 ? lineNumber + 1 : 1;           // Compare / Increase / Reset Line Number
     Serial.println("L" + String(lineNumber)                       // Plotter Line Number
-                   + " Set: " + String(toggleSet.Output())                  // Set State
-                   + ", Reset: " + String(toggleReset.Output())             // Reset State
-                   + ", Output: " + String(srFunction.Output()));  // Output State
+                   + " Set: " + String(toggleSet.readStatus())                  // Set State
+                   + ", Reset: " + String(toggleReset.readStatus())             // Reset State
+                   + ", readStatus: " + String(srFunction.readStatus()));  // Output State
+
   }
 }
